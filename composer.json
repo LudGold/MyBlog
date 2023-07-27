@@ -1,0 +1,20 @@
+{
+    "name": "vendor/blog",
+    "description": "my-blog",
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/", 
+            "Core\\": "Core/"
+
+        }
+    },
+    "authors": [
+        {
+            "name": "Goldstein Ludivine",
+            "email": "sneakymombox@gmail.com"
+        }
+    ],
+    "require": {
+        "twig/twig": "^3.7"
+    }
+}
