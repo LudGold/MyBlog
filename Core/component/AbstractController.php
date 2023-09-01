@@ -10,8 +10,8 @@ class AbstractController{
         $this->twig= new Environment($loader, ["debug"=>true]);
     }
 
-    public function render($template)  {
-        echo $this->twig->render($template);
-        return true;
+    public function render($template, array $datas=[])  {
+        echo $this->twig->render($template, $datas);
+       
     }
-}
+} 

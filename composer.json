@@ -15,6 +15,11 @@
         }
     ],
     "require": {
-        "twig/twig": "^3.7"
+        "twig/twig": "^3.7",
+        "pecee/simple-router": "4.*"
+        
+    },
+    "require-dev": {
+        "symfony/var-dumper": "^6.3"
     }
 }
