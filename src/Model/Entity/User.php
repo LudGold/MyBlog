@@ -19,8 +19,7 @@ class User {
         $this->creationDate = new \DateTime();
     }
     
-    // Méthodes à mettre en place (getters, setters, etc.)
-    
+        
     public function getId(): ?int {
         return $this->id;
     }
@@ -60,6 +59,7 @@ class User {
     // Permet d'ajouter un rôle à l'utilisateur
     public function addRole(int $role): void {
         $this->role[] = $role;
+        $this->role = array_filter($this->role);
     }
 
     // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
@@ -71,5 +71,9 @@ class User {
             }
         }
         return $roleStrings;
+    }
+    public function setRoles(array $role):void
+    {
+        $this->role = $role;
     }
 }

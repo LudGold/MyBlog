@@ -1,7 +1,7 @@
 <?php
 namespace App\Model\Entity;
 
-class Post {
+class Article {
     private ?int $id = null;
     private ?string $title = null;
     private \DateTime $date;
@@ -11,9 +11,15 @@ class Post {
     private ?int $userId = null;
 
     // Constructeur de la classe
-    public function __construct()
+    public function __construct(array $datas=[])
     {
         $this->date = new \DateTime();
+        foreach($datas as $attr=>$value){
+            $method="set".ucfirst($attr);
+            if(is_callable([$this,$method])){
+                $this->$method($value);
+            }
+        }
     }
 
     // Méthodes à mettre en place (get, set etc..) de connexion

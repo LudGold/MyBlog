@@ -14,4 +14,8 @@ class AbstractController{
         echo $this->twig->render($template, $datas);
        
     }
+    public function redirect($url){
+        header("Location:".$url);
+        exit();
+    }
 } 
