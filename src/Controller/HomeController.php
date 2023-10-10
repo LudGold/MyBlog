@@ -15,10 +15,11 @@ class HomeController extends AbstractController{
         // require_once TEMPLATE_DIR.'/home/home.html.twig';
         return $this->render("home/home.html.twig");
     }
-    //public function param(int $id) 
-    //{
+    public function param(int $id) 
+    {
         
     //$article= new Article($_POST);
-        //return $this->render("home/param.html.twig",['id'=>$id]);
-   // }
+        return $this->render("home/param.html.twig",['id'=>$id]);
+   }
+   
 }

@@ -1,69 +1,85 @@
 <?php
+
 namespace App\Model\Entity;
 
-class User {
+use PDO;
+
+class User
+{
     private ?int $id = null;
-    private ?string $username = null;
+    private ?string $lastname = null;
     private ?string $firstname = null;
     private ?string $mail = null;
     private ?string $password = null;
     private ?array $role = [];
     private $creationDate;
-    
+
     const ROLES = [
         1 => 'member',
-        2 => 'admin'  
+        2 => 'admin'
     ];
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->creationDate = new \DateTime();
     }
-    
-        
-    public function getId(): ?int {
+
+    public function getId(): ?int
+    {
         return $this->id;
     }
 
-    public function getUsername(): ?string {
-        return $this->username;
+    public function getLastname(): ?string
+    {
+        return $this->lastname;
     }
 
-    public function setUsername(string $username): void {
-        $this->username = $username;
+    public function setLastname(string $lastname): void
+    {
+        $this->lastname = $lastname;
     }
 
-    public function getFirstname(): ?string {
+    public function getFirstname(): ?string
+    {
         return $this->firstname;
     }
 
-    public function setFirstname(string $firstname): void {
+    public function setFirstname(string $firstname): void
+    {
         $this->firstname = $firstname;
     }
 
-    public function getMail(): ?string {
+
+    public function getMail(): ?string
+    {
         return $this->mail;
     }
 
-    public function setMail(string $mail): void {
+    public function setMail(string $mail): void
+    {
         $this->mail = $mail;
     }
 
-    public function getPassword(): ?string {
+    public function getPassword(): ?string
+    {
         return $this->password;
     }
 
-    public function setPassword(string $password): void {
+    public function setPassword(string $password): void
+    {
         $this->password = $password;
     }
 
     // Permet d'ajouter un rôle à l'utilisateur
-    public function addRole(int $role): void {
+    public function addRole(int $role): void
+    {
         $this->role[] = $role;
         $this->role = array_filter($this->role);
     }
 
     // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
-    public function getRoles(): array {
+    public function getRoles(): array
+    {
         $roleStrings = [];
         foreach ($this->role as $role) {
             if (isset(self::ROLES[$role])) {
@@ -72,8 +88,9 @@ class User {
         }
         return $roleStrings;
     }
-    public function setRoles(array $role):void
+    public function setRoles(array $role): void
     {
         $this->role = $role;
     }
 }
+

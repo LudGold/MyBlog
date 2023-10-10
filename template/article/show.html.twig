@@ -1,0 +1,44 @@
+{# un article avec le détail #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	<h1>Titre du Blog Post</h1>
+	<p>Chapô du Blog Post</p>
+	<div>
+		<h2>Contenu</h2>
+		<p>Contenu du Blog Post</p>
+	</div>
+	<div>
+		<h2>Auteur</h2>
+		<p>Nom de l'auteur</p>
+	</div>
+	<div>
+		<h2>Date de dernière mise à jour</h2>
+		<p>2023-09-15</p>
+	</div>
+	{# {% extends '_newComment.html.twig' %}  comment faire? #}
+	<div>
+		<h2>Ajouter un commentaire</h2>
+		<form action="traitement_commentaire.php" method="POST">
+			<label for="nom">Nom :</label> 
+			<input type="text" id="nom" name="nom" placeholder="Entrez votre nom ici"><br>
+			<p>Votre nom sera affiché publiquement avec votre commentaire.</p><br>
+			<label for="mail">E-mail :</label> 
+			<input type="email" id="mail" name="mail" placeholder="Votre e-mail"><br>
+			<p>Votre email restera privé et n'est utilisé que pour vous notifier de l'approbation de ce commentaire.</p><br>
+			<label for="commentaire">Commentaire :</label><br>
+			<textarea id="commentaire" name="commentaire" rows="4" cols="50"></textarea><br>
+			<input type="submit" value="Soumettre">
+		</form>
+	</div> 
+	<div>
+		<h2>Commentaires validés et publiés</h2>
+		<ul>
+			<li>Commentaire 1</li>
+			<li>Commentaire 2</li>
+			<li>Commentaire 3</li>
+		</ul>
+	</div>
+
+
+{% endblock %}

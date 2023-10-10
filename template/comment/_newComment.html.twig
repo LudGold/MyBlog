@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div>
+		<h2>Ajouter un commentaire</h2>
+		<form action="traitement_commentaire.php" method="POST">
+			<label for="nom">Nom :</label> 
+			<input type="text" id="nom" name="nom" placeholder="Entrez votre nom ici"><br>
+			<p>Votre nom sera affiché publiquement avec votre commentaire.</p><br>
+			<label for="mail">E-mail :</label> 
+			<input type="email" id="mail" name="mail" placeholder="Votre e-mail"><br>
+			<p>Votre email restera privé et n'est utilisé que pour vous notifier de l'approbation de ce commentaire.</p><br>
+			<label for="commentaire">Commentaire :</label><br>
+			<textarea id="commentaire" name="commentaire" rows="4" cols="50"></textarea><br>
+			<input type="submit" value="Soumettre">
+		</form>
+	</div>
+{% endblock %}

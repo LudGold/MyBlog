@@ -1,0 +1,218 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dedbdb;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #dedbdb;
+    color: black;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Style de base pour la barre de navigation */
+.navbar {
+    background-color: blue;
+    /* Couleur de fond */
+    overflow: hidden;
+    display: flex;
+    justify-content: space-around;
+}
+
+/* Style pour la liste non ordonnée */
+.navbar ul.navbar-nav {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+}
+
+/* Style pour les éléments de la liste */
+.navbar li.nav-item {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style pour les liens dans la barre de navigation */
+.navbar a.nav-link {
+    display: block;
+    color: white;
+    /* Couleur du texte */
+    text-align: center;
+    padding: 14px 16px;
+    /* Espacement autour du texte */
+    text-decoration: none;
+    /* Supprimer les soulignements par défaut des liens */
+    transition: background-color 0.3s;
+    /* Transition de couleur de fond */
+}
+
+/* Style pour les liens au survol */
+.navbar a.nav-link:hover {
+    background-color: #555;
+    /* Couleur de fond au survol */
+}
+
+/* Style pour le menu déroulant des articles */
+.navbar .edit-articles {
+    display: none;
+    /* Caché par défaut */
+    position: absolute;
+    background-color: #333;
+    /* Couleur de fond */
+    min-width: 160px;
+    /* Largeur du menu déroulant */
+    z-index: 1;
+    /* Place au-dessus des autres éléments */
+}
+
+/* Style pour les éléments du menu déroulant */
+.navbar .edit-articles li {
+    display: block;
+    text-align: left;
+    padding: 10px;
+}
+
+/* Style pour les liens du menu déroulant */
+.navbar .edit-articles a {
+    color: white;
+    /* Couleur du texte */
+    text-decoration: none;
+    /* Supprimer les soulignements par défaut des liens */
+    display: block;
+    transition: background-color 0.3s;
+    /* Transition de couleur de fond */
+}
+
+/* Style pour les liens du menu déroulant au survol */
+.navbar .edit-articles a:hover {
+    background-color: #555;
+    /* Couleur de fond au survol */
+}
+
+/* Afficher le menu déroulant au survol du parent */
+.navbar li.nav-item:hover .edit-articles {
+    display: block;
+}
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.erreur {
+    font-size: 4em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2em;
+    color: #666;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+}
+/* Style pour le pied de page */
+footer {
+    background-color: #919fef; /* Couleur de fond */
+    color: white; /* Couleur du texte */
+    padding: 20px 0; /* Espacement autour du contenu */
+    text-align: center; /* Alignement du texte au centre */
+}
+
+/* Style pour le contenu du pied de page */
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Style pour les icônes sociales */
+.social-icons {
+    display: flex;
+    gap: 10px; /* Espacement entre les icônes sociales */
+}
+
+.social-icon {
+    color: white; /* Couleur des icônes */
+    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
+    transition: color 0.3s; /* Transition de couleur */
+}
+
+.social-icon:hover {
+    color: #55acee; /* Couleur au survol */
+}
+
+/* Style pour les liens dans le pied de page */
+.footer-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-links li {
+    margin: 5px 0;
+}
+
+.footer-links a {
+    color: white; /* Couleur des liens */
+    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
+    transition: color 0.3s; /* Transition de couleur */
+}
+
+.footer-links a:hover {
+    color: #55acee; /* Couleur au survol */
+}
+
+/* Style pour le lien "Admin" */
+.footer-administration {
+    margin-top: 10px;
+    list-style-type: none;
+}
+
+.footer-administration a {
+    color: white; /* Couleur du lien "Admin" */
+    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
+    transition: color 0.3s;
+    font-size: 14px;
+    
+
+    
+     /* Transition de couleur */
+}
+
+.footer-administration a:hover {
+    color: darkgray; /* Couleur au survol */
+}
+
+/* Style pour le texte en bas du pied de page */
+.footer-bottom {
+    margin-top: 20px;
+   
+}
+
+.footer-bottom p {
+    font-size: 14px; /* Taille de police */
+}
+
+/* Style pour l'icône GitHub */
+.social-icon strong.fab.fa-github::before {
+    font-family: "Font Awesome 5 Brands";
+}
+
+/* Style pour les autres icônes sociales */
+.social-icon strong.fab::before {
+    font-family: "Font Awesome 5 Brands";
+}
