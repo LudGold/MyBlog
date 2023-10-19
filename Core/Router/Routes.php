@@ -8,11 +8,10 @@ Router::setDefaultNameSpace("App\Controller");
 Router::all('/', "HomeController@home")->setName("home");
 Router::all('/articles', "ArticleController@article")->setName("articles");
 Router::all('/article', "ArticleController@show")->setName("article");
-Router::all('/register', "SecurityController@register")->setName("register");
+Router::all('/register', "UserController@registerUser")->setName("register");
 //where permet de gérer les regex des suites d'url
 Router::get('/test/{id}', "HomeController@param")->where([ 'id' => '[0-9]+' ])
 ->setName("test");
-
 Router::get('/not-found', 'ErrorController@notFound');
 Router::get('/not-authorised', 'ErrorController@notAuthorised');
 

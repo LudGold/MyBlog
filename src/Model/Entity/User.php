@@ -2,7 +2,7 @@
 
 namespace App\Model\Entity;
 
-use PDO;
+
 
 class User
 {
@@ -19,9 +19,17 @@ class User
         2 => 'admin'
     ];
 
-    public function __construct()
+    public function __construct(array $datas=[])
     {
         $this->creationDate = new \DateTime();
+        
+        foreach($datas as $attr=>$value){
+            $method="set".ucfirst($attr);
+            if(is_callable([$this,$method])){
+                $this->$method($value);
+            }
+        }
+
     }
 
     public function getId(): ?int

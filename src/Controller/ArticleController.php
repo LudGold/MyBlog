@@ -25,14 +25,9 @@ class ArticleController extends AbstractController
         }
         // require_once TEMPLATE_DIR.'/home/home.html.twig';
         return $this->render("article/show.html.twig");
-
-
-        // public function param()
-        //  {
-
-        // //    $article= new Article($_POST);
-        //    return $this->render("article/articles.html.twig");
-        // }
-
     }
-}
+
+   
+
+    };
+

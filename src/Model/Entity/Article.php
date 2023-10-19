@@ -9,6 +9,7 @@ class Article {
     private ?string $content = null;
     private ?string $chapo = null;
     private ?int $userId = null;
+    //je veux integrer le nom du userId 13/10 question thibault
 
     // Constructeur de la classe
     public function __construct(array $datas=[])
@@ -61,7 +62,7 @@ class Article {
     {
         return $this->chapo;
     }
-
+ 
     public function setUserId(int $userId): void
     {
         $this->userId = $userId;
