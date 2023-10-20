@@ -19,19 +19,26 @@ class User
         2 => 'admin'
     ];
 
-    public function __construct(array $datas=[])
+    public function __construct(array $datas = [])
     {
         $this->creationDate = new \DateTime();
-        
-        foreach($datas as $attr=>$value){
-            $method="set".ucfirst($attr);
-            if(is_callable([$this,$method])){
+
+        foreach ($datas as $attr => $value) {
+            $method = "set" . ucfirst($attr);
+            if (is_callable([$this, $method])) {
                 $this->$method($value);
             }
         }
-
+    }
+    public function getCreationDate(): \DateTime
+    {
+        return $this->creationDate;
     }
 
+    public function setCreationDate(\DateTime $creationDate): void
+    {
+        $this->creationDate = $creationDate;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -101,4 +108,3 @@ class User
         $this->role = $role;
     }
 }
-

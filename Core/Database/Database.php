@@ -19,10 +19,10 @@ class Database extends ConnexionDatas
     {
         if (self::$connection === null) {
             $host = parent::HOST;    // Mettez votre hôte de base de données ici.
-            $dbname = parent::HOST;  // Mettez le nom de votre base de données ici.
-            $username = parent::HOST;  // Mettez votre nom d'utilisateur de base de données ici.
-            $password = parent::HOST;  // Mettez votre mot de passe de base de données ici.
-            // à crypter je suppose
+            $dbname = parent::DBNAME;  // Mettez le nom de votre base de données ici.
+            $username = parent::USERNAME;  // Mettez votre nom d'utilisateur de base de données ici.
+            $password = parent::PASSWORD;  // Mettez votre mot de passe de base de données ici.
+            
             self::$connection = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
         }
         return self::$connection;

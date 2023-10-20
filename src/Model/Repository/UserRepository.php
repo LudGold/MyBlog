@@ -19,7 +19,7 @@ public function __construct(){
 public function saveUser(User $user){
 //debug par ici
 try {
-    
+    $role=  json_encode($user->getRoles());
     // Préparer et exécuter la requête SQL
     $sql = "INSERT INTO user (lastname, firstname, mail, password, role) VALUES (:lastname, :firstname, :mail, :password, :role)";
     $stmt = $this->db->prepare($sql);
@@ -28,7 +28,7 @@ try {
         ':firstname' => $user->getFirstname(),
         ':mail' => $user->getMail(),
         ':password' => $user->getPassword(),
-        ':role' => $user::ROLES[1],
+        ':role' => $role,
     ]);
    
     echo "Utilisateur enregistré avec succès dans la base de données.";

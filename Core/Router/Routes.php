@@ -17,16 +17,19 @@ Router::get('/not-authorised', 'ErrorController@notAuthorised');
 
 Router::error(function(Request $request,\Exception $exception) {
 
-    switch($exception->getCode()) {
-        // Page not found
-        case 404:
-            response()->redirect('/not-found');
-        // Forbidden
-        case 403:
-            response()->redirect('/not-authorised');
-        // other error
-        default: 
-            response()->redirect('/not-found');
-    }
+    // switch($exception->getCode()) {
+    //     // Page not found
+    //     case 404:
+    //         response()->redirect('/not-found');
+    //         break;
+    //     // Forbidden
+    //     case 403:
+    //         response()->redirect('/not-authorised');
+    //         break;
+    //     // other error
+    //     default: 
+    //         response()->redirect('/not-found');
+    //         break;
+    // }
     
 });
