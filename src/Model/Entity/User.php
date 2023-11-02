@@ -95,13 +95,9 @@ class User
     // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
     public function getRoles(): array
     {
-        $roleStrings = [];
-        foreach ($this->role as $role) {
-            if (isset(self::ROLES[$role])) {
-                $roleStrings[] = self::ROLES[$role];
-            }
-        }
-        return $roleStrings;
+        $role = $this->role;
+        $role[] = self::ROLES[1];
+        return array_unique($role);
     }
     public function setRoles(array $role): void
     {

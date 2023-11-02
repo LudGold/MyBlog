@@ -63,6 +63,7 @@ class AbstractController
     }
     public function isValided($inputFields)
     {
+
         $isvalid = true;
         foreach ($inputFields as $input) {
             if ($input === null || $input === "" || !isset($input)) {
@@ -71,5 +72,25 @@ class AbstractController
         }
 
         return $isvalid;
+    }
+    //gestion des erreurs
+    protected function addFlash($type, $message)
+    {
+        if (!isset($_SESSION['flash'])) {
+            $_SESSION['flash'] = [];
+        }
+
+        $_SESSION['flash'][] = ['type' => $type, 'message' => $message];
+    }
+
+    protected function getFlash()
+    {
+        if (isset($_SESSION['flash'])) {
+            $flashMessages = $_SESSION['flash'];
+            unset($_SESSION['flash']);
+            return $flashMessages;
+        }
+
+        return [];
     }
 }

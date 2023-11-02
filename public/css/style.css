@@ -8,25 +8,41 @@ body {
 header {
     background-color: #dedbdb;
     color: black;
-    padding: 20px;
     text-align: center;
 }
 
 /* Style de base pour la barre de navigation */
 .navbar {
-    background-color: blue;
+    background-color: rgb(166, 166, 242);
     /* Couleur de fond */
     overflow: hidden;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
 }
 
 /* Style pour la liste non ordonnée */
+.navbar a.nav-link#blog-name {
+    display: block;
+    color: black;
+    text-align: left;
+    text-decoration: none;
+    font-weight: bold;
+}
+.blog-brand{
+    display: flex;
+    align-items: center;
+}
+.who{
+    width: 50%;
+}
 .navbar ul.navbar-nav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     display: flex;
+    align-items: center;
 }
 
 /* Style pour les éléments de la liste */
@@ -44,14 +60,14 @@ header {
     padding: 14px 16px;
     /* Espacement autour du texte */
     text-decoration: none;
-    /* Supprimer les soulignements par défaut des liens */
+    /* Supprime les soulignements par défaut des liens */
     transition: background-color 0.3s;
     /* Transition de couleur de fond */
 }
 
 /* Style pour les liens au survol */
 .navbar a.nav-link:hover {
-    background-color: #555;
+    background-color: #a8a5a5;
     /* Couleur de fond au survol */
 }
 
@@ -60,7 +76,7 @@ header {
     display: none;
     /* Caché par défaut */
     position: absolute;
-    background-color: #333;
+    background-color: #aeacac;
     /* Couleur de fond */
     min-width: 160px;
     /* Largeur du menu déroulant */
@@ -96,13 +112,14 @@ header {
 .navbar li.nav-item:hover .edit-articles {
     display: block;
 }
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f3f3f3;
     text-align: center;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -124,95 +141,186 @@ a {
     text-decoration: none;
     font-weight: bold;
 }
-/* Style pour le pied de page */
-footer {
-    background-color: #919fef; /* Couleur de fond */
-    color: white; /* Couleur du texte */
-    padding: 20px 0; /* Espacement autour du contenu */
-    text-align: center; /* Alignement du texte au centre */
+#blog-logo{
+    width: 8%;
+    border-radius: 50%;
+}
+/* style page signin/login*/
+
+/* Style pour le formulaire d'inscription */
+.card {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style pour le contenu du pied de page */
+/* Style pour les champs du formulaire */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+/* Style pour le formulaire de connexion */
+#login {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Style pour les champs du formulaire */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Style pour le bouton "Se connecter" */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+.forgot-password{
+    margin-top: 10px;
+}
+
+
+/* Style de base pour le footer */
+footer {
+    background-color: black;
+    color: white;
+    padding: 10px 0; /* Réduire la hauteur du padding */
+    text-align: center;
+    margin-top: 50px;
+}
+
+/* Style pour la section "footer-content" avec les icônes sociales et les liens */
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }
 
 /* Style pour les icônes sociales */
 .social-icons {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 10px; /* Espacement entre les icônes sociales */
+    align-items: center;
 }
 
 .social-icon {
-    color: white; /* Couleur des icônes */
-    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
-    transition: color 0.3s; /* Transition de couleur */
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin: 0 10px;
+    display: flex;
 }
 
 .social-icon:hover {
-    color: #55acee; /* Couleur au survol */
+    color: #55acee;
 }
 
-/* Style pour les liens dans le pied de page */
+/* Style pour les liens dans la section "footer-links" */
 .footer-links {
     list-style-type: none;
+    margin: 0;
     padding: 0;
+  
 }
 
 .footer-links li {
-    margin: 5px 0;
+    margin: 0 10px; /* Espacement entre les liens */
 }
 
 .footer-links a {
-    color: white; /* Couleur des liens */
-    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
-    transition: color 0.3s; /* Transition de couleur */
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
 .footer-links a:hover {
-    color: #55acee; /* Couleur au survol */
+    color: #55acee;
 }
 
 /* Style pour le lien "Admin" */
 .footer-administration {
-    margin-top: 10px;
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .footer-administration a {
-    color: white; /* Couleur du lien "Admin" */
-    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
+    color: white;
+    text-decoration: none;
     transition: color 0.3s;
-    font-size: 14px;
-    
-
-    
-     /* Transition de couleur */
+    font-size: 10px;
 }
 
 .footer-administration a:hover {
-    color: darkgray; /* Couleur au survol */
+    color: darkgray;
 }
 
-/* Style pour le texte en bas du pied de page */
+/* Style pour le texte en bas du footer */
 .footer-bottom {
     margin-top: 20px;
-   
 }
 
 .footer-bottom p {
-    font-size: 14px; /* Taille de police */
+    font-size: 10px;
 }
-
-/* Style pour l'icône GitHub */
-.social-icon strong.fab.fa-github::before {
-    font-family: "Font Awesome 5 Brands";
+.confidential{
+    font-size: 8px;
 }
-
-/* Style pour les autres icônes sociales */
-.social-icon strong.fab::before {
-    font-family: "Font Awesome 5 Brands";
+.credit{
+    font-size: 8px;
 }

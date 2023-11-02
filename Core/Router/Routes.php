@@ -6,16 +6,18 @@ use Pecee\Http\Request;
 Router::setDefaultNameSpace("App\Controller");
 
 Router::all('/', "HomeController@home")->setName("home");
-Router::all('/articles', "ArticleController@article")->setName("articles");
+Router::get('/articles', "ArticleController@article")->setName("articles");
 Router::all('/article', "ArticleController@show")->setName("article");
 Router::all('/register', "UserController@registerUser")->setName("register");
+Router::all('/user/login', "UserController@loginUser")->setName("login");
+
 //where permet de gérer les regex des suites d'url
-Router::get('/test/{id}', "HomeController@param")->where([ 'id' => '[0-9]+' ])
-->setName("test");
+Router::get('/test/{id}', "HomeController@param")->where(['id' => '[0-9]+'])
+    ->setName("test");
 Router::get('/not-found', 'ErrorController@notFound');
 Router::get('/not-authorised', 'ErrorController@notAuthorised');
 
-Router::error(function(Request $request,\Exception $exception) {
+Router::error(function (Request $request, \Exception $exception) {
 
     // switch($exception->getCode()) {
     //     // Page not found
@@ -31,5 +33,5 @@ Router::error(function(Request $request,\Exception $exception) {
     //         response()->redirect('/not-found');
     //         break;
     // }
-    
+
 });
