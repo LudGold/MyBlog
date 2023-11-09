@@ -51,7 +51,7 @@ class UserController extends AbstractController
     public function loginUser()
     {
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
-
+            $this->newSession();
             // Valider les données de connexion
             // Vous pouvez ajouter ici la logique de validation du formulaire de connexion
 
@@ -60,12 +60,15 @@ class UserController extends AbstractController
             $user = $userRepository->getUser($_POST["mail"]);
 
             if ($user && password_verify($_POST["password"], $user->getPassword())) {
+              
                 // Connexion réussie
                 // Vous pouvez implémenter ici la logique de connexion de l'utilisateur
+
                 return $this->redirect("/");
             } else {
-                // Afficher un message d'erreur en cas d'échec de connexion
-                $this->addFlash("error", "Nom d'utilisateur ou mot de passe incorrect.");
+
+                // Afficher un message d'erreur en cas d'échec de connexion sans en mettre la raison par sécurité
+                $this->addFlash("error", "identifiants invalides.");
                 return $this->redirect("/user/login");
             }
         }

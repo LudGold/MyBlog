@@ -12,6 +12,7 @@ class AbstractController
     {
         $loader = new FilesystemLoader(TEMPLATE_DIR . '//');
         $this->twig = new Environment($loader, ["debug" => true]);
+        
     }
 
     public function render($template, array $datas = [])
@@ -28,6 +29,7 @@ class AbstractController
         //verifie si une session existe déjà ou non
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
+            $this->twig->addGlobal('session', $_SESSION);
         }
     }
     public function getSessionInfos(string $key)
@@ -63,7 +65,6 @@ class AbstractController
     }
     public function isValided($inputFields)
     {
-
         $isvalid = true;
         foreach ($inputFields as $input) {
             if ($input === null || $input === "" || !isset($input)) {
@@ -79,7 +80,6 @@ class AbstractController
         if (!isset($_SESSION['flash'])) {
             $_SESSION['flash'] = [];
         }
-
         $_SESSION['flash'][] = ['type' => $type, 'message' => $message];
     }
 

@@ -46,16 +46,18 @@ class UserRepository
 
     public function getUser($mail)
     {
-        $user = null;
         try {
-            $sql = "SELECT id, lastname, firstname, mail, password, role FROM user WHERE mail = :mail";
+            $sql = "SELECT * FROM user WHERE mail = :mail";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':mail' => $mail]);
-            $user = $stmt->fetch(\PDO::FETCH_ASSOC); // Utilisation de fetch pour récupérer un seul utilisateur
+            $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\User");
+            $userData = $stmt->fetch(); // Utilisation de fetch pour récupérer un seul utilisateur
+
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
         }
-        return $user;
+
+        return $userData;
     }
     //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()

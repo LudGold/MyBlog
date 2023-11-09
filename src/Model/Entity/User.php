@@ -2,8 +2,6 @@
 
 namespace App\Model\Entity;
 
-
-
 class User
 {
     private ?int $id = null;
@@ -11,9 +9,12 @@ class User
     private ?string $firstname = null;
     private ?string $mail = null;
     private ?string $password = null;
-    private ?array $role = [];
+    private $role = [];
     private $creationDate;
-
+    private ?string $registrationToken = null; /*get et set a faire bin2hex methode pour generer token */
+    /*<?php
+$apikey = bin2hex(random_bytes(32)); // generates 64 characters long string /^[0-9a-f]{64}$/
+?>*/
     const ROLES = [
         1 => 'member',
         2 => 'admin'
@@ -99,8 +100,8 @@ class User
         $role[] = self::ROLES[1];
         return array_unique($role);
     }
-    public function setRoles(array $role): void
+    public function setRoles($role): void
     {
-        $this->role = $role;
+        $this->role = json_decode($role);
     }
 }

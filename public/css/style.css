@@ -3,13 +3,15 @@ body {
     background-color: #dedbdb;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
+/* 
 header {
     background-color: #dedbdb;
     color: black;
     text-align: center;
-}
+} */
 
 /* Style de base pour la barre de navigation */
 .navbar {
@@ -20,6 +22,7 @@ header {
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Style pour la liste non ordonnée */
@@ -30,13 +33,17 @@ header {
     text-decoration: none;
     font-weight: bold;
 }
-.blog-brand{
+
+.blog-brand {
     display: flex;
     align-items: center;
+    justify-content: center;
 }
-.who{
+
+.who {
     width: 50%;
 }
+
 .navbar ul.navbar-nav {
     list-style-type: none;
     padding: 0;
@@ -141,9 +148,20 @@ a {
     text-decoration: none;
     font-weight: bold;
 }
-#blog-logo{
-    width: 8%;
+
+#blog-logo {
+    width: 10%;
     border-radius: 50%;
+    margin-left: 40px;
+}
+.icon-spacing {
+    margin-right: 5px; 
+}
+.map-link{
+    color: black;
+}
+.contact-mail a{
+    color: blueviolet;
 }
 /* style page signin/login*/
 
@@ -158,6 +176,76 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
+/* style pour page reach me */
+.contact-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-column {
+    width: 60%;
+    text-align: center;
+}
+
+.photo-container {
+    position: relative;
+}
+
+.contact-img {
+    width: 50%;
+}
+
+.contact-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translate(0, -50%);
+    padding: 20px;
+    text-align: center;
+    width: 25%;
+    height: 32%;
+}
+
+
+.contact-overlay p {
+    color: white;
+    margin-bottom: 20px;
+}
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(5px, -50%);
+}
+
+.right-column {
+    width: 15%; /* Ajustez la largeur de la colonne de droite */
+  }
+
+.social-icons-contact {
+    transform: rotate(270deg); /* Faites pivoter de 90 degrés */
+    position: absolute;
+    top: 50%;
+    right: 0;
+    }
+
+.social-icon-contact {
+    color: black;
+    margin-bottom: 20px; 
+    margin-left: 25px;
+}
+.icon-large{
+    font-size: 20px;
+}
+
 /* Style pour les champs du formulaire */
 .form-control {
     width: 100%;
@@ -166,6 +254,7 @@ a {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+
 .btn-primary {
     background-color: #007bff;
     color: #fff;
@@ -174,7 +263,7 @@ a {
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    
+
 }
 
 .btn-primary:hover {
@@ -187,6 +276,7 @@ a {
     border-radius: 50px;
     margin-top: 10px;
 }
+
 /* Style pour le formulaire de connexion */
 #login {
     background-color: #f2f2f2;
@@ -198,14 +288,8 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Style pour les champs du formulaire */
-.form-control {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
+
+
 
 /* Style pour le bouton "Se connecter" */
 .btn-primary {
@@ -227,18 +311,152 @@ a {
     width: 100%;
     margin-top: 10px;
 }
-.forgot-password{
+
+.forgot-password {
     margin-top: 10px;
 }
 
+/* style pour articles et commentaires */
+
+
+.article-title {
+    font-size: 36px;
+    margin-top: 0;
+}
+
+.article-time {
+    font-size: 16px;
+    color: black;
+}
+
+.article-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.comments-container-parent {
+    border: 1px solid #DDDDDDDD;
+    padding: 5px;
+}
+
+.comment-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 80px;
+
+}
+
+.comment-img img {
+    border-radius: 50%;
+    height: 60px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.comment-info {
+    flex: 1;
+    padding: 5px 15px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-text {
+    margin-top: 10px;
+    display: block;
+    padding: 0;
+}
+
+/* ajouter un commentaire - form */
+.comment-block {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
 
 /* Style de base pour le footer */
 footer {
     background-color: black;
     color: white;
-    padding: 10px 0; /* Réduire la hauteur du padding */
+    padding: 10px 0;
+    /* Réduire la hauteur du padding */
     text-align: center;
     margin-top: 50px;
+    width: 100%;
+    bottom: 0;
 }
 
 /* Style pour la section "footer-content" avec les icônes sociales et les liens */
@@ -275,11 +493,12 @@ footer {
     list-style-type: none;
     margin: 0;
     padding: 0;
-  
+
 }
 
 .footer-links li {
-    margin: 0 10px; /* Espacement entre les liens */
+    margin: 0 10px;
+    /* Espacement entre les liens */
 }
 
 .footer-links a {
@@ -318,9 +537,11 @@ footer {
 .footer-bottom p {
     font-size: 10px;
 }
-.confidential{
+
+.confidential {
     font-size: 8px;
 }
-.credit{
+
+.credit {
     font-size: 8px;
 }
