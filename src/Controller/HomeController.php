@@ -17,8 +17,7 @@ class HomeController extends AbstractController{
     }
     public function param(int $id) 
     {
-        
-    //$article= new Article($_POST);
+            //$article= new Article($_POST);
         return $this->render("home/param.html.twig",['id'=>$id]);
    }
    

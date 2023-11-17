@@ -18,9 +18,10 @@ class RegisterHandler
         if ($userDatas["password"] !== $userDatas["checkpassword"]) {
             $error[] = ["password" => "votre mot de passe doit être identique"];
         }
-        if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&:*-]).{8,}$/", $userDatas["password"])) {
+        if (!preg_match("/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?;!@$%^&:*-]).{8,}$/", $userDatas["password"])) {
             $error[] = ["verifypassword" => "Le mot de passe doit contenir au moins 8 caractères, 1 chiffre et 1 caractère spécial."];
         }
         return $error;
     }
+    
 };

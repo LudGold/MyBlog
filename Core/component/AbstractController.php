@@ -4,20 +4,27 @@ namespace Core\component;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
+
+
 
 class AbstractController
 {
     protected $twig;
+
     public function __construct()
     {
         $loader = new FilesystemLoader(TEMPLATE_DIR . '//');
         $this->twig = new Environment($loader, ["debug" => true]);
-        
     }
 
     public function render($template, array $datas = [])
     {
+        $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
+        $this->getFlash();   //pour unset le message apres affichage
+
     }
     public function redirect($url)
     {
@@ -29,7 +36,7 @@ class AbstractController
         //verifie si une session existe déjà ou non
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
-            $this->twig->addGlobal('session', $_SESSION);
+            //$this->twig->addGlobal('session', $_SESSION);
         }
     }
     public function getSessionInfos(string $key)
@@ -90,7 +97,13 @@ class AbstractController
             unset($_SESSION['flash']);
             return $flashMessages;
         }
-
         return [];
+    }
+    //une fonction comme cela pour unset le flash
+    protected function clearFlash()
+    {
+        if (isset($_SESSION['flash'])) {
+            unset($_SESSION['flash']);
+        }
     }
 }

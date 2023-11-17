@@ -16,7 +16,6 @@ header {
 /* Style de base pour la barre de navigation */
 .navbar {
     background-color: rgb(166, 166, 242);
-    /* Couleur de fond */
     overflow: hidden;
     display: flex;
     justify-content: space-between;
@@ -28,7 +27,7 @@ header {
 /* Style pour la liste non ordonnée */
 .navbar a.nav-link#blog-name {
     display: block;
-    color: black;
+    color: grey;
     text-align: left;
     text-decoration: none;
     font-weight: bold;
@@ -62,10 +61,8 @@ header {
 .navbar a.nav-link {
     display: block;
     color: white;
-    /* Couleur du texte */
     text-align: center;
     padding: 14px 16px;
-    /* Espacement autour du texte */
     text-decoration: none;
     /* Supprime les soulignements par défaut des liens */
     transition: background-color 0.3s;
@@ -74,8 +71,8 @@ header {
 
 /* Style pour les liens au survol */
 .navbar a.nav-link:hover {
-    background-color: #a8a5a5;
-    /* Couleur de fond au survol */
+    background-color: #790379;
+   
 }
 
 /* Style pour le menu déroulant des articles */
@@ -83,9 +80,9 @@ header {
     display: none;
     /* Caché par défaut */
     position: absolute;
-    background-color: #aeacac;
+    background-color: #790379;
     /* Couleur de fond */
-    min-width: 160px;
+    min-width: 120px;
     /* Largeur du menu déroulant */
     z-index: 1;
     /* Place au-dessus des autres éléments */
@@ -94,7 +91,6 @@ header {
 /* Style pour les éléments du menu déroulant */
 .navbar .edit-articles li {
     display: block;
-    text-align: left;
     padding: 10px;
 }
 
@@ -111,9 +107,8 @@ header {
 
 /* Style pour les liens du menu déroulant au survol */
 .navbar .edit-articles a:hover {
-    background-color: #555;
-    /* Couleur de fond au survol */
-}
+    background-color: transparent;
+  }
 
 /* Afficher le menu déroulant au survol du parent */
 .navbar li.nav-item:hover .edit-articles {
@@ -244,6 +239,24 @@ a {
 }
 .icon-large{
     font-size: 20px;
+}
+/*style pour messages erreur ou succes*/
+.flash-message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #4CAF50; /* couleur de fond pour les messages de succès */
+    color: white;
+
+}
+
+.error {
+    background-color: #e66a61; /* couleur de fond pour les messages d'erreur */
+    color: black;
 }
 
 /* Style pour les champs du formulaire */

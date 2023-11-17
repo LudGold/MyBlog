@@ -13,7 +13,8 @@ Router::all('/user/login', "UserController@loginUser")->setName("login");
 //where permet de gérer les regex des suites d'url
 Router::get('/test/{id}', "HomeController@param")->where(['id' => '[0-9]+'])
     ->setName("test");
-Router::all('/contact', "ContactController@contact")->setName("contact");   
+Router::all('/contact', "ContactController@contact")->setName("contact"); 
+/* Router::get('/confirmation', "UserController@registerUser")->setName("mailConfirmation");  */  
 Router::get('/not-found', 'ErrorController@notFound');
 Router::get('/not-authorised', 'ErrorController@notAuthorised');
 

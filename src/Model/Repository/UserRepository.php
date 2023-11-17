@@ -18,26 +18,29 @@ class UserRepository
     public function __construct()
     {
         $this->db = Database::connect();
+
     }
 
     public function saveUser(User $user)
     {
         //debug par ici
-
         try {
             $role =  json_encode($user->getRoles());
             // Préparer et exécuter la requête SQL
-            $sql = "INSERT INTO user (lastname, firstname, mail, password, creationDate, role) VALUES (:lastname, :firstname, :mail,:password, :date, :role)";
+            $sql = "INSERT INTO user (lastname ,firstname ,mail ,password ,role ,creationDate ,isConfirmed ,registrationToken) VALUES (:lastname, :firstname,:mail,:password ,:role ,:creationDate,:isConfirmed, :registrationToken)";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 ':lastname' => $user->getLastname(),
                 ':firstname' => $user->getFirstname(),
                 ':mail' => $user->getMail(),
                 ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
-                ':date' => $user->getCreationDate()->format(self::DATE_FORMAT),
                 ':role' => $role,
+                ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
+                ':isConfirmed' => $user->getIsConfirmed(),
+                ':registrationToken' => $user->getRegistrationToken()
 
             ]);
+           
         } catch (PDOException $e) {
 
             echo "Erreur lors de l'enregistrement de l'utilisateur : " . $e->getMessage();
@@ -89,3 +92,4 @@ class UserRepository
     // {
         
     // }
+//function findBy et CustomUserMessageAuthenticationException

@@ -12,9 +12,8 @@ class User
     private $role = [];
     private $creationDate;
     private ?string $registrationToken = null; /*get et set a faire bin2hex methode pour generer token */
-    /*<?php
-$apikey = bin2hex(random_bytes(32)); // generates 64 characters long string /^[0-9a-f]{64}$/
-?>*/
+    private ?bool $isConfirmed;
+
     const ROLES = [
         1 => 'member',
         2 => 'admin'
@@ -23,6 +22,8 @@ $apikey = bin2hex(random_bytes(32)); // generates 64 characters long string /^[0
     public function __construct(array $datas = [])
     {
         $this->creationDate = new \DateTime();
+        $this->isConfirmed = false;
+        $this->registrationToken = bin2hex(random_bytes(32));
 
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
@@ -103,5 +104,27 @@ $apikey = bin2hex(random_bytes(32)); // generates 64 characters long string /^[0
     public function setRoles($role): void
     {
         $this->role = json_decode($role);
+    }
+    public function setRegistrationToken(string $registrationToken): void
+    {
+        $this->registrationToken = $registrationToken;
+    }
+
+    public function getRegistrationToken(): ?string
+    {
+        return $this->registrationToken;
+    }
+    
+
+    public function getIsConfirmed(): ?bool
+    {
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): self
+    {
+        $this->isConfirmed = $isConfirmed;
+
+        return $this;
     }
 }

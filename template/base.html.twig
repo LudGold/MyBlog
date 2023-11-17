@@ -6,7 +6,6 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 		<link rel="stylesheet" type="text/css" href="/css/style.css ">
 
 	</head>
@@ -19,7 +18,7 @@
 		<div class="navbar" id="navbar">
 			<ul class="navbar-nav">
 				<li class="nav-item blog-brand">
-					
+
 					<a class="nav-link " id="blog-name" href="#home">My Blog</a>
 					<img src="./img/blog-img.jpg" alt="Logo du blog" id="blog-logo">
 				</li>
@@ -60,6 +59,15 @@
 				</li>
 			</ul>
 		</div>
+		{# Utilisation de session.flash #}
+
+{# {% if session.flash %}
+    {% for message in session.flash %}
+        <div class="flash-message error success {{ message.type }}">
+            {{ message.message }}
+        </div>
+    {% endfor %}
+{% endif %} #}
 		{% block body %}{% endblock %}
 
 
@@ -68,7 +76,7 @@
 				<div class="social-icons">
 					<li>
 						<a href="ludivinezarkos@gmail.com">Contactez Moi</a>
-						
+
 					</li>
 					<a href="#" class="social-icon">
 						<i class="fas fa-solid fa-envelope"></i>

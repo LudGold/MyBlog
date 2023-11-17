@@ -6,6 +6,8 @@ use Core\component\AbstractController;
 use App\Model\Entity\User;
 use App\Model\Repository\UserRepository;
 use App\Service\RegisterHandler;
+use App\Service\EmailConfirmation;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
@@ -21,32 +23,32 @@ class UserController extends AbstractController
                 'mail' => $_POST["mail"],
                 'password' => $_POST["password"],
                 'checkpassword' => $_POST["checkpassword"],
-
             ];
+            // Créer un objet User avec les données du formulaire
+            $user = new User($userDatas);
+
+            // on génére le token unique de confirmation du mail
+            /* $registrationToken = bin2hex(random_bytes(32));
+            $user ->setregistrationToken($registrationToken); */
+            // valide les champs
             $registerHandler = new RegisterHandler();
             $errorMessages = $registerHandler->checkFields($userDatas);
-
-            if (!empty($registerHandler->checkFields($userDatas))) {
-                dd($errorMessages);
-                //voir pour ajouter des parametres d'erreur 
+            if (!empty($errorMessages)) {
                 foreach ($errorMessages as $error) {
-                    $this->addFlash("erreur lors de l'enregistrement", $error);
+                    $this->addFlash("error", $error);
                 }
                 return $this->redirect("/register");
             }
-
-            // Créer un objet User et UserRepository avec les données du formulaire
-            $user = new User($userDatas);
-
+            // $userRepository->deleteUser($user);
+            //enregistre l'utilisateur avec le token
             $userRepository = new UserRepository();
             $userRepository->saveUser($user);
-            //user?
-            // $userRepository->deleteUser($user);
             return $this->redirect("/");
         }
-
         return $this->render("security/register.html.twig");
     }
+
+    
 
     public function loginUser()
     {
@@ -60,7 +62,8 @@ class UserController extends AbstractController
             $user = $userRepository->getUser($_POST["mail"]);
 
             if ($user && password_verify($_POST["password"], $user->getPassword())) {
-              
+                $this->addFlash('success', 'Bienvenue');
+
                 // Connexion réussie
                 // Vous pouvez implémenter ici la logique de connexion de l'utilisateur
 
@@ -69,10 +72,29 @@ class UserController extends AbstractController
 
                 // Afficher un message d'erreur en cas d'échec de connexion sans en mettre la raison par sécurité
                 $this->addFlash("error", "identifiants invalides.");
+
                 return $this->redirect("/user/login");
             }
         }
 
         return $this->render("security/login.html.twig");
     }
+
+    private $emailService;
+
+    public function __construct(EmailConfirmation $emailService)
+    {
+        $this->emailService = $emailService;
+    }
+
+    public function sendMail(): Response
+    {
+        $this->emailService->sendEmail('recipient@example.com', 'Sujet', '<p>Contenu de l\'email</p>');
+        
+        // ...
+        return new Response('Email sent!');
+       
+    }
+    
 }
+
