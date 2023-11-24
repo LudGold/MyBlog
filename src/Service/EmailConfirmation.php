@@ -1,46 +1,48 @@
 <?php
-namespace App\Service;
 
+namespace App\Service;
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 
+
 class EmailConfirmation
+{
 
-    {
-        //ENVOI DU MAIL ET CONFIGURATION 
-        //controller : methode confirm USER 
+    private $mailer;
+    private $emailRenderer;
+    
 
-
-        private $mailer;
-
-    public function __construct()
+    public function __construct(EmailRenderer $emailRenderer)
     {
         $this->mailer = new PHPMailer(true);
+        $this->emailRenderer = $emailRenderer;
     }
 
-    public function sendEmail($to, $subject, $body)
+    public function sendEmail($user, $subject, $registrationToken)
     {
         try {
             // Paramètres du serveur
             $this->mailer->isSMTP();
-            $this->mailer->Host = 'cantonais.o2switch.net:465';  // Spécifiez le serveur SMTP
+            $this->mailer->Host = 'cantonais.o2switch.net';  // Spécifiez le serveur SMTP
             $this->mailer->SMTPAuth = true;
             $this->mailer->Username = 'nepasrepondre@vdweb.fr'; // SMTP username
             $this->mailer->Password = 'SzALhHsmlOb5';           // SMTP password
-            $this->mailer->SMTPSecure = 'tls';            // Enable TLS encryption, `ssl` also accepted
-            $this->mailer->Port = 587;                    // Port TCP
+            $this->mailer->SMTPSecure = 'ssl';            // Enable TLS encryption, `ssl` also accepted
+            $this->mailer->Port = 465;                    // Port TCP
+    
+            // Class emailRenderer utilisée pour obtenir html
+            $htmlContent = $this->emailRenderer->renderConfirmationEmail($registrationToken);
+             //Contenu
+            $this->mailer->isHTML(true);
+            $this->mailer->Subject = $subject;
+            $this->mailer->Body    = $htmlContent;
+            $this->mailer->AltBody = strip_tags($htmlContent);
 
             //Destinataires
-            $this->mailer->setFrom('from@example.com', 'Mailer');
-            $this->mailer->addAddress($to);               // Ajoute un destinataire
-
-            // Contenu
-            $this->mailer->isHTML(true);                                  // Set email format to HTML
-            $this->mailer->Subject = $subject;
-            $this->mailer->Body    = $body;
-            $this->mailer->AltBody = strip_tags($body);
+            $this->mailer->setFrom('nepasrepondre@vdweb.fr', 'myBlog');     
+            $this->mailer->addAddress($user->getMail());
 
             $this->mailer->send();
             echo 'Message has been sent';
@@ -48,5 +50,5 @@ class EmailConfirmation
             echo "Message could not be sent. Mailer Error: {$this->mailer->ErrorInfo}";
         }
     }
+
 }
- 

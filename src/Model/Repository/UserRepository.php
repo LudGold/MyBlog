@@ -11,36 +11,53 @@ class UserRepository
 {
     private const DATE_FORMAT = "Y-m-d H:i:s";
     private $db;
-    //méthode dans laquelle tu mets la connexion et le fichier qui appelle la bdd, 
-    //et enregistrer 
+    //méthode dans laquelle tu mets la connexion et le fichier qui appelle la bdd 
     // Connexion à la base de données
 
     public function __construct()
     {
         $this->db = Database::connect();
-
     }
 
     public function saveUser(User $user)
     {
-        //debug par ici
         try {
-            $role =  json_encode($user->getRoles());
-            // Préparer et exécuter la requête SQL
-            $sql = "INSERT INTO user (lastname ,firstname ,mail ,password ,role ,creationDate ,isConfirmed ,registrationToken) VALUES (:lastname, :firstname,:mail,:password ,:role ,:creationDate,:isConfirmed, :registrationToken)";
-            $stmt = $this->db->prepare($sql);
-            $stmt->execute([
-                ':lastname' => $user->getLastname(),
-                ':firstname' => $user->getFirstname(),
-                ':mail' => $user->getMail(),
-                ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
-                ':role' => $role,
-                ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
-                ':isConfirmed' => $user->getIsConfirmed(),
-                ':registrationToken' => $user->getRegistrationToken()
 
-            ]);
-           
+            $role =  json_encode($user->getRoles());
+            $mail = $user->getMail();
+
+            // Vérifier si l'utilisateur existe déjà dans la base de données
+            $existingUser = $this->getUser($mail);
+
+            if ($existingUser) {
+                // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
+                $sql = "UPDATE user 
+                    SET isConfirmed = :isConfirmed 
+                    WHERE mail = :mail";
+
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute([
+                    ':isConfirmed' => $user->getIsConfirmed(),
+                    ':mail' => $mail,
+                ]);
+            } else {
+
+                // Préparer et exécuter la requête SQL
+                $sql = "INSERT INTO user (lastname ,firstname ,mail ,password ,role ,creationDate ,isConfirmed ,registrationToken) 
+                        VALUES (:lastname, :firstname,:mail,:password ,:role ,:creationDate,:isConfirmed, :registrationToken)";
+                $stmt = $this->db->prepare($sql);
+                $stmt->execute([
+                    ':lastname' => $user->getLastname(),
+                    ':firstname' => $user->getFirstname(),
+                    ':mail' => $user->getMail(),
+                    ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
+                    ':role' => $role,
+                    ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
+                    ':isConfirmed' => $user->getIsConfirmed(),
+                    ':registrationToken' => $user->getRegistrationToken()
+
+                ]);
+            }
         } catch (PDOException $e) {
 
             echo "Erreur lors de l'enregistrement de l'utilisateur : " . $e->getMessage();
