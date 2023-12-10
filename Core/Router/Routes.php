@@ -10,6 +10,8 @@ Router::get('/articles', "ArticleController@article")->setName("articles");
 Router::all('/article', "ArticleController@show")->setName("article");
 Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
+Router::get('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
+Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");
 Router::all('/user/login', "UserController@loginUser")->setName("login");
 //where permet de gérer les regex des suites d'url
 Router::get('/test/{id}', "HomeController@param")->where(['id' => '[0-9]+'])

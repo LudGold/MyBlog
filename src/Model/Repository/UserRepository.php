@@ -27,18 +27,18 @@ class UserRepository
             $mail = $user->getMail();
 
             // Vérifier si l'utilisateur existe déjà dans la base de données
-            $existingUser = $this->getUser($mail);
-
+            $existingUser = $this->getUserBy('mail', $mail);
             if ($existingUser) {
                 // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
                 $sql = "UPDATE user 
-                    SET isConfirmed = :isConfirmed 
+                    SET isConfirmed = :isConfirmed, registrationToken= :registrationToken 
                     WHERE mail = :mail";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':isConfirmed' => $user->getIsConfirmed(),
                     ':mail' => $mail,
+                    ':registrationToken' => null
                 ]);
             } else {
 
@@ -64,21 +64,22 @@ class UserRepository
         }
     }
 
-    public function getUser($mail)
+    public function getUserBy($propertyName, $propertyValue)
     {
+        // recuperer n'importe quelle parametre du user
         try {
-            $sql = "SELECT * FROM user WHERE mail = :mail";
+            $sql = "SELECT * FROM user WHERE $propertyName = :propertyValue";
             $stmt = $this->db->prepare($sql);
-            $stmt->execute([':mail' => $mail]);
+            $stmt->execute([':propertyValue' => $propertyValue]);
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\User");
             $userData = $stmt->fetch(); // Utilisation de fetch pour récupérer un seul utilisateur
 
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
         }
-
         return $userData;
     }
+
     //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()
     {

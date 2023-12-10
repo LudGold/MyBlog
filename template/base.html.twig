@@ -61,13 +61,13 @@
 		</div>
 		{# Utilisation de session.flash #}
 
-{# {% if session.flash %}
+ {% if session.flash %}
     {% for message in session.flash %}
         <div class="flash-message error success {{ message.type }}">
             {{ message.message }}
         </div>
     {% endfor %}
-{% endif %} #}
+{% endif %} 
 		{% block body %}{% endblock %}
 
 

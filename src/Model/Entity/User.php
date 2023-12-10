@@ -12,11 +12,12 @@ class User
     private $role = [];
     private $creationDate;
     private ?string $registrationToken = null; /*get et set a faire bin2hex methode pour generer token */
+    private ?string $resetToken = null;
     private ?bool $isConfirmed;
 
     const ROLES = [
         1 => 'member',
-        2 => 'admin'
+        2 => 'admin',
     ];
 
     public function __construct(array $datas = [])
@@ -24,7 +25,7 @@ class User
         $this->creationDate = new \DateTime();
         $this->isConfirmed = false;
         $this->registrationToken = bin2hex(random_bytes(32));
-
+        $this->role = self::ROLES[1];
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
@@ -97,9 +98,7 @@ class User
     // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
     public function getRoles(): array
     {
-        $role = $this->role;
-        $role[] = self::ROLES[1];
-        return array_unique($role);
+        return array_unique([$this->role, self::ROLES[1]]);
     }
     public function setRoles($role): void
     {
@@ -110,11 +109,19 @@ class User
         $this->registrationToken = $registrationToken;
     }
 
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+    public function setResetToken(string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+
     public function getRegistrationToken(): ?string
     {
         return $this->registrationToken;
     }
-    
 
     public function getIsConfirmed(): ?bool
     {
