@@ -18,6 +18,7 @@ class EmailConfirmation
     {
         $this->mailer = new PHPMailer(true);
         $this->emailRenderer = $emailRenderer;
+       
     }
 
     public function sendEmail($user, $subject, $registrationToken)
@@ -64,6 +65,8 @@ class EmailConfirmation
 
             // Class emailRenderer utilisée pour obtenir html
             $htmlContent = $this->emailRenderer->renderResetPasswordEmail($resetToken);
+            
+            
             //Contenu
             $this->mailer->isHTML(true);
             $this->mailer->Subject = $subject;

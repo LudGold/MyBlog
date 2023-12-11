@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class UserController extends AbstractController
 {
-  
+
     public function registerUser()
     {
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
@@ -119,7 +119,7 @@ class UserController extends AbstractController
 
     protected function generateResetToken()
     {
-        // Générez votre token de manière sécurisée ici (peut-être en utilisant une librairie dédiée)
+        // Générez votre token de manière sécurisée ici
         $resetToken = bin2hex(random_bytes(32));
         
         return $resetToken;
@@ -128,61 +128,64 @@ class UserController extends AbstractController
     public function forgotPassword()
     {
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
+
             // Récupérer l'utilisateur par son adresse e-mail
-            $userEmail = $_POST['email']; // Assurez-vous de valider et filtrer les données ici
+            $userEmail = $_POST['mail'];
+
             $userRepository = new UserRepository();
-            $user = $userRepository->getUserBy('email', $userEmail);
-    
+            $user = $userRepository->getUserBy('mail', $userEmail);
+
             if ($user) {
                 // Générer un jeton de réinitialisation
                 $resetToken = $this->generateResetToken();
-    
+                
                 // Enregistrez le jeton dans la base de données pour cet utilisateur
                 $user->setResetToken($resetToken);
-                $userRepository->saveUser($user);
-    
+                $userRepository->updateResetToken($user);
+                
                 // Envoyez un e-mail à l'utilisateur avec un lien contenant le jeton de réinitialisation
                 $emailRenderer = new EmailRenderer();
                 $emailService = new EmailConfirmation($emailRenderer);
                 $emailService->sendResetEmail($user, 'Réinitialisez votre mot de passe', $resetToken);
-    
+
                 $this->addFlash('success', 'Un e-mail de réinitialisation a été envoyé à votre adresse e-mail.');
-                return $this->redirect('/resetPassword' .$resetToken);
             } else {
                 $this->addFlash('error', 'Aucun utilisateur trouvé avec cette adresse e-mail.');
             }
+
+            return $this->redirect('/forgotPassword');
         }
-    
+
         return $this->render('security/forgotPassword.html.twig');
     }
-    
-    
+
+
     public function resetPassword($resetToken)
-{
-    if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
-        // Récupérer l'utilisateur par le token de réinitialisation
-        $userRepository = new UserRepository();
-        $user = $userRepository->getUserBy('resetToken', $resetToken);
+    {
+        if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
+            // Récupérer l'utilisateur par le token de réinitialisation
 
-        if ($user) {
-            // Mettre à jour le mot de passe de l'utilisateur
-            $newPassword = $_POST["new_password"];
-            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-            $user->setPassword($hashedPassword);
+            $userRepository = new UserRepository();
+            $user = $userRepository->getUserBy('resetToken', $resetToken);
 
-            // Effacer le token de réinitialisation
-            $user->setResetToken(null);
-            $userRepository->saveUser($user);
+            if ($user) {
+                // Mettre à jour le mot de passe de l'utilisateur
+                $newPassword = $_POST["new_password"];
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+                $user->setPassword($hashedPassword);
 
-            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.');
-            return $this->redirect('/login');
-        } else {
-            $this->addFlash('error', 'Le token de réinitialisation n\'est pas valide.');
-            return $this->redirect('/forgot-password');
+                // Effacer le token de réinitialisation
+                $user->setResetToken(null);
+                $userRepository->saveUser($user);
+
+                $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.');
+                return $this->redirect('/login');
+            } else {
+                $this->addFlash('error', 'Le token de réinitialisation n\'est pas valide.');
+                return $this->redirect('/forgotPassword');
+            }
         }
+
+        return $this->render('security/resetPassword.html.twig', ['reset_link' => $resetToken]);
     }
-
-    return $this->render('security/resetPassword.html.twig', ['reset_link' => $resetToken]);
-}
-
 }

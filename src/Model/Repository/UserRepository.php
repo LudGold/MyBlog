@@ -31,14 +31,15 @@ class UserRepository
             if ($existingUser) {
                 // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
                 $sql = "UPDATE user 
-                    SET isConfirmed = :isConfirmed, registrationToken= :registrationToken 
+                    SET isConfirmed = :isConfirmed, registrationToken= :registrationToken, 
                     WHERE mail = :mail";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':isConfirmed' => $user->getIsConfirmed(),
                     ':mail' => $mail,
-                    ':registrationToken' => null
+                    ':registrationToken' => null,
+                   
                 ]);
             } else {
 
@@ -54,7 +55,8 @@ class UserRepository
                     ':role' => $role,
                     ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
                     ':isConfirmed' => $user->getIsConfirmed(),
-                    ':registrationToken' => $user->getRegistrationToken()
+                    ':registrationToken' => $user->getRegistrationToken(),
+                   
 
                 ]);
             }
@@ -63,22 +65,46 @@ class UserRepository
             echo "Erreur lors de l'enregistrement de l'utilisateur : " . $e->getMessage();
         }
     }
-
+    public function updateResetToken(User $user)
+    {
+        try {
+            $sql = "UPDATE user 
+                SET resetToken = :resetToken
+                WHERE mail = :mail";
+    
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':resetToken' => $user->getResetToken(),
+                ':mail' => $user->getMail(),
+            ]);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la mise à jour du resetToken : " . $e->getMessage();
+        }
+    }
+    
     public function getUserBy($propertyName, $propertyValue)
     {
-        // recuperer n'importe quelle parametre du user
         try {
             $sql = "SELECT * FROM user WHERE $propertyName = :propertyValue";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':propertyValue' => $propertyValue]);
-            $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\User");
-            $userData = $stmt->fetch(); // Utilisation de fetch pour récupérer un seul utilisateur
-
+    
+            // Vérifier si la requête a réussi
+            if ($stmt->rowCount() > 0) {
+                $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\User");
+                $userData = $stmt->fetch(); // Utilisation de fetch pour récupérer un seul utilisateur
+                return $userData;
+            } else {
+                // Aucun utilisateur trouvé avec la propriété spécifiée
+                return null;
+            }
+    
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération de l'utilisateur : " . $e->getMessage();
+           
+            throw new \PDOException("Erreur lors de la récupération de l'utilisateur : " . $e->getMessage());
         }
-        return $userData;
     }
+    
 
     //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()

@@ -11,7 +11,7 @@ class User
     private ?string $password = null;
     private $role = [];
     private $creationDate;
-    private ?string $registrationToken = null; /*get et set a faire bin2hex methode pour generer token */
+    private ?string $registrationToken = null; 
     private ?string $resetToken = null;
     private ?bool $isConfirmed;
 
