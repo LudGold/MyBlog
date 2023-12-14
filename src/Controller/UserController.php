@@ -8,7 +8,7 @@ use App\Model\Repository\UserRepository;
 use App\Service\RegisterHandler;
 use App\Service\EmailConfirmation;
 use App\Service\EmailRenderer;
-use Symfony\Component\HttpFoundation\Response;
+
 
 class UserController extends AbstractController
 {
@@ -74,6 +74,10 @@ class UserController extends AbstractController
                 $userFullName = $user->getFullName();
                 $message = "Bienvenue, $userFullName !";
                 $this->addFlash('success', $message);
+                // ajout dans la session des infos du user
+                $this->setSessionInfos("userId", $user->getId());
+                $this->setSessionInfos("mail", $user->getMail());
+                $this->setSessionInfos("lastName", $user->getLastname());
 
                 return $this->redirect("/");
             } else {
@@ -94,7 +98,7 @@ class UserController extends AbstractController
         return $token;
     }
 
-    public function confirmEmail(string $token): Response
+    public function confirmEmail(string $token)
     {
         $userRepository = new UserRepository();
         $user = $userRepository->getUserBy('registrationToken', $token);
@@ -157,33 +161,43 @@ class UserController extends AbstractController
         return $this->render('security/forgotPassword.html.twig');
     }
 
-
     public function resetPassword($resetToken)
     {
-        if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
-            // Récupérer l'utilisateur par le token de réinitialisation
-
-            $userRepository = new UserRepository();
-            $user = $userRepository->getUserBy('resetToken', $resetToken);
-
-            if ($user) {
-                // Mettre à jour le mot de passe de l'utilisateur
-                $newPassword = $_POST["new_password"];
-                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                $user->setPassword($hashedPassword);
-
-                // Effacer le token de réinitialisation
-                $user->setResetToken(null);
-                $userRepository->saveUser($user);
-
-                $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.');
-                return $this->redirect('/login');
-            } else {
-                $this->addFlash('error', 'Le token de réinitialisation n\'est pas valide.');
-                return $this->redirect('/forgotPassword');
-            }
+        $userRepository = new UserRepository();
+        $user = $userRepository->getUserBy('resetToken', $resetToken);
+        if (!$user) {
+            $this->addFlash('error', 'Le token de réinitialisation n\'est pas valide.');
+            return $this->redirect('/forgotPassword');
         }
 
-        return $this->render('security/resetPassword.html.twig', ['reset_link' => $resetToken]);
+        if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
+
+            // Mettre à jour le mot de passe de l'utilisateur
+            $newPassword = $_POST["new_password"];
+            $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+            $user->setPassword($hashedPassword);
+
+            // Effacer le token de réinitialisation
+            $user->setResetToken(null);
+            
+            $userRepository->updatePassword($user->getMail(), $hashedPassword);
+
+            $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.');
+            return $this->redirect('/user/login');
+        }
+
+        return $this->render('security/newPassword.html.twig', ['resetToken' => $resetToken]);
+    }
+    public function logout()
+    {
+        if (isset($_SESSION['mail'])) {
+            $this->deleteSession();
+
+            $this->addFlash('success', 'Vous avez bien été déconnecté. À bientôt!');
+        } else {
+            $this->addFlash('error', 'Vous n\'êtes pas connecté.');
+        }
+
+        return $this->redirect('/');
     }
 }

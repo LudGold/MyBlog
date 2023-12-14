@@ -79,10 +79,25 @@ class UserRepository
                 ':mail' => $user->getMail(),
             ]);
         } catch (PDOException $e) {
-            echo "Erreur lors de la mise à jour du resetToken : " . $e->getMessage();
+            echo "Erreur lors de la mise à jour du Token : " . $e->getMessage();
         }
     }
-    
+    public function updatePassword($mail, $hashedPassword)
+{
+    try {
+        $sql = "UPDATE user 
+                SET password = :password
+                WHERE mail = :mail";
+
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute([
+            ':password' => $hashedPassword,
+            ':mail' => $mail,
+        ]);
+    } catch (PDOException $e) {
+        echo "Erreur lors de la mise à jour du mot de passe : " . $e->getMessage();
+    }
+}
     public function getUserBy($propertyName, $propertyValue)
     {
         try {

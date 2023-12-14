@@ -57,9 +57,13 @@
 				<li>
 					<a class="nav-link sign-in " href="/register">S'inscrire</a>
 				</li>
+				<li>
+					<a class="nav-link logout " href="/deconnexion">déconnexion</a>
+				</li>
 			</ul>
 		</div>
 		{# Utilisation de session.flash #}
+
 
  {% if session.flash %}
     {% for message in session.flash %}
@@ -68,6 +72,7 @@
         </div>
     {% endfor %}
 {% endif %} 
+
 		{% block body %}{% endblock %}
 
 

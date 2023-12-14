@@ -104,7 +104,7 @@ class User
     {
         $this->role = json_decode($role);
     }
-    public function setRegistrationToken(string $registrationToken): void
+    public function setRegistrationToken(?string $registrationToken): void
     {
         $this->registrationToken = $registrationToken;
     }
@@ -113,7 +113,7 @@ class User
     {
         return $this->resetToken;
     }
-    public function setResetToken(string $resetToken): void
+    public function setResetToken(?string $resetToken): void
     {
         $this->resetToken = $resetToken;
     }

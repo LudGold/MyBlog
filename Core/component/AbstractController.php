@@ -23,7 +23,7 @@ class AbstractController
     {
         $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
-         $this->getFlash();   //pour unset le message apres affichage
+        $this->getFlash();   //pour unset le message apres affichage
 
     }
     public function redirect($url)
@@ -57,7 +57,9 @@ class AbstractController
     }
     public function deleteSession()
     {
+
         if (session_status() === PHP_SESSION_ACTIVE) {
+            $_SESSION = array();
             session_destroy();
         }
     }
@@ -92,7 +94,7 @@ class AbstractController
 
     protected function getFlash()
     {
-      
+
         if (isset($_SESSION) && isset($_SESSION['flash'])) {
             $flashMessages = $_SESSION['flash'];
             unset($_SESSION['flash']);
