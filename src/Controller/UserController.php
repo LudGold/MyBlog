@@ -70,22 +70,19 @@ class UserController extends AbstractController
             $user = $userRepository->getUserBy('mail', $_POST["mail"]);
 
             if ($user && password_verify($_POST["password"], $user->getPassword())) {
-
-                $this->addFlash('success', 'Bienvenue');
-
-                // Connexion réussie
-                // Vous pouvez implémenter ici la logique de connexion de l'utilisateur
+                // Connexion réussie et nom prenom du user affiché
+                $userFullName = $user->getFullName();
+                $message = "Bienvenue, $userFullName !";
+                $this->addFlash('success', $message);
 
                 return $this->redirect("/");
             } else {
-
-                // Afficher un message d'erreur en cas d'échec de connexion sans en mettre la raison par sécurité
+                //  message d'erreur en cas d'échec de connexion sans en mettre la raison par sécurité
                 $this->addFlash("error", "identifiants invalides.");
 
                 return $this->redirect("/user/login");
             }
         }
-
         return $this->render("security/login.html.twig");
     }
 
@@ -106,6 +103,7 @@ class UserController extends AbstractController
         if ($user) {
             // Mettez à jour isConfirmed à true
             $user->setIsConfirmed(true);
+
             // Mettez à jour le statut dans la base de données
             $userRepository->saveUser($user);
 
@@ -121,7 +119,7 @@ class UserController extends AbstractController
     {
         // Générez votre token de manière sécurisée ici
         $resetToken = bin2hex(random_bytes(32));
-        
+
         return $resetToken;
     }
 
@@ -138,15 +136,15 @@ class UserController extends AbstractController
             if ($user) {
                 // Générer un jeton de réinitialisation
                 $resetToken = $this->generateResetToken();
-                
+
                 // Enregistrez le jeton dans la base de données pour cet utilisateur
                 $user->setResetToken($resetToken);
                 $userRepository->updateResetToken($user);
-                
+
                 // Envoyez un e-mail à l'utilisateur avec un lien contenant le jeton de réinitialisation
                 $emailRenderer = new EmailRenderer();
                 $emailService = new EmailConfirmation($emailRenderer);
-                $emailService->sendResetEmail($user, 'Réinitialisez votre mot de passe', $resetToken);
+                $emailService->sendResetEmail($user, 'Nouveau mot de passe', $resetToken);
 
                 $this->addFlash('success', 'Un e-mail de réinitialisation a été envoyé à votre adresse e-mail.');
             } else {

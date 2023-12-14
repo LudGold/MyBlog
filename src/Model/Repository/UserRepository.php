@@ -28,10 +28,11 @@ class UserRepository
 
             // Vérifier si l'utilisateur existe déjà dans la base de données
             $existingUser = $this->getUserBy('mail', $mail);
+            
             if ($existingUser) {
                 // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
                 $sql = "UPDATE user 
-                    SET isConfirmed = :isConfirmed, registrationToken= :registrationToken, 
+                    SET isConfirmed = :isConfirmed, registrationToken= :registrationToken 
                     WHERE mail = :mail";
 
                 $stmt = $this->db->prepare($sql);
