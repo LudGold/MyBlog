@@ -12,7 +12,7 @@ Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
 Router::all('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
 Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");
-Router::all('/user/login', "UserController@loginUser")->setName("login");
+Router::all('/login', "UserController@loginUser")->setName("login");
 Router::all('/deconnexion', "UserController@logout")->setName("logout");  
 //where permet de gérer les regex des suites d'url
 Router::get('/test/{id}', "HomeController@param")->where(['id' => '[0-9]+'])

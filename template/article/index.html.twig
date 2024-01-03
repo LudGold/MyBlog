@@ -1,7 +1,33 @@
 
 
 {% block body %}
- <div class="container">
+<table id="article_table" class="display">
+    <thead>
+        <tr>
+            <th>UserName</th>
+            <th>Title</th>
+            <th>Date</th>
+            <th>Résumé</th>
+            <th>Statut</th>
+            <th>Date de Modification</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+    {# ce qui sera injecté dans la bdd #}
+        <tr>
+            <td>Row 1 Data 1</td>
+            <td>Row 1 Data 2</td>
+        </tr>
+        <tr>
+            <td>Row 2 Data 1</td>
+            <td>Row 2 Data 2</td>
+        </tr>
+    </tbody>
+</table>
+
+ {# <div class="container">
         <div class="article">
             <h2><a href="lien_vers_le_blog_post_1">Titre de l'article 1</a></h2>
             <div class="date">Date de dernière modification : 10 septembre 2023</div>
@@ -13,7 +39,7 @@
             <p>Chapô de l'article 2. re blablablablabla</p>
         </div>
         
-    </div>
+    </div> #}
 
 
 {% endblock %}

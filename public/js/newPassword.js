@@ -39,22 +39,5 @@ if (!hasMinimumLength || !hasMinimumDigits || !hasMinimumSpecialChars) {
 
 
 
-// // Écoutez l'événement de soumission du formulaire
-// newPasswordForm.addEventListener("submit", function (event) {
-//     // Sélectionnez les champs de mot de passe et de vérification
-//     const passwordField = document.getElementById("password");
-//     const passwordVerifyField = document.getElementById("password-verify");
 
-//     // Récupérez les valeurs des champs
-//     const password = passwordField.value;
-//     const passwordVerify = passwordVerifyField.value;
-
-//     // Votre code de validation du mot de passe ici
-//     if (password !== passwordVerify) {
-//         // Affichez un message d'erreur
-//         alert("Les mots de passe ne correspondent pas.");
-//         // Empêchez le formulaire d'être soumis
-//         event.preventDefault();
-//     }
-// });
 
