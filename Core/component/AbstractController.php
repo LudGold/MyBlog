@@ -4,7 +4,7 @@ namespace Core\component;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
+
 
 
 
@@ -21,6 +21,8 @@ class AbstractController
 
     public function render($template, array $datas = [])
     {
+        $datas['userLoggedIn'] = $this->isUserLoggedIn();
+        $datas['flashMessages'] = $this->getFlash();
         $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
         $this->getFlash();   //pour unset le message apres affichage
@@ -34,7 +36,7 @@ class AbstractController
     public function newSession()
     {
         //verifie si une session existe déjà ou non
-        if (session_status() === PHP_SESSION_NONE) {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
             //$this->twig->addGlobal('session', $_SESSION);
         }
@@ -57,12 +59,14 @@ class AbstractController
     }
     public function deleteSession()
     {
-
+        // Vérifie si la session est active
         if (session_status() === PHP_SESSION_ACTIVE) {
-            $_SESSION = array();
+            // Détruit la session
             session_destroy();
+            $this->newSession();
         }
     }
+
     public function isSubmitted($submitButton)
     {
         if (isset($_POST[$submitButton])) {
@@ -95,7 +99,7 @@ class AbstractController
     protected function getFlash()
     {
 
-        if (isset($_SESSION) && isset($_SESSION['flash'])) {
+        if (isset($_SESSION['flash'])) {
             $flashMessages = $_SESSION['flash'];
             unset($_SESSION['flash']);
             return $flashMessages;
@@ -108,5 +112,18 @@ class AbstractController
         if (isset($_SESSION['flash'])) {
             unset($_SESSION['flash']);
         }
+    }
+    public function isUserLoggedIn()
+    {
+        $this->newSession();
+        return isset($_SESSION['mail']);
+    }
+
+    public function isAdmin(){
+        // verifier que le user est bien en rôle admin
+        if (!in_array('admin', $_SESSION['role'])){
+            return $this->redirect('/not-authorised');
+        }
+        return true;
     }
 }

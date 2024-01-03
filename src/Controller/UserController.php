@@ -75,16 +75,18 @@ class UserController extends AbstractController
                 $message = "Bienvenue, $userFullName !";
                 $this->addFlash('success', $message);
                 // ajout dans la session des infos du user
+
                 $this->setSessionInfos("userId", $user->getId());
                 $this->setSessionInfos("mail", $user->getMail());
                 $this->setSessionInfos("lastName", $user->getLastname());
+                $this->setSessionInfos("role", $user->getRoles());
 
                 return $this->redirect("/");
             } else {
                 //  message d'erreur en cas d'échec de connexion sans en mettre la raison par sécurité
                 $this->addFlash("error", "identifiants invalides.");
 
-                return $this->redirect("/user/login");
+                return $this->redirect("/login");
             }
         }
         return $this->render("security/login.html.twig");
@@ -112,7 +114,7 @@ class UserController extends AbstractController
             $userRepository->saveUser($user);
 
             $this->addFlash('success', 'Votre adresse e-mail a été confirmée avec succès. Vous pouvez maintenant vous connecter.');
-            return $this->redirect('/user/login');
+            return $this->redirect('/login');
         } else {
             $this->addFlash('error', 'Le lien de confirmation n\'est pas valide.');
             return $this->redirect("/");
@@ -179,11 +181,11 @@ class UserController extends AbstractController
 
             // Effacer le token de réinitialisation
             $user->setResetToken(null);
-            
+
             $userRepository->updatePassword($user->getMail(), $hashedPassword);
 
             $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.');
-            return $this->redirect('/user/login');
+            return $this->redirect('/login');
         }
 
         return $this->render('security/newPassword.html.twig', ['resetToken' => $resetToken]);
@@ -191,13 +193,14 @@ class UserController extends AbstractController
     public function logout()
     {
         if (isset($_SESSION['mail'])) {
+
             $this->deleteSession();
 
             $this->addFlash('success', 'Vous avez bien été déconnecté. À bientôt!');
-        } else {
+            } else {
             $this->addFlash('error', 'Vous n\'êtes pas connecté.');
         }
 
-        return $this->redirect('/');
+        return $this->redirect('/login');
     }
 }
