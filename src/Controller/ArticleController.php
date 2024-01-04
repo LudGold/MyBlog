@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use Core\component\AbstractController;
+use App\Model\Entity\Article;
+use App\Model\Repository\ArticleRepository;
 
 
 class ArticleController extends AbstractController
@@ -25,6 +27,22 @@ class ArticleController extends AbstractController
         }
         // require_once TEMPLATE_DIR.'/home/home.html.twig';
         return $this->render("article/show.html.twig");
+    }
+    public function createArticle()
+    {
+      
+        $articleRepository = new ArticleRepository();
+        $newArticle = new Article();
+        $articleRepository->saveArticle($newArticle);
+    }
+
+    public function displayAllArticles()
+    {
+        // Exemple d'utilisation pour afficher tous les articles
+        $articleRepository = new ArticleRepository();
+        $articles = $articleRepository->getAllArticles();
+        return $this->render("admin/article/index.html.twig");
+        
     }
 
    

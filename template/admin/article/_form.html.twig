@@ -1,5 +1,7 @@
+<form action="/articles" method="post"> 
+	<input type="text" name="field1" value="{{ article.title|default('') }}">
+	<input type="text" name="field2" value="{{ article.updateDate|default('') }}">
+    <input type="text" name="field3" value="{{ article.chapo|default('') }}">
+    
 
-
-
-<input type="text" name="field1" value="{{ article.title|default('') }}">
-<input type="text" name="field2" value="{{ article.chapo|default('') }}">
+</form>

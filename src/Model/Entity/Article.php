@@ -9,6 +9,7 @@ class Article {
     private ?string $content = null;
     private ?string $chapo = null;
     private ?int $userId = null;
+    private ?string $slug = null;
     //je veux integrer le nom du userId 13/10 question thibault
 
     // Constructeur de la classe
@@ -33,16 +34,27 @@ class Article {
         return $this->title;
     } 
     
+    public function setDate(\DateTime $date): void
+    {
+        $this->date = $date; 
+    }
+    public function getDate(): \DateTime
+    {
+        return $this->date;
+    } 
+    
     public function setTitle(string $title): void
     {
         $this->title = $title; 
     }
-
     public function setUpdateDate(\DateTime $updateDate): void
     {
         $this->updateDate = $updateDate; 
     }
-
+    public function getUpdateDate(): \DateTime 
+    {
+        return $this->updateDate; 
+    }
     public function setContent(string $content): void
     {
         $this->content = $content;

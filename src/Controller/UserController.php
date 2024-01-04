@@ -43,6 +43,7 @@ class UserController extends AbstractController
             $user->setRegistrationToken(($registrationToken));
             //statut par defaut avant confirmation email
             $user->setIsConfirmed(false);
+            
             //enregistre l'utilisateur dans la bdd
             $userRepository = new UserRepository();
             $userRepository->saveUser($user);

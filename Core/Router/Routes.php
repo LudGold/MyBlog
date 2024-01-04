@@ -5,7 +5,9 @@ use Pecee\Http\Request;
 
 Router::setDefaultNameSpace("App\Controller");
 
+
 Router::all('/', "HomeController@home")->setName("home");
+Router::all('/admin/articles', "Admin\ArticleAdminController@index")->setName("admin_articles");
 Router::get('/articles', "ArticleController@article")->setName("articles");
 Router::all('/article', "ArticleController@show")->setName("article");
 Router::all('/register', "UserController@registerUser")->setName("register");
