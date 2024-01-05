@@ -40,7 +40,17 @@ class ArticleRepository extends AbstractController
             echo "Erreur lors de l'enregistrement de l'article : " . $e->getMessage();
         }
     }
-
+    public function deleteArticle(int $articleId)
+    {
+        try {
+            $sql = "DELETE FROM article WHERE id = :articleId";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':articleId' => $articleId]);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression de l'article : " . $e->getMessage();
+        }
+    }
+    
     public function getAllArticles()
     {
         $articles = [];

@@ -9,7 +9,7 @@ Router::setDefaultNameSpace("App\Controller");
 Router::all('/', "HomeController@home")->setName("home");
 Router::all('/admin/articles', "Admin\ArticleAdminController@index")->setName("admin_articles");
 Router::all('/admin/newArticle', "Admin\ArticleAdminController@newArticle")->setName("admin_newArticle");
-Router::get('/articles', "ArticleController@article")->setName("articles");
+Router::all('/admin/deleteArticle/{articleId}', "Admin\ArticleAdminController@deleteArticle")->setName("supp-articles");
 Router::all('/article', "ArticleController@show")->setName("article");
 Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");

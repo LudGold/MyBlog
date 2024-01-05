@@ -67,4 +67,15 @@ class ArticleAdminController extends AbstractController
             'userName' => $userName,
         ]);
     }
+
+    public function deleteArticle(int $articleId)
+    {
+        $articleRepository = new ArticleRepository();
+        $articleRepository->deleteArticle($articleId);
+    
+        $this->addFlash('success', 'Article supprimé avec succès');
+        return $this->redirect("/admin/articles");
+    }
+    
+
 }
