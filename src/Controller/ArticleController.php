@@ -28,13 +28,7 @@ class ArticleController extends AbstractController
         // require_once TEMPLATE_DIR.'/home/home.html.twig';
         return $this->render("article/show.html.twig");
     }
-    public function createArticle()
-    {
-      
-        $articleRepository = new ArticleRepository();
-        $newArticle = new Article();
-        $articleRepository->saveArticle($newArticle);
-    }
+    
 
     public function displayAllArticles()
     {

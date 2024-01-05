@@ -1,7 +1,17 @@
-<form action="/articles" method="post"> 
-	<input type="text" name="field1" value="{{ article.title|default('') }}">
-	<input type="text" name="field2" value="{{ article.updateDate|default('') }}">
-    <input type="text" name="field3" value="{{ article.chapo|default('') }}">
-    
+<form action="/admin/newArticle" method="post" class="new-article">
+	<label for="title">Titre de l'article:</label>
+	<input type="text" name="title" value="{{ article.title|default('') }}" required>
+	<label for="chapo">Petit résumé:</label>
+	<input type="text" name="chapo" value="{{ article.chapo|default('') }}">
+	<label for="content">Ecrivez votre article ici:</label>
+	<input type="text" name="content" rows="4" value="{{ article.content|default('') }}">
+	{# je voudrais que mon userId se transforme à l'input de l'article avec la méthode getFullName #}
+	 <label for="userId">Auteur:</label>
+	<input type="text" name="name" value="{{ userName }}" readonly>
+	
+
+{# ET ajouter ou pas updateDate #}
+
+ <input type="submit" name="submit" value="Valider">
 
 </form>

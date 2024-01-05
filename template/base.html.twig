@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		{% endblock %}
+		 <title>{% block title %}{% endblock %}</title>
 	</head>
 
 	<body>
@@ -41,7 +42,7 @@
 					<a class="nav-link " href="#articles">Articles</a>
 					<ul class="edit-articles">
 						<li>
-							<a href="#add-article">Ajouter un article</a>
+							<a href="/admin/newArticle">Ajouter un article</a>
 						</li>
 						<li>
 							<a href="#comments-article">Commenter l'article</a>
