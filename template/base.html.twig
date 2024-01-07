@@ -10,6 +10,7 @@
 		<link rel="stylesheet" type="text/css" href="/css/normalize.css">
 		<link rel="stylesheet" type="text/css" href="/css/style.css">
 		{% endblock %}
+		 <title>{% block title %}{% endblock %}</title>
 	</head>
 
 	<body>
@@ -38,15 +39,18 @@
 					<a class="nav-link " href="#portfolio">Réalisations</a>
 				</li>
 				<li class="nav-item articles">
-					<a class="nav-link " href="#articles">Articles</a>
+					<a class="nav-link " href="/admin/articles">Articles</a>
 					<ul class="edit-articles">
+					<li>
+							<a href="/admin/articles">Index des articles</a>
+						</li>
 						<li>
-							<a href="#add-article">Ajouter un article</a>
+							<a href="/admin/newArticle">Ajouter un article</a>
 						</li>
 						<li>
 							<a href="#comments-article">Commenter l'article</a>
 						</li>
-
+						
 					</ul>
 				</li>
 				<li class="nav-item contact">
@@ -64,6 +68,7 @@
 					<li>
 						<a class="nav-link sign-in" href="/register">S'inscrire</a>
 					</li>
+					</ul>
 				{% endif %}
 			</div>
 			{# Utilisation de session.flash #}

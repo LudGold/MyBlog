@@ -120,6 +120,11 @@ class AbstractController
     }
 
     public function isAdmin(){
+        // Vérifier que la variable de session 'role' est définie
+    if (!isset($_SESSION['role'])) {
+        return $this->redirect('/not-authorised');
+    }
+
         // verifier que le user est bien en rôle admin
         if (!in_array('admin', $_SESSION['role'])){
             return $this->redirect('/not-authorised');

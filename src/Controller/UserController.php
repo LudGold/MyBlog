@@ -43,6 +43,7 @@ class UserController extends AbstractController
             $user->setRegistrationToken(($registrationToken));
             //statut par defaut avant confirmation email
             $user->setIsConfirmed(false);
+
             //enregistre l'utilisateur dans la bdd
             $userRepository = new UserRepository();
             $userRepository->saveUser($user);
@@ -74,6 +75,8 @@ class UserController extends AbstractController
                 $userFullName = $user->getFullName();
                 $message = "Bienvenue, $userFullName !";
                 $this->addFlash('success', $message);
+                // Stock l'objet utilisateur dans la session
+                $this->setSessionInfos("user", $user);
                 // ajout dans la session des infos du user
 
                 $this->setSessionInfos("userId", $user->getId());
@@ -197,7 +200,7 @@ class UserController extends AbstractController
             $this->deleteSession();
 
             $this->addFlash('success', 'Vous avez bien été déconnecté. À bientôt!');
-            } else {
+        } else {
             $this->addFlash('error', 'Vous n\'êtes pas connecté.');
         }
 
