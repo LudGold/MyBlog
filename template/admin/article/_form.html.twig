@@ -5,11 +5,11 @@
 	<input type="text" name="chapo" value="{{ article.chapo|default('') }}" required>
 	<label for="content">Ecrivez votre article ici:</label>
 	<input type="text" name="content" rows="4" value="{{ article.content|default('') }}" required>
-	{# je voudrais que mon userId se transforme à l'input de l'article avec la méthode getFullName #}
+	
 	 <label for="userId">Auteur:</label>
 	<input type="text" name="name" value="{{ userName }}" readonly>
 	
-{# ET ajouter ou pas updateDate #}
+{# ET ajouter ou pas updateDate ??? #}
 
  <input type="submit" name="submit" value="Valider">
 

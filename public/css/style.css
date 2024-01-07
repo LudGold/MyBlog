@@ -71,7 +71,10 @@ header {
 
 /* Style pour les liens au survol */
 .navbar a.nav-link:hover {
-    background-color: #790379;
+    background-color: #ba81ef;
+    left: 0;
+    /* Alignement à gauche */
+    top: 100%; /* Position sous l'élément parent */
    
 }
 
@@ -80,12 +83,13 @@ header {
     display: none;
     /* Caché par défaut */
     position: absolute;
-    background-color: #790379;
+    background-color: #ba81ef;
     /* Couleur de fond */
-    min-width: 120px;
+    min-width: 100px;
     /* Largeur du menu déroulant */
     z-index: 1;
     /* Place au-dessus des autres éléments */
+    
 }
 
 /* Style pour les éléments du menu déroulant */
@@ -204,6 +208,48 @@ a {
 }
 
 .new-article input[type="submit"]:hover {
+    background-color: #45a049;
+}
+.change-article {
+    width: 30%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.change-article label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.change-article input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.change-article textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.change-article input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.change-article input[type="submit"]:hover {
     background-color: #45a049;
 }
 

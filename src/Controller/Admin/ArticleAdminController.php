@@ -24,6 +24,7 @@ class ArticleAdminController extends AbstractController
 
     public function newArticle()
     {
+        $this->isAdmin();
         // Récupérer l'ID de l'utilisateur depuis la session
         $userId = $this->getSessionInfos("userId");
         $userRepository = new UserRepository();
@@ -68,14 +69,61 @@ class ArticleAdminController extends AbstractController
         ]);
     }
 
+    //modification article - field title, chapo, auteur et content
+
+    public function changeArticle(int $articleId)
+    {
+        $this->isAdmin();
+        
+
+        $articleRepository = new ArticleRepository();
+        $article = $articleRepository->getArticleById($articleId);
+        
+
+        // Vérifier si l'article existe
+        if (!$article) {
+            // Gérer le cas où l'article n'est pas trouvé
+            // Peut-être rediriger l'utilisateur ou afficher un message d'erreur
+            return $this->redirect("/admin/articles");
+        }
+
+        // Vérifier si le formulaire a été soumis
+        if ($_POST) {
+            // Mettre à jour les champs de l'article avec les nouvelles données
+            $article->setTitle($_POST['title']);
+            $article->setChapo($_POST['chapo']);
+            $article->setContent($_POST['content']);
+            
+            
+
+            // Vous pouvez également mettre à jour l'auteur si nécessaire
+            $article->setUserId($_POST['userId']);
+
+            // Mettre à jour la date de modification
+            $article->setUpdateDate(new \DateTime());
+         
+
+            // Enregistrer les modifications dans la base de données
+            $articleRepository->changeArticle($article);
+          
+
+            // Rediriger vers une autre page ou afficher un message de succès
+            return $this->redirect("/admin/articles");
+        }
+
+        // Si le formulaire n'a pas été soumis ou s'il y a une erreur, afficher le formulaire
+        return $this->render("admin/article/changeArticle.html.twig", [
+            'article' => $article,
+        ]);
+    }
+
+
     public function deleteArticle(int $articleId)
     {
         $articleRepository = new ArticleRepository();
         $articleRepository->deleteArticle($articleId);
-    
+
         $this->addFlash('success', 'Article supprimé avec succès');
         return $this->redirect("/admin/articles");
     }
-    
-
 }

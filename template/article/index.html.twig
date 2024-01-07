@@ -1,43 +1,80 @@
-
-
 {% block body %}
-<table id="article_table" class="display">
-    <thead>
-        <tr>
-            <th>Titre</th>
+	<table id="article_table" class="display">
+		<thead>
+			<tr>
+				<th>Titre</th>
 				<th>Date de Modification</th>
 				<th>Chapo</th>
-				<th><a href="/article', {'id': article.id}">Lien vers l'article</a></th>
 
-        </tr>
-    </thead>
-    <tbody>
-    {# ce qui sera injecté dans la bdd #}
-        <tr>
-            <td>Row 1 Data 1</td>
-            <td>Row 1 Data 2</td>
-        </tr>
-        <tr>
-            <td>Row 2 Data 1</td>
-            <td>Row 2 Data 2</td>
-        </tr>
 
-    </tbody>
-</table>
+			</tr>
+		</thead>
+		<tbody>
+			{# ce qui sera injecté dans la bdd #}
+			<tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            <tr>
+				<td>Row 1 Data 1</td>
+				<td>Row 1 Data 2</td>
+			</tr>
+            
+			<tr>
+				<td>Row 2 Data 1</td>
+				<td>Row 2 Data 2</td>
 
- {# <div class="container">
-        <div class="article">
-            <h2><a href="lien_vers_le_blog_post_1">Titre de l'article 1</a></h2>
-            <div class="date">Date de dernière modification : 10 septembre 2023</div>
-            <p>Chapô  blablablablabla.</p>
-        </div>
-        <div class="article">
-            <h2><a href="lien_vers_le_blog_post_2">Titre de l'article 2</a></h2>
-            <div class="date">Date de dernière modification : 5 septembre 2023</div>
-            <p>Chapô de l'article 2. re blablablablabla</p>
-        </div>
-        
-    </div> #}
+			</tr>
+			<tr>
+				<td>
+					<a href="/article', {'id': article.id}">Lien vers l'article</a>
+				</td>
+			</tr>
+
+		</tbody>
+	</table>
+
+	{# <div class="container">
+	        <div class="article">
+	            <h2><a href="lien_vers_le_blog_post_1">Titre de l'article 1</a></h2>
+	            <div class="date">Date de dernière modification : 10 septembre 2023</div>
+	            <p>Chapô  blablablablabla.</p>
+	        </div>
+	        <div class="article">
+	            <h2><a href="lien_vers_le_blog_post_2">Titre de l'article 2</a></h2>
+	            <div class="date">Date de dernière modification : 5 septembre 2023</div>
+	            <p>Chapô de l'article 2. re blablablablabla</p>
+	        </div>
+	        
+	    </div> #}
 
 
 {% endblock %}

@@ -7,17 +7,17 @@ class Article
     private ?int $id = null;
     private ?string $title = null;
     private \DateTime $date;
-    private \DateTime $updateDate;
+    private $updateDate = null;
     private ?string $content = null;
     private ?string $chapo = null;
     private ?int $userId = null;
     private ?string $slug = null;
-    //je veux integrer le nom du userId 13/10 question thibault
-
+    
     // Constructeur de la classe
     public function __construct(array $datas = [])
     {
         $this->date = new \DateTime();
+       
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
@@ -50,16 +50,19 @@ class Article
         return $this->title;
     }
 
-    public function setDate(\DateTime $date): void
-    {
+    public function setDate($date): void
+{
+  
+    if (!$this->date) {
         $this->date = $date;
     }
+}
     public function getDate(): \DateTime
     {
         return $this->date;
     }
 
-    public function setUpdateDate(\DateTime $updateDate): void
+    public function setUpdateDate($updateDate): void
     {
         $this->updateDate = $updateDate;
     }
@@ -96,6 +99,8 @@ class Article
     {
         return $this->userId;
     }
+
+
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
