@@ -1,3 +1,9 @@
+{# {% extends 'base.html.twig' %}
+{# on prend les blocs de style de et de base.html.twig #}
+{# {% block style %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+{% endblock %}
 {% block body %}
 	<table id="article_table" class="display">
 		<thead>
@@ -6,75 +12,36 @@
 				<th>Date de Modification</th>
 				<th>Chapo</th>
 
+				<th>Action</th>
 
 			</tr>
 		</thead>
 		<tbody>
-			{# ce qui sera injecté dans la bdd #}
-			<tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            <tr>
-				<td>Row 1 Data 1</td>
-				<td>Row 1 Data 2</td>
-			</tr>
-            
-			<tr>
-				<td>Row 2 Data 1</td>
-				<td>Row 2 Data 2</td>
 
-			</tr>
 			<tr>
+				<td>{{ article.title }}</td>
+				<td>{{ article.updateDate }}</td>
+				<td>{{ article.chapo }}</td>
+
 				<td>
-					<a href="/article', {'id': article.id}">Lien vers l'article</a>
+					<a href="/article?id={{ article.id }}" target="_blank">Lien vers l'article</a>
+					<a href="/admin/changeArticle/{{ article.id }}">
+						<i class="fas fa-pencil-alt"></i>
+					</a>
+
+					<a href='/admin/deleteArticle/{{ article.id }}' onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
+						<i class="fas fa-trash"></i>
+					</a>
 				</td>
 			</tr>
 
 		</tbody>
 	</table>
-
-	{# <div class="container">
-	        <div class="article">
-	            <h2><a href="lien_vers_le_blog_post_1">Titre de l'article 1</a></h2>
-	            <div class="date">Date de dernière modification : 10 septembre 2023</div>
-	            <p>Chapô  blablablablabla.</p>
-	        </div>
-	        <div class="article">
-	            <h2><a href="lien_vers_le_blog_post_2">Titre de l'article 2</a></h2>
-	            <div class="date">Date de dernière modification : 5 septembre 2023</div>
-	            <p>Chapô de l'article 2. re blablablablabla</p>
-	        </div>
-	        
-	    </div> #}
-
-
 {% endblock %}
+{% block js %}
+	{{ parent() }}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+	<script src="../js/datatable_init.js"></script>
+{% endblock %} 
+ #}

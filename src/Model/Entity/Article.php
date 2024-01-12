@@ -2,30 +2,40 @@
 
 namespace App\Model\Entity;
 
+use DateTime;
+use App\Model\Repository\UserRepository;
+
 class Article
 {
     private ?int $id = null;
-    private ?string $title = null;
-    private \DateTime $date;
-    private $updateDate = null;
-    private ?string $content = null;
-    private ?string $chapo = null;
     private ?int $userId = null;
+    private ?string $title = null;
+    private ?string $chapo = null;
+    private string|\DateTime $date;
+    private ?\DateTime $updateDate = null;
+    private ?string $content = null;
     private ?string $slug = null;
-    
+
     // Constructeur de la classe
     public function __construct(array $datas = [])
     {
         $this->date = new \DateTime();
-       
+        $this->updateDate = new \DateTime();
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
-                $this->$method($value);
+                if (method_exists($this, $method) && isset($value)) {
+
+                    if ($attr === 'updateDate' && is_string($value) && !empty($value)) {
+                        $value = new \DateTime($value);
+                    }
+                    $this->$method($value);
+                }
             }
         }
     }
-// j'ai mis dans la méthode slug le title et l'id, est ce la bonne pratique? 
+
+    // j'ai mis dans la méthode slug le title et l'id, est ce la bonne pratique? 
     public function generateSlug(): void
     {
 
@@ -51,22 +61,25 @@ class Article
     }
 
     public function setDate($date): void
-{
-  
-    if (!$this->date) {
+    {
+        if (is_string($date)) {
+            $date = new DateTime($date);
+        }
         $this->date = $date;
     }
-}
-    public function getDate(): \DateTime
+    public function getDate(): string|\DateTime
     {
         return $this->date;
     }
-
-    public function setUpdateDate($updateDate): void
+    //  * @param \DateTime|null $updateDate
+    //  */    
+    public function setUpdateDate(?\DateTime $updateDate): void
     {
         $this->updateDate = $updateDate;
     }
-    public function getUpdateDate(): \DateTime
+
+
+    public function getUpdateDate(): ?\DateTime
     {
         return $this->updateDate;
     }
@@ -99,7 +112,21 @@ class Article
     {
         return $this->userId;
     }
+    public function getAuthorFullName(): ?string
+    {
+        // Vérifiez si l'ID de l'utilisateur est défini
+        if ($this->userId) {
+            // Utilisez une méthode pour récupérer le nom complet de l'utilisateur en fonction de son ID
+            $userRepository = new UserRepository();
+            $user = $userRepository->getUserBy('id', $this->userId);
 
+            // Vérifiez si l'utilisateur a été trouvé
+            if ($user) {
+                return $user->getFullName();
+            }
+        }
+        return null;
+    }
 
     public function setSlug(string $slug): void
     {

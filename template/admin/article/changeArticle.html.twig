@@ -1,34 +1,35 @@
-{% extends 'base.html.twig' %}
+
+ {% extends 'base.html.twig' %}
 
 {% block body %}
-	
 
 	<div class="change-article">
 		{% if article.id is defined %}
 			<h2>Modifier l'article</h2>
-		{# {% else %}
-			<h2>Créer un nouvel article</h2> #}
+			{% else %}
+						<h2>Créer un nouvel article</h2>
 		{% endif %}
 
-		<form method="post" action="/admin/changeArticle">
-			
-				<input type="hidden" name="articleId" value="{{ article.id }}">
-			
+		<form method="post" action="/admin/changeArticle/{{article.id}}">
 
+			<input type="hidden" name="articleId" value="{{ article.id }}">
+			
 			<label for="title">Titre :</label>
 			<input type="text" id="title" name="title" value="{{ article.title }}" required>
 
 			<label for="chapo">Chapo :</label>
 			<textarea id="chapo" name="chapo" required>{{ article.chapo }}</textarea>
-
+			
 			<label for="content">Contenu :</label>
 			<textarea id="content" name="content" required>{{ article.content }}</textarea>
+			<label for="updateDate">Date de Modification :</label>
+<input type="text" id="updateDate" name="updateDate" value="{{ article.updateDate|default('') }}">
 			{% if article.id is not defined %}
-				{# pour création d'un nouvel article, le champ "Auteur" est automatiquement rempli #}
+				{#  création d'un nouvel article, le champ "Auteur" est automatiquement rempli #}
 				<label for="userId">Auteur:</label>
 				<input type="text" name="name" value="{{ userName }}" readonly>
 			{% else %}
-				{# En cas de modification, le champ "Auteur" peut être modifié manuellement #}
+				{#  modification, le champ "Auteur" peut être modifié manuellement #}
 				<label for="userId">Auteur:</label>
 				<input type="text" name="name" value="{{ article.name }}" required>
 			{% endif %}
@@ -36,32 +37,9 @@
 			{% if article.id is not defined %}
 				<input type="submit" name="submit" value="Valider">
 			{% else %}
-				<input type="submit" class="valider" value="Enregistrer les modifications">
+				<input type="submit" class="valider" name="submit" value="Enregistrer les modifications">
 			{% endif %}
 		</form>
-	</div>
-{% endblock %}
+	</div> 
+ {% endblock %} 
 
-{# {% extends 'base.html.twig' %}
-
-{% block body %}
-    {% include 'admin/article/_form.html.twig' %}
-
-    <div>
-        <h2>Modifier l'article</h2>
-
-        <form method="post" action="/admin/changeArticle">
-            <input type="hidden" name="articleId" value="{{ article.id }}">
-            <label for="title">Titre :</label>
-            <input type="text" id="title" name="title" value="{{ article.title }}" required>
-
-            <label for="chapo">Chapo :</label>
-            <textarea id="chapo" name="chapo" required>{{ article.chapo }}</textarea>
-
-            <label for="content">Contenu :</label>
-            <textarea id="content" name="content" required>{{ article.content }}</textarea>
-
-            <input type="submit" class="valider" value="Enregistrer les modifications">
-        </form>
-    </div>
-{% endblock %} #}

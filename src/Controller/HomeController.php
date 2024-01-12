@@ -9,7 +9,7 @@ class HomeController extends AbstractController{
     public function home()  {
         
         if ($_POST) {
-            var_dump($_POST); die();
+           
             return $this->redirect("/");
         }        
         // require_once TEMPLATE_DIR.'/home/home.html.twig';
@@ -17,7 +17,7 @@ class HomeController extends AbstractController{
     }
     public function param(int $id) 
     {
-            //$article= new Article($_POST);
+            
         return $this->render("home/param.html.twig",['id'=>$id]);
    }
    

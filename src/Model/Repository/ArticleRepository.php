@@ -30,8 +30,6 @@ class ArticleRepository extends AbstractController
                 ':chapo' => $article->getchapo(),
                 ':date' => $article->getDate()->format(self::DATE_FORMAT),
                 ':content' => $article->getContent(),
-                //pour le moment pas besoin puisque creation article
-                // ':updateDate' => $article->getUpdateDate()->format(self::DATE_FORMAT),
                 ':user_id' => $article->getUserId(),
             ]);
 
@@ -44,24 +42,21 @@ class ArticleRepository extends AbstractController
 
     public static function getArticleById(int $articleId): ?Article
     {
-        // Assurez-vous d'adapter ces lignes en fonction de votre système de stockage de données
 
         try {
-            $db = Database::connect(); // Assurez-vous d'avoir la méthode connect dans votre classe Database
-
+            $db = Database::connect();
             $sql = "SELECT * FROM article WHERE id = :articleId";
             $stmt = $db->prepare($sql);
             $stmt->execute([':articleId' => $articleId]);
-
-            $result = $stmt->fetch(\PDO::FETCH_ASSOC);
-
+            $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\Article");
+            $result = $stmt->fetch();
+            
             if ($result) {
-                // Créez une instance d'Article avec les données récupérées
-                $article = new Article($result);
-                return $article;
-            }
+                // Appel de la méthode pour obtenir le nom complet de l'auteur
+                $result->getAuthorFullName();
 
-            return null; // Retourne null si l'article n'est pas trouvé
+                return $result;
+            }
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'article : " . $e->getMessage();
             return null;
@@ -70,23 +65,24 @@ class ArticleRepository extends AbstractController
 
     public function changeArticle(Article $article)
     {
+        $updateDate = $article->getUpdateDate();
         try {
             $sql = "UPDATE article 
-                SET title = :title, 
+                SET userId = :userId,
+                    title = :title, 
                     chapo = :chapo, 
-                    content = :content, 
-                    user_id = :user_id, 
-                    update_date = :update_date 
+                    updateDate = :updateDate, 
+                    content = :content
                 WHERE id = :id";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                ':id' => $article->getId(),
+                ':userId' => $article->getUserId(),
                 ':title' => $article->getTitle(),
                 ':chapo' => $article->getChapo(),
+                ':updateDate' => ($updateDate ? $updateDate->format(self::DATE_FORMAT) : null),
                 ':content' => $article->getContent(),
-                ':user_id' => $article->getUserId(),
-                ':update_date' => $article->getUpdateDate()->format(self::DATE_FORMAT),
+                ':id' => $article->getId(),
             ]);
 
             $this->addFlash('success', "Article mis à jour avec succès");

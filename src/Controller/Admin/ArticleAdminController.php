@@ -9,8 +9,6 @@ use App\Model\Entity\Article;
 
 class ArticleAdminController extends AbstractController
 {
-
-
     // page articles avec les differents infos, icone stylo et icon trash à droite
     public function index()
     {
@@ -43,7 +41,7 @@ class ArticleAdminController extends AbstractController
         $userName = $user->getFullName();
 
         // Vérifier si le formulaire a été soumis
-        if ($_POST) {
+        if ($this->isSubmitted('submit') && $this->isValided($_POST)){
             // Créer un tableau de données pour le nouvel article
             $articleData = [
                 'title' => $_POST['title'],
@@ -73,41 +71,39 @@ class ArticleAdminController extends AbstractController
 
     public function changeArticle(int $articleId)
     {
-        $this->isAdmin();
-        
 
+        $this->isAdmin();
+        $userId = $this->getSessionInfos("userId");
         $articleRepository = new ArticleRepository();
         $article = $articleRepository->getArticleById($articleId);
-        
 
         // Vérifier si l'article existe
         if (!$article) {
+
             // Gérer le cas où l'article n'est pas trouvé
-            // Peut-être rediriger l'utilisateur ou afficher un message d'erreur
+            // Peut-être rediriger l'utilisateur et/ou afficher un message d'erreur??
             return $this->redirect("/admin/articles");
         }
 
         // Vérifier si le formulaire a été soumis
-        if ($_POST) {
+        if ($this->isSubmitted('submit') && $this->isValided($_POST)) {
             // Mettre à jour les champs de l'article avec les nouvelles données
+
             $article->setTitle($_POST['title']);
             $article->setChapo($_POST['chapo']);
             $article->setContent($_POST['content']);
-            
-            
+            // $article->setDate($article->getDate());
+            // // mettre à jour l'auteur si nécessaire
+            $article->setUserId($userId);
 
-            // Vous pouvez également mettre à jour l'auteur si nécessaire
-            $article->setUserId($_POST['userId']);
-
-            // Mettre à jour la date de modification
+            // // Mettre à jour la date de modification
             $article->setUpdateDate(new \DateTime());
-         
-
+            
             // Enregistrer les modifications dans la base de données
-            $articleRepository->changeArticle($article);
-          
-
+             $articleRepository->changeArticle($article);
+            
             // Rediriger vers une autre page ou afficher un message de succès
+            $this->addFlash('success', 'cet article a été modifié avec succès');
             return $this->redirect("/admin/articles");
         }
 

@@ -4,10 +4,7 @@ namespace Core\component;
 
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-
-
-
-
+use Twig\Extension\DebugExtension;
 
 class AbstractController
 {
@@ -17,6 +14,7 @@ class AbstractController
     {
         $loader = new FilesystemLoader(TEMPLATE_DIR . '//');
         $this->twig = new Environment($loader, ["debug" => true]);
+        $this->twig->addExtension(new DebugExtension());
     }
 
     public function render($template, array $datas = [])

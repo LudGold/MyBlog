@@ -5,12 +5,11 @@
 	<input type="text" name="chapo" value="{{ article.chapo|default('') }}" required>
 	<label for="content">Ecrivez votre article ici:</label>
 	<input type="text" name="content" rows="4" value="{{ article.content|default('') }}" required>
-	
-	 <label for="userId">Auteur:</label>
-	<input type="text" name="name" value="{{ userName }}" readonly>
-	
-{# ET ajouter ou pas updateDate ??? #}
 
- <input type="submit" name="submit" value="Valider">
+	<label for="userId">Auteur:</label>
+	<input type="text" name="name" value="{{ userName }}" readonly>
+
+
+	<input type="submit" name="submit" value="Valider">
 
 </form>

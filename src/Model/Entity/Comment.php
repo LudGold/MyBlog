@@ -6,7 +6,7 @@ class Comment
 {
     private ?int $id = null;
     private \DateTime $date;
-    private \DateTime $date_update;
+    private \DateTime $dateUpdate;
     private ?int $userId = null; // mettre le lastname du userid
     private ?string $content = null;
 
@@ -19,14 +19,14 @@ class Comment
         return $this->id;
     }
 
-    public function setDate_update(\DateTime $date_update): void
+    public function setDate_update(\DateTime $dateUpdate): void
     {
-        $this->date_update = $date_update;
+        $this->dateUpdate = $dateUpdate;
     }
 
     public function getDate_update(): \DateTime
     {
-        return $this->date_update;
+        return $this->dateUpdate;
     }
 
     public function setUserId(int $userId): void

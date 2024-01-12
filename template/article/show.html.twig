@@ -1,78 +1,24 @@
 {# un article avec le détail #}
-
+{% extends 'base.html.twig' %}
 
 {% block body %}
-	<body>
-    <header>
-        <h1 class="article-title">Pourquoi devenir développeur Web aujourd’hui ?</h1>
-        <p class="article-time">4 mns de lecture</p>
-    </header>
 
-    <div class="article-content">
-        <div class="section">
-            <h2 class="section-title">Dev Web</h2>
-            <p>
-                Le développement web est un domaine en constante évolution. Les technologies évoluent rapidement et les entreprises ont besoin de sites web pour rester compétitives sur le marché. Cela signifie que la demande pour les développeurs web est en constante augmentation.
-            </p>
-        </div>
+    <h1>{{ article.title }}</h1>
+    {% if article.updateDate %}
+<p>Date de Modification : {{ article.updateDate|date('d/m/Y')  }}</p>
+{% endif %}
+    
+    <p>Chapo : {{ article.chapo }}</p>
+    <p>Contenu : {{ article.content }}</p>
+    <p>Auteur : {{ article.getAuthorFullName }}</p>
+{% endblock %}
 
-        <div class="section">
-            <h2 class="section-title">1. La demande pour les développeurs Web augmente</h2>
-            <p>
-                La première raison pour laquelle il est important d’être un développeur web aujourd’hui est que la demande pour ces professionnels ne cesse d’augmenter. Selon une étude menée par Burning Glass Technologies, le nombre d’emplois liés au développement web devrait augmenter de 13% entre 2018 et 2028 aux États-Unis seulement.
-                Cette tendance se reflète également dans le reste du monde, où l’on observe une forte croissance des emplois liés à la technologie en général et au développement web en particulier.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">2. Le salaire des développeurs Web est attractif</h2>
-            <p>
-                En plus de la forte demande, les salaires des développeurs Web sont également très attractifs. Selon Glassdoor, le salaire moyen d’un développeur Web aux États-Unis était de 76 000 $ par an en janvier 2021.
-                Cependant, ce chiffre peut varier considérablement selon l’emplacement géographique et l’expérience professionnelle du candidat. Dans certaines villes comme San Francisco ou New York City, les salaires peuvent atteindre jusqu’à six chiffres annuels.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">3. Les opportunités professionnelles sont variées</h2>
-            <p>
-                Une autre raison importante pour laquelle il est intéressant d’être un développeur web aujourd’hui est la variété des opportunités professionnelles disponibles. Les entreprises de toutes tailles et de tous secteurs ont besoin de sites web pour communiquer avec leurs clients, vendre leurs produits ou services en ligne et améliorer leur visibilité sur le marché. Cela signifie que les développeurs Web peuvent travailler dans une grande variété d’entreprises, allant des start-ups aux grandes entreprises multinationales. Ils peuvent également choisir entre différents types de projets, tels que le développement front-end (la partie visible du site), le développement back-end (la partie invisible qui gère les données) ou encore le développement full-stack (qui combine les deux).
-            </p>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">4. Le travail en tant que développeur Web peut être stimulant</h2>
-            <p>
-                Le travail en tant que développeur Web peut être très stimulant car il implique souvent la résolution de problèmes complexes et l’utilisation constante de nouvelles technologies. Les développeurs doivent rester à jour avec les dernières tendances technologiques pour pouvoir créer des sites web innovants et performants. De plus, ils travaillent souvent en équipe avec d’autres professionnels du numérique tels que les designers UX/UI, les spécialistes SEO ou encore les chefs de projet. Cela permet aux développeurs Web d’apprendre constamment auprès d’autres experts du domaine.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">5. La flexibilité au niveau du lieu et des horaires</h2>
-            <p>
-                Enfin, un autre avantage important lié au métier de développeur web est la flexibilité qu’il offre au niveau du lieu et des horaires. De nombreux emplois dans ce domaine sont proposés sous forme de télétravail ou freelance. Cela signifie qu’un développeur peut travailler depuis n’importe où dans le monde, à condition d’avoir une connexion internet fiable. De plus, les horaires de travail peuvent être flexibles et adaptés aux besoins personnels du développeur.
-            </p>
-        </div>
-
-        <div class="section">
-            <h2 class="section-title">Comment commencer votre carrière en tant que développeur Web ?</h2>
-        </div>
-    </div>
-
-    <div class="author">
-        <h2>Jérôme V</h2>
-        <p>Co-fondateur de blog, Jérôme aime jouer, compter, imaginer, réfléchir...</p>
-    </div>
-
-    <div class="section">
-        <h2>Date de dernière mise à jour</h2>
-        <p>2023-09-15</p>
-    </div>
-	{% include 'comment/comment.html.twig' %}
-	{% include 'comment/_newComment.html.twig' %}
+	{# {% include 'comment/comment.html.twig' %}
+	{% include 'comment/_newComment.html.twig' %} #}
 
 	{# {% extends '_newComment.html.twig' %}  comment faire? #}
 	
 	
 
 
-{% endblock %}
+
