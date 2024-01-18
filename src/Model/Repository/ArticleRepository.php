@@ -21,8 +21,8 @@ class ArticleRepository extends AbstractController
     public function saveArticle(Article $article)
     {
         try {
-            $sql = "INSERT INTO article (title, chapo, date, content, user_id) 
-                    VALUES (:title, :chapo, :date, :content, :user_id )";
+            $sql = "INSERT INTO article (title, chapo, date, content, userId) 
+                    VALUES (:title, :chapo, :date, :content, :userId)";
 
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
@@ -30,7 +30,7 @@ class ArticleRepository extends AbstractController
                 ':chapo' => $article->getchapo(),
                 ':date' => $article->getDate()->format(self::DATE_FORMAT),
                 ':content' => $article->getContent(),
-                ':user_id' => $article->getUserId(),
+                ':userId' => $article->getUserId(),
             ]);
 
             $this->addFlash('success', "Votre article a bien été publié");
@@ -45,18 +45,17 @@ class ArticleRepository extends AbstractController
 
         try {
             $db = Database::connect();
-            $sql = "SELECT * FROM article WHERE id = :articleId";
+             $sql = "SELECT article.*, user.lastname, user.firstname FROM article INNER JOIN user ON article.userId = user.id  WHERE article.id = :articleId";
+            // $sql = "SELECT * FROM article WHERE id = :articleId" ;
             $stmt = $db->prepare($sql);
             $stmt->execute([':articleId' => $articleId]);
+           
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\Article");
             $result = $stmt->fetch();
             
-            if ($result) {
-                // Appel de la méthode pour obtenir le nom complet de l'auteur
-                $result->getAuthorFullName();
-
+                       
                 return $result;
-            }
+        
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'article : " . $e->getMessage();
             return null;

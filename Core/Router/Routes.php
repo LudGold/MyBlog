@@ -11,8 +11,13 @@ Router::all('/admin/articles', "Admin\ArticleAdminController@index")->setName("a
 Router::all('/admin/newArticle', "Admin\ArticleAdminController@newArticle")->setName("admin_newArticle");
 Router::all('/admin/changeArticle/{articleId}', "Admin\ArticleAdminController@changeArticle")->setName("admin_changeArticle");
 Router::all('/admin/deleteArticle/{articleId}', "Admin\ArticleAdminController@deleteArticle")->setName("supp_articles");
-Router::get('/articles', "ArticleAdminController@index")->setName("articles");
-Router::all('/article/{articleId}', "ArticleController@show")->setName("article");
+Router::get('/admin/comment/comments_pending', "Admin\CommentsAdminController@showPendingComments")->setName("admin_pending_comments");
+Router::get('/admin/comment/comments_approved', "Admin\CommentsAdminController@showApprovedComments")->setName("admin_approved_comments");
+Router::get('/admin/comment/comments_rejected', "Admin\CommentsAdminController@showRejectedComments")->setName("admin_rejected_comments");
+Router::get('/admin/comment/index', "Admin\CommentsAdminController@showAllComments")->setName("admin_allComments");
+Router::post('/article/{articleId}/submitComment', "ArticleController@submitComment")->setName("submitComment");
+Router::get('/articles', "ArticleController@displayAllArticles")->setName("articles");
+Router::all('/article/{articleId}', "ArticleController@show")->setName("article_show");
 Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
 Router::all('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");

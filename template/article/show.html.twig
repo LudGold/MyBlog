@@ -3,22 +3,33 @@
 
 {% block body %}
 
-    <h1>{{ article.title }}</h1>
-    {% if article.updateDate %}
-<p>Date de Modification : {{ article.updateDate|date('d/m/Y')  }}</p>
-{% endif %}
-    
-    <p>Chapo : {{ article.chapo }}</p>
-    <p>Contenu : {{ article.content }}</p>
-    <p>Auteur : {{ article.getAuthorFullName }}</p>
+	<h1>{{ article.title }}</h1>
+	<p>Chapô :
+		{{ article.chapo }}</p>
+	<p>Contenu :
+		{{ article.content }}</p>
+	<p>Auteur :
+		{{ article.getAuthorFullName }}</p>
+	{% if article.updateDate %}
+		<p>Date de Modification :
+			{{ article.updateDate|date('d/m/Y') }}</p>
+	{% endif %}
+
+	<h2>Commentaires validés et publiés :</h2>
+	<ul>
+		{% for comment in approvedComments %}
+			{% if comment.getIsApproved %}
+				<li>
+					<p>{{ comment.content }}</p>
+					<p>Auteur :
+						{{ comment.getAuthorFullName }}</p>
+					<p>Date de Publication :
+						{{ comment.getDate|date('d/m/Y') }}</p>
+				</li>
+			{% endif %}
+
+		{% endfor %}
+		{% include 'comment/addComment.html.twig' %}
+	</ul>
+
 {% endblock %}
-
-	{# {% include 'comment/comment.html.twig' %}
-	{% include 'comment/_newComment.html.twig' %} #}
-
-	{# {% extends '_newComment.html.twig' %}  comment faire? #}
-	
-	
-
-
-

@@ -3,9 +3,11 @@
 namespace App\Controller\Admin;
 
 use Core\component\AbstractController;
+
 use App\Model\Repository\ArticleRepository;
 use App\Model\Repository\UserRepository;
 use App\Model\Entity\Article;
+
 
 class ArticleAdminController extends AbstractController
 {
@@ -41,7 +43,8 @@ class ArticleAdminController extends AbstractController
         $userName = $user->getFullName();
 
         // Vérifier si le formulaire a été soumis
-        if ($this->isSubmitted('submit') && $this->isValided($_POST)){
+        if ($this->isSubmitted('submit') && $this->isValided($_POST)) {
+
             // Créer un tableau de données pour le nouvel article
             $articleData = [
                 'title' => $_POST['title'],
@@ -74,6 +77,11 @@ class ArticleAdminController extends AbstractController
 
         $this->isAdmin();
         $userId = $this->getSessionInfos("userId");
+        $userRepository = new UserRepository();
+
+        // Récupérer l'utilisateur par son ID
+        $user = $userRepository->getUserBy('id', $userId);
+
         $articleRepository = new ArticleRepository();
         $article = $articleRepository->getArticleById($articleId);
 
@@ -98,10 +106,10 @@ class ArticleAdminController extends AbstractController
 
             // // Mettre à jour la date de modification
             $article->setUpdateDate(new \DateTime());
-            
+
             // Enregistrer les modifications dans la base de données
-             $articleRepository->changeArticle($article);
-            
+            $articleRepository->changeArticle($article);
+
             // Rediriger vers une autre page ou afficher un message de succès
             $this->addFlash('success', 'cet article a été modifié avec succès');
             return $this->redirect("/admin/articles");

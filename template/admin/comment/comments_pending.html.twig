@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block style %}
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+{% endblock %}
+
+{% block body %}
+    <h2>Commentaires en attente de validation</h2>
+    
+    <table id="comments_pending_table" class="display">
+        <thead>
+            <tr>
+                <th>Pseudo</th>
+                <th>Date de Publication</th>
+                <th>Contenu</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for comment in pendingComments %}
+                <tr>
+                    <td>{{ comment.pseudo }}</td>
+                   <td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+                    <td>{{ comment.content }}</td>
+                    <td>
+						 <a href="/admin/validateComment/{{ comment.id }}"> 
+							<i class="fas fa-check">Valider</i>
+						</a>
+                        <a href='/admin/rejectedArticle/{{ comment.id }}'>
+							<i class="fas fa-times">Rejeter</i>
+						</a>
+                        </td> 
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+

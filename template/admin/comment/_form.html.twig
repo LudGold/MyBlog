@@ -1,0 +1,5 @@
+<form action="/admin/validateComment" method="POST" class="validate-comment">
+	<input type="hidden" name="commentId" value="{{ comment.id }}">
+    <button type="submit" name="action" value="validate" id="validateButton">Valider</button>
+    <button type="submit" name="action" value="rejected" id="inValidateButton">Rejeter</button>
+</form>

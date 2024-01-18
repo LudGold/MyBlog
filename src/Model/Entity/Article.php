@@ -12,7 +12,7 @@ class Article
     private ?string $title = null;
     private ?string $chapo = null;
     private string|\DateTime $date;
-    private ?\DateTime $updateDate = null;
+    private \DateTime|string|null $updateDate = null;
     private ?string $content = null;
     private ?string $slug = null;
 
@@ -20,22 +20,16 @@ class Article
     public function __construct(array $datas = [])
     {
         $this->date = new \DateTime();
-        $this->updateDate = new \DateTime();
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
                 if (method_exists($this, $method) && isset($value)) {
-
-                    if ($attr === 'updateDate' && is_string($value) && !empty($value)) {
-                        $value = new \DateTime($value);
+                        $this->$method($value);
                     }
-                    $this->$method($value);
                 }
             }
-        }
     }
 
-    // j'ai mis dans la méthode slug le title et l'id, est ce la bonne pratique? 
     public function generateSlug(): void
     {
 
@@ -43,7 +37,6 @@ class Article
         $this->slug = $slug;
     }
 
-    // Méthodes à mettre en place (get, set etc..) de connexion
     public function getId(): ?int
     {
         return $this->id;
@@ -61,29 +54,40 @@ class Article
     }
 
     public function setDate($date): void
-    {
-        if (is_string($date)) {
-            $date = new DateTime($date);
-        }
-        $this->date = $date;
+{
+    if (is_string($date)) {
+        $date = new DateTime($date);
     }
-    public function getDate(): string|\DateTime
+    $this->date = $date;
+}
+public function getDate(): string|\DateTime
+{
+    if(is_string($this->date))
     {
-        return $this->date;
+        $this->date = new \DateTime($this->date);
     }
+
+    return $this->date;
+}
     //  * @param \DateTime|null $updateDate
     //  */    
-    public function setUpdateDate(?\DateTime $updateDate): void
-    {
-        $this->updateDate = $updateDate;
+    public function setUpdateDate(\DateTime|string|null $updateDate): void
+{
+    if (is_string($updateDate)) {
+        $updateDate = new \DateTime($updateDate);
     }
+    $this->updateDate = $updateDate;
+}
 
-
-    public function getUpdateDate(): ?\DateTime
+public function getUpdateDate(): \DateTime|string|null
+{
+    if(is_string($this->updateDate))
     {
-        return $this->updateDate;
+        $this->updateDate = new \DateTime($this->updateDate);
     }
-    public function setContent(string $content): void
+    return $this->updateDate;
+}
+    public function setContent(?string $content): void
     {
         $this->content = $content;
     }
@@ -93,7 +97,7 @@ class Article
         return $this->content;
     }
 
-    public function setChapo(string $chapo): void
+    public function setChapo(?string $chapo): void
     {
         $this->chapo = $chapo;
     }
@@ -112,22 +116,7 @@ class Article
     {
         return $this->userId;
     }
-    public function getAuthorFullName(): ?string
-    {
-        // Vérifiez si l'ID de l'utilisateur est défini
-        if ($this->userId) {
-            // Utilisez une méthode pour récupérer le nom complet de l'utilisateur en fonction de son ID
-            $userRepository = new UserRepository();
-            $user = $userRepository->getUserBy('id', $this->userId);
-
-            // Vérifiez si l'utilisateur a été trouvé
-            if ($user) {
-                return $user->getFullName();
-            }
-        }
-        return null;
-    }
-
+ 
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;

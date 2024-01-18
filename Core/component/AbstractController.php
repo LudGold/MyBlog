@@ -28,8 +28,8 @@ class AbstractController
     }
     public function redirect($url)
     {
-        header("Location:" . $url);
-        exit();
+    header("Location:" . $url);
+    exit();
     }
     public function newSession()
     {
@@ -117,14 +117,15 @@ class AbstractController
         return isset($_SESSION['mail']);
     }
 
-    public function isAdmin(){
+    public function isAdmin()
+    {
         // Vérifier que la variable de session 'role' est définie
-    if (!isset($_SESSION['role'])) {
-        return $this->redirect('/not-authorised');
-    }
+        if (!isset($_SESSION['role'])) {
+            return $this->redirect('/not-authorised');
+        }
 
         // verifier que le user est bien en rôle admin
-        if (!in_array('admin', $_SESSION['role'])){
+        if (!in_array('admin', $_SESSION['role'])) {
             return $this->redirect('/not-authorised');
         }
         return true;

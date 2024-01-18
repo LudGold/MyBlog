@@ -175,7 +175,7 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 /*style pour nouvel article form*/
-.new-article {
+.form-article {
     width: 30%;
     margin: auto;
     padding: 20px;
@@ -184,19 +184,19 @@ a {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.new-article label {
+.form-article label {
     display: block;
     margin-bottom: 8px;
 }
 
-.new-article input {
+.form-article input {
     width: 100%;
     padding: 8px;
     margin-bottom: 12px;
     box-sizing: border-box;
 }
 
-.new-article input[type="submit"] {
+.form-article input[type="submit"] {
     width: auto;
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -207,10 +207,10 @@ a {
     font-size: 16px;
 }
 
-.new-article input[type="submit"]:hover {
+.form-article input[type="submit"]:hover {
     background-color: #45a049;
 }
-.change-article {
+/* .change-article {
     width: 30%;
     margin: auto;
     padding: 20px;
@@ -251,7 +251,7 @@ a {
 
 .change-article input[type="submit"]:hover {
     background-color: #45a049;
-}
+} */
 
 
 /* style pour page reach me */

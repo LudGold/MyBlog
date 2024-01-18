@@ -5,37 +5,27 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
 {% block body %}
-<a href="/admin/newArticle">Nouvel article</a>
 	<table id="article_table" class="display">
 		<thead>
 			<tr>
-				<th>Titre</th>
-				<th>Date de Modification</th>
-				<th>Chapo</th>
+
+				<th>Date</th>
+				<th>content</th>
+				<th>Pseudo</th>
 				<th>Action</th>
 
 			</tr>
 		</thead>
 		<tbody>
-			{% for article in articles|sort %}
+			{% for comment in allComments %}
 				<tr>
-					<td>{{ article.title }}</td>
-					<td>{{ article.updateDate }}</td>
-					<td>{{ article.chapo }}</td>
-													
-
-					<td>
-						<a href="/article/{{ article.id }}" target="_blank">Lien vers l'article</a>
-						<a href="/admin/changeArticle/{{ article.id }}">
-							<i class="fas fa-pencil-alt"></i>
-						</a>
-
-						<a href='/admin/deleteArticle/{{ article.id }}' onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
-							<i class="fas fa-trash"></i>
-						</a>
-					</td>
+					<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+					<td>{{ comment.content }}</td>
+					<td>{{ comment.pseudo }}</td>
+					<td></td>
 
 				</tr>
+								
 			{% endfor %}
 		</tbody>
 	</table>

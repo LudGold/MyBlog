@@ -28,7 +28,7 @@ class UserRepository
 
             // Vérifier si l'utilisateur existe déjà dans la base de données
             $existingUser = $this->getUserBy('mail', $mail);
-            
+
             if ($existingUser) {
                 // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
                 $sql = "UPDATE user 
@@ -40,7 +40,7 @@ class UserRepository
                     ':isConfirmed' => $user->getIsConfirmed(),
                     ':mail' => $mail,
                     ':registrationToken' => null,
-                   
+
                 ]);
             } else {
 
@@ -57,7 +57,6 @@ class UserRepository
                     ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
                     ':isConfirmed' => $user->getIsConfirmed(),
                     ':registrationToken' => $user->getRegistrationToken(),
-                   
 
                 ]);
             }
@@ -72,7 +71,7 @@ class UserRepository
             $sql = "UPDATE user 
                 SET resetToken = :resetToken
                 WHERE mail = :mail";
-    
+
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 ':resetToken' => $user->getResetToken(),
@@ -83,28 +82,28 @@ class UserRepository
         }
     }
     public function updatePassword($mail, $hashedPassword)
-{
-    try {
-        $sql = "UPDATE user 
+    {
+        try {
+            $sql = "UPDATE user 
                 SET password = :password
                 WHERE mail = :mail";
 
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':password' => $hashedPassword,
-            ':mail' => $mail,
-        ]);
-    } catch (PDOException $e) {
-        echo "Erreur lors de la mise à jour du mot de passe : " . $e->getMessage();
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':password' => $hashedPassword,
+                ':mail' => $mail,
+            ]);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la mise à jour du mot de passe : " . $e->getMessage();
+        }
     }
-}
     public function getUserBy($propertyName, $propertyValue)
     {
         try {
             $sql = "SELECT * FROM user WHERE $propertyName = :propertyValue";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':propertyValue' => $propertyValue]);
-    
+
             // Vérifier si la requête a réussi
             if ($stmt->rowCount() > 0) {
                 $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\User");
@@ -114,13 +113,12 @@ class UserRepository
                 // Aucun utilisateur trouvé avec la propriété spécifiée
                 return null;
             }
-    
         } catch (PDOException $e) {
-           
+
             throw new \PDOException("Erreur lors de la récupération de l'utilisateur : " . $e->getMessage());
         }
     }
-    
+
 
     //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()
@@ -136,20 +134,19 @@ class UserRepository
         }
 
         return $users;
-    }
-    // public function deleteUser($id)
-    // {
-    //     try {
-    //         $sql = "DELETE FROM user WHERE id = :id";
-    //         $stmt = $this->db->prepare($sql);
-    //         $stmt->execute([':id' => $id]);
-    //         echo "L'utilisateur avec l'ID $id a été supprimé avec succès de la base de données.";
-    //     } catch (PDOException $e) {
-    //         echo "Erreur lors de la suppression de l'utilisateur : " . $e->getMessage();
-    //     }
-}
+    }}
+//     public function deleteUser($id)
+//      {
+//         try {
+//              $sql = "DELETE FROM user WHERE id = :id";
+//              $stmt = $this->db->prepare($sql);
+//              $stmt->execute([':id' => $id]);
+//              echo "L'utilisateur avec l'ID $id a été supprimé avec succès de la base de données.";
+//          } catch (PDOException $e) {
+//              echo "Erreur lors de la suppression de l'utilisateur : " . $e->getMessage();
+//          } 
+// }}
     // public function editRoleUser($role)
     // {
         
-    // }
-//function findBy et CustomUserMessageAuthenticationException
+    
