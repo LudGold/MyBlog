@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+	<div id="login">
+		<h2>Connexion</h2>
+		<form action="/login" method="post">
+			<div class="form-group">
+				<label for="mail">votre adresse e-mail</label>
+				<input type="text" name="mail" id="mail" class="form-control" required>
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe :</label>
+				<input type="password" name="password" id="password" class="form-control" required>
+			</div>
+			<button type="submit" name="submit" value="Se connecter" class="btn btn-primary btn-block">Se connecter</button>
+		</form>
+		<hr>
+		<a class="forgot-password" href="/forgotPassword">Mot de passe oublié?</a>
+		
+            </div>
+	</div>
+
+{% endblock %}

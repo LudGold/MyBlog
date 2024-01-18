@@ -3,36 +3,68 @@
 namespace App\Controller;
 
 use Core\component\AbstractController;
+use App\Model\Entity\Comment;
+use App\Model\Repository\ArticleRepository;
+use App\Model\Repository\CommentRepository;
 
 
 class ArticleController extends AbstractController
 {
-
-    public function article()
+    public function displayAllArticles()
     {
+        // Exemple d'utilisation pour afficher tous les articles
+        $articleRepository = new ArticleRepository();
+        $articles = $articleRepository->getAllArticles();
+        return $this->render("article/index.html.twig", [
+            'articles' => $articles,
+        ]);
+    }
 
-        if ($_POST) {
 
+    public function show(int $articleId)
+    {
+        $articleRepository = new ArticleRepository();
+        $article = $articleRepository->getArticleById($articleId);
+        // Récupérer les commentaires associés à l'article depuis le CommentRepository
+        $commentRepository = new CommentRepository();
+        $comments = $commentRepository->getCommentsByArticleId($articleId);
+        if (!$article) {
+            // Gérer le cas où l'article n'est pas trouvé
+            // Peut-être rediriger l'utilisateur ou afficher un message d'erreur
             return $this->redirect("/articles");
         }
-        // require_once TEMPLATE_DIR.'/home/home.html.twig';
-        return $this->render("article/index.html.twig");
+
+        return $this->render("article/show.html.twig", [
+            'article' => $article,
+            'comments' => $comments,
+        ]);
     }
-    public function show()
+    // Ajoutez cette fonction à votre ArticleAdminController
+    public function submitComment(int $articleId)
     {
-        if ($_POST) {
-            return $this->redirect("/article");
-        }
-        // require_once TEMPLATE_DIR.'/home/home.html.twig';
-        return $this->render("article/show.html.twig");
+        if ($this->isSubmitted('submit') && $this->isValided($_POST)) {
+        // Récupérer les données du formulaire
+        $pseudo = $_POST['pseudo'];
+        $mail = $_POST['mail'];
+        $content = $_POST['content'];
 
 
-        // public function param()
-        //  {
+        // Créer une instance de la classe Comment avec les données
+        $commentData = [
+            'pseudo' => $pseudo,
+            'mail' => $mail,
+            'content' => $content,
+            'articleId' => $articleId,
+        ];
 
-        // //    $article= new Article($_POST);
-        //    return $this->render("article/articles.html.twig");
-        // }
+        $commentRepository = new CommentRepository();
+        $newComment = new Comment($commentData);
 
+        // Enregistrer le commentaire dans la base de données
+        $commentRepository->submitComment($newComment);
+
+        // message de succès
+        $this->addFlash('success', 'Commentaire ajouté avec succès. En attente d\'approbation.');
     }
+}
 }

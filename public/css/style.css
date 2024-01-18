@@ -3,30 +3,52 @@ body {
     background-color: #dedbdb;
     margin: 0;
     padding: 0;
+    position: relative;
 }
 
+/* 
 header {
     background-color: #dedbdb;
     color: black;
-    padding: 20px;
     text-align: center;
-}
+} */
 
 /* Style de base pour la barre de navigation */
 .navbar {
-    background-color: blue;
-    /* Couleur de fond */
+    background-color: rgb(166, 166, 242);
     overflow: hidden;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
 /* Style pour la liste non ordonnée */
+.navbar a.nav-link#blog-name {
+    display: block;
+    color: grey;
+    text-align: left;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.blog-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.who {
+    width: 50%;
+}
+
 .navbar ul.navbar-nav {
     list-style-type: none;
     padding: 0;
     margin: 0;
     display: flex;
+    align-items: center;
 }
 
 /* Style pour les éléments de la liste */
@@ -39,20 +61,21 @@ header {
 .navbar a.nav-link {
     display: block;
     color: white;
-    /* Couleur du texte */
     text-align: center;
     padding: 14px 16px;
-    /* Espacement autour du texte */
     text-decoration: none;
-    /* Supprimer les soulignements par défaut des liens */
+    /* Supprime les soulignements par défaut des liens */
     transition: background-color 0.3s;
     /* Transition de couleur de fond */
 }
 
 /* Style pour les liens au survol */
 .navbar a.nav-link:hover {
-    background-color: #555;
-    /* Couleur de fond au survol */
+    background-color: #ba81ef;
+    left: 0;
+    /* Alignement à gauche */
+    top: 100%; /* Position sous l'élément parent */
+   
 }
 
 /* Style pour le menu déroulant des articles */
@@ -60,18 +83,18 @@ header {
     display: none;
     /* Caché par défaut */
     position: absolute;
-    background-color: #333;
+    background-color: #ba81ef;
     /* Couleur de fond */
-    min-width: 160px;
+    min-width: 100px;
     /* Largeur du menu déroulant */
     z-index: 1;
     /* Place au-dessus des autres éléments */
+    
 }
 
 /* Style pour les éléments du menu déroulant */
 .navbar .edit-articles li {
     display: block;
-    text-align: left;
     padding: 10px;
 }
 
@@ -88,21 +111,21 @@ header {
 
 /* Style pour les liens du menu déroulant au survol */
 .navbar .edit-articles a:hover {
-    background-color: #555;
-    /* Couleur de fond au survol */
-}
+    background-color: transparent;
+  }
 
 /* Afficher le menu déroulant au survol du parent */
 .navbar li.nav-item:hover .edit-articles {
     display: block;
 }
+
 body {
     font-family: Arial, sans-serif;
     background-color: #f3f3f3;
     text-align: center;
     margin: 0;
     padding: 0;
-    height: 100vh;
+    /* height: 100vh; */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -124,95 +147,530 @@ a {
     text-decoration: none;
     font-weight: bold;
 }
-/* Style pour le pied de page */
-footer {
-    background-color: #919fef; /* Couleur de fond */
-    color: white; /* Couleur du texte */
-    padding: 20px 0; /* Espacement autour du contenu */
-    text-align: center; /* Alignement du texte au centre */
+
+#blog-logo {
+    width: 10%;
+    border-radius: 50%;
+    margin-left: 40px;
+}
+.icon-spacing {
+    margin-right: 5px; 
+}
+.map-link{
+    color: black;
+}
+.contact-mail a{
+    color: blueviolet;
+}
+/* style page signin/login*/
+
+/* Style pour le formulaire d'inscription */
+.card {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+/*style pour nouvel article form*/
+.form-article {
+    width: 30%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Style pour le contenu du pied de page */
+.form-article label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.form-article input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.form-article input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.form-article input[type="submit"]:hover {
+    background-color: #45a049;
+}
+/* .change-article {
+    width: 30%;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.change-article label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.change-article input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.change-article textarea {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+}
+
+.change-article input[type="submit"] {
+    width: auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: #fff;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.change-article input[type="submit"]:hover {
+    background-color: #45a049;
+} */
+
+
+/* style pour page reach me */
+.contact-container {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+
+.left-column {
+    width: 60%;
+    text-align: center;
+}
+
+.photo-container {
+    position: relative;
+}
+
+.contact-img {
+    width: 50%;
+}
+
+.contact-overlay {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    position: absolute;
+    top: 50%;
+    right: 10%;
+    transform: translate(0, -50%);
+    padding: 20px;
+    text-align: center;
+    width: 25%;
+    height: 32%;
+}
+
+
+.contact-overlay p {
+    color: white;
+    margin-bottom: 20px;
+}
+.arrow-right {
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid rgba(0, 0, 0, 0.7);
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    transform: translate(5px, -50%);
+}
+
+.right-column {
+    width: 15%; /* Ajustez la largeur de la colonne de droite */
+  }
+
+.social-icons-contact {
+    transform: rotate(270deg); /* Faites pivoter de 90 degrés */
+    position: absolute;
+    top: 50%;
+    right: 0;
+    }
+
+.social-icon-contact {
+    color: black;
+    margin-bottom: 20px; 
+    margin-left: 25px;
+}
+.icon-large{
+    font-size: 20px;
+}
+/*style pour messages erreur ou succes*/
+.flash-message {
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.success {
+    background-color: #4CAF50; /* couleur de fond pour les messages de succès */
+    color: white;
+
+}
+
+.error {
+    background-color: #e66a61; /* couleur de fond pour les messages d'erreur */
+    color: black;
+}
+
+/* Style pour les champs du formulaire */
+.form-control {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    border-radius: 50px;
+    margin-top: 10px;
+}
+
+/* Style pour le formulaire de connexion */
+#login {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    max-width: 400px;
+    margin: 0 auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+/* Style pour le bouton "Se connecter" */
+.btn-primary {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-block {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.forgot-password {
+    margin-top: 10px;
+}
+/* style du form "new password */
+.form-container {
+    max-width: 400px;
+    margin: 20px auto;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 16px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.button-mdp {
+    background-color: #af4c99;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: rgb(166, 166, 242);
+}
+/* style pour articles et commentaires */
+
+
+.article-title {
+    font-size: 36px;
+    margin-top: 0;
+}
+
+.article-time {
+    font-size: 16px;
+    color: black;
+}
+
+.article-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+}
+
+.author {
+    font-weight: bold;
+}
+
+.comments-section {
+    margin-top: 20px;
+}
+
+.section-title {
+    font-size: 24px;
+    margin-top: 0;
+}
+
+.comments-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.comment {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.comments-container-parent {
+    border: 1px solid #DDDDDDDD;
+    padding: 5px;
+}
+
+.comment-container {
+
+    display: flex;
+    flex-wrap: wrap;
+    min-height: 80px;
+
+}
+
+.comment-img img {
+    border-radius: 50%;
+    height: 60px;
+    min-width: 50px;
+    text-align: center;
+}
+
+.comment-info {
+    flex: 1;
+    padding: 5px 15px;
+}
+
+.comment-author {
+    font-weight: bold;
+}
+
+.comment-text {
+    margin-top: 10px;
+    display: block;
+    padding: 0;
+}
+
+/* ajouter un commentaire - form */
+.comment-block {
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin: 10px 0;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Style de base pour le footer */
+footer {
+    background-color: black;
+    color: white;
+    padding: 10px 0;
+    /* Réduire la hauteur du padding */
+    text-align: center;
+    margin-top: 50px;
+    width: 100%;
+    bottom: 0;
+}
+
+/* Style pour la section "footer-content" avec les icônes sociales et les liens */
 .footer-content {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     flex-wrap: wrap;
 }
 
 /* Style pour les icônes sociales */
 .social-icons {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
     display: flex;
-    gap: 10px; /* Espacement entre les icônes sociales */
+    align-items: center;
 }
 
 .social-icon {
-    color: white; /* Couleur des icônes */
-    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
-    transition: color 0.3s; /* Transition de couleur */
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
+    margin: 0 10px;
+    display: flex;
 }
 
 .social-icon:hover {
-    color: #55acee; /* Couleur au survol */
+    color: #55acee;
 }
 
-/* Style pour les liens dans le pied de page */
+/* Style pour les liens dans la section "footer-links" */
 .footer-links {
     list-style-type: none;
+    margin: 0;
     padding: 0;
+
 }
 
 .footer-links li {
-    margin: 5px 0;
+    margin: 0 10px;
+    /* Espacement entre les liens */
 }
 
 .footer-links a {
-    color: white; /* Couleur des liens */
-    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
-    transition: color 0.3s; /* Transition de couleur */
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s;
 }
 
 .footer-links a:hover {
-    color: #55acee; /* Couleur au survol */
+    color: #55acee;
 }
 
 /* Style pour le lien "Admin" */
 .footer-administration {
-    margin-top: 10px;
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .footer-administration a {
-    color: white; /* Couleur du lien "Admin" */
-    text-decoration: none; /* Supprimer les soulignements par défaut des liens */
+    color: white;
+    text-decoration: none;
     transition: color 0.3s;
-    font-size: 14px;
-    
-
-    
-     /* Transition de couleur */
+    font-size: 10px;
 }
 
 .footer-administration a:hover {
-    color: darkgray; /* Couleur au survol */
+    color: darkgray;
 }
 
-/* Style pour le texte en bas du pied de page */
+/* Style pour le texte en bas du footer */
 .footer-bottom {
     margin-top: 20px;
-   
 }
 
 .footer-bottom p {
-    font-size: 14px; /* Taille de police */
+    font-size: 10px;
 }
 
-/* Style pour l'icône GitHub */
-.social-icon strong.fab.fa-github::before {
-    font-family: "Font Awesome 5 Brands";
+.confidential {
+    font-size: 8px;
 }
 
-/* Style pour les autres icônes sociales */
-.social-icon strong.fab::before {
-    font-family: "Font Awesome 5 Brands";
+.credit {
+    font-size: 8px;
 }

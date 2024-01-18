@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+{# on prend les blocs de style de et de base.html.twig #}
+{% block style %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+{% endblock %}
+{% block body %}
+	<table id="article_table" class="display">
+		<thead>
+			<tr>
+
+				<th>Date</th>
+				<th>content</th>
+				<th>Pseudo</th>
+				<th>Action</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			{% for comment in allComments %}
+				<tr>
+					<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+					<td>{{ comment.content }}</td>
+					<td>{{ comment.pseudo }}</td>
+					<td></td>
+
+				</tr>
+								
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}
+{% block js %}
+	{{ parent() }}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+	<script src="../js/datatable_init.js"></script>
+{% endblock %}

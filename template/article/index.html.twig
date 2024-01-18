@@ -1,19 +1,20 @@
+{# Dans votre fichier article/index.html.twig #}
+
+
 {% extends 'base.html.twig' %}
-
 {% block body %}
- <div class="container">
-        <div class="article">
-            <h2><a href="lien_vers_le_blog_post_1">Titre de l'article 1</a></h2>
-            <div class="date">Date de dernière modification : 10 septembre 2023</div>
-            <p>Chapô  blablablablabla.</p>
-        </div>
-        <div class="article">
-            <h2><a href="lien_vers_le_blog_post_2">Titre de l'article 2</a></h2>
-            <div class="date">Date de dernière modification : 5 septembre 2023</div>
-            <p>Chapô de l'article 2. re blablablablabla</p>
-        </div>
-        
-    </div>
+    <h1>Liste des Articles</h1>
 
-
+    <ul>
+        {% for article in articles %}
+            <li>
+                <h2>{{ article.title }}</h2>
+                {% if article.updateDate %}
+                    <p>Date de Modification : {{ article.updateDate|date('d/m/Y') }}</p>
+                {% endif %}
+                <p>Chapô : {{ article.chapo }}</p>
+                <p><a href="/article/{{ article.id }}" target="_blank">Lire l'article</a></p>
+            </li>
+        {% endfor %}
+    </ul>
 {% endblock %}

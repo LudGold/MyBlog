@@ -1,0 +1,17 @@
+<form {{article ? ("action=/admin/changeArticle/" ~article.id) :("action=/admin/newArticle" )}}  method="post" class="form-article">
+	<label for="title">Titre de l'article:</label>
+	<input type="text" name="title" value="{{ article.title|default('') }}" required>
+	<label for="chapo">Petit résumé:</label>
+	<input type="text" name="chapo" value="{{ article.chapo|default('') }}" required>
+	<label for="content">Ecrivez votre article ici:</label>
+	<input type="text" name="content" rows="4" value="{{ article.content|default('') }}" required>
+
+		<label for="userId">Auteur:</label>
+	{% if article %}
+	<input type="text" name="name" value ="{{article.firstname}} {{article.lastname}}">
+	{% else %}
+	<input type="text" name="name" value ="{{userName}}">
+	{% endif %}
+	<input type="submit" name="submit" value="Valider">
+
+</form>

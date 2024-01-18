@@ -2,8 +2,6 @@
 
 namespace App\Model\Entity;
 
-use PDO;
-
 class User
 {
     private ?int $id = null;
@@ -11,19 +9,39 @@ class User
     private ?string $firstname = null;
     private ?string $mail = null;
     private ?string $password = null;
-    private ?array $role = [];
+    private $role = [];
     private $creationDate;
+    private ?string $registrationToken = null; 
+    private ?string $resetToken = null;
+    private ?bool $isConfirmed;
 
     const ROLES = [
         1 => 'member',
-        2 => 'admin'
+        2 => 'admin',
     ];
 
-    public function __construct()
+    public function __construct(array $datas = [])
     {
         $this->creationDate = new \DateTime();
+        $this->isConfirmed = false;
+        $this->registrationToken = bin2hex(random_bytes(32));
+        $this->role = self::ROLES[1];
+        foreach ($datas as $attr => $value) {
+            $method = "set" . ucfirst($attr);
+            if (is_callable([$this, $method])) {
+                $this->$method($value);
+            }
+        }
+    }
+    public function getCreationDate(): \DateTime
+    {
+        return $this->creationDate;
     }
 
+    public function setCreationDate(\DateTime $creationDate): void
+    {
+        $this->creationDate = $creationDate;
+    }
     public function getId(): ?int
     {
         return $this->id;
@@ -80,17 +98,44 @@ class User
     // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
     public function getRoles(): array
     {
-        $roleStrings = [];
-        foreach ($this->role as $role) {
-            if (isset(self::ROLES[$role])) {
-                $roleStrings[] = self::ROLES[$role];
-            }
-        }
-        return $roleStrings;
+        return array_unique([$this->role, self::ROLES[2]]);
     }
-    public function setRoles(array $role): void
+    public function setRoles($role): void
     {
-        $this->role = $role;
+        $this->role = json_decode($role);
     }
-}
+    public function setRegistrationToken(?string $registrationToken): void
+    {
+        $this->registrationToken = $registrationToken;
+    }
 
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+    public function setResetToken(?string $resetToken): void
+    {
+        $this->resetToken = $resetToken;
+    }
+
+    public function getRegistrationToken(): ?string
+    {
+        return $this->registrationToken;
+    }
+
+    public function getIsConfirmed(): ?bool
+    {
+        return $this->isConfirmed;
+    }
+
+    public function setIsConfirmed(bool $isConfirmed): self
+    {
+        $this->isConfirmed = $isConfirmed;
+
+        return $this;
+    }
+    public function getFullName(): ?string
+{
+    return $this->firstname . ' ' . $this->lastname;
+}
+}

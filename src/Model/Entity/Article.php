@@ -1,48 +1,93 @@
 <?php
+
 namespace App\Model\Entity;
 
-class Article {
+use DateTime;
+use App\Model\Repository\UserRepository;
+
+class Article
+{
     private ?int $id = null;
-    private ?string $title = null;
-    private \DateTime $date;
-    private \DateTime $updateDate;
-    private ?string $content = null;
-    private ?string $chapo = null;
     private ?int $userId = null;
+    private ?string $title = null;
+    private ?string $chapo = null;
+    private string|\DateTime $date;
+    private \DateTime|string|null $updateDate = null;
+    private ?string $content = null;
+    private ?string $slug = null;
 
     // Constructeur de la classe
-    public function __construct(array $datas=[])
+    public function __construct(array $datas = [])
     {
         $this->date = new \DateTime();
-        foreach($datas as $attr=>$value){
-            $method="set".ucfirst($attr);
-            if(is_callable([$this,$method])){
-                $this->$method($value);
+        foreach ($datas as $attr => $value) {
+            $method = "set" . ucfirst($attr);
+            if (is_callable([$this, $method])) {
+                if (method_exists($this, $method) && isset($value)) {
+                        $this->$method($value);
+                    }
+                }
             }
-        }
     }
 
-    // Méthodes à mettre en place (get, set etc..) de connexion
-    public function getId(): ?int {
+    public function generateSlug(): void
+    {
+
+        $slug = strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', '-', $this->title . '-' . $this->id)));
+        $this->slug = $slug;
+    }
+
+    public function getId(): ?int
+    {
         return $this->id;
     }
-    
+
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+        $this->generateSlug();
+    }
+
     public function getTitle(): string
     {
         return $this->title;
-    } 
-    
-    public function setTitle(string $title): void
-    {
-        $this->title = $title; 
     }
 
-    public function setUpdateDate(\DateTime $updateDate): void
+    public function setDate($date): void
+{
+    if (is_string($date)) {
+        $date = new DateTime($date);
+    }
+    $this->date = $date;
+}
+public function getDate(): string|\DateTime
+{
+    if(is_string($this->date))
     {
-        $this->updateDate = $updateDate; 
+        $this->date = new \DateTime($this->date);
     }
 
-    public function setContent(string $content): void
+    return $this->date;
+}
+    //  * @param \DateTime|null $updateDate
+    //  */    
+    public function setUpdateDate(\DateTime|string|null $updateDate): void
+{
+    if (is_string($updateDate)) {
+        $updateDate = new \DateTime($updateDate);
+    }
+    $this->updateDate = $updateDate;
+}
+
+public function getUpdateDate(): \DateTime|string|null
+{
+    if(is_string($this->updateDate))
+    {
+        $this->updateDate = new \DateTime($this->updateDate);
+    }
+    return $this->updateDate;
+}
+    public function setContent(?string $content): void
     {
         $this->content = $content;
     }
@@ -52,7 +97,7 @@ class Article {
         return $this->content;
     }
 
-    public function setChapo(string $chapo): void
+    public function setChapo(?string $chapo): void
     {
         $this->chapo = $chapo;
     }
@@ -70,5 +115,15 @@ class Article {
     public function getUserId(): ?int
     {
         return $this->userId;
+    }
+ 
+    public function setSlug(string $slug): void
+    {
+        $this->slug = $slug;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 }

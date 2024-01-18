@@ -5,8 +5,12 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<meta name="description" content="">
 		<meta name="author" content="">
-		<link rel="stylesheet" type="text/css" href="/css/style.css ">
-
+		{% block style %}
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+		<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="/css/style.css">
+		{% endblock %}
+		 <title>{% block title %}{% endblock %}</title>
 	</head>
 
 	<body>
@@ -16,96 +20,120 @@
 
 		<div class="navbar" id="navbar">
 			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a class="nav-link " href="#home">Accueil</a>
+				<li class="nav-item blog-brand">
+
+					<a class="nav-link " id="blog-name" href="#home">My Blog</a>
+					<img src="./img/blog-img.jpg" alt="Logo du blog" id="blog-logo">
 				</li>
-				<li class="nav-item">
+				<li class="nav-item accueil">
+					<a class="nav-link " href="/">Accueil</a>
+				</li>
+				<li class="nav-item who">
 					<a class="nav-link " href="#about">Qui suis-je?</a>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item parcours">
 					<a class="nav-link " href="#cv">Parcours</a>
 
 				</li>
-				<li class="nav-item">
+				<li class="nav-item realisations">
 					<a class="nav-link " href="#portfolio">Réalisations</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link " href="#articles">Articles</a>
+				<li class="nav-item articles">
+					<a class="nav-link " href="/articles">Articles</a>
 					<ul class="edit-articles">
+					<li>
+							<a href="/admin/articles">Index des articles</a>
+						</li>
 						<li>
-							<a href="#add-article">Ajouter un article</a>
+							<a href="/admin/newArticle">Ajouter un article</a>
 						</li>
 						<li>
 							<a href="#comments-article">Commenter l'article</a>
 						</li>
-
+						
 					</ul>
 				</li>
-				<li class="nav-item">
+				<li class="nav-item contact">
 					<a class="nav-link" href="#rs">Me contacter</a>
 				</li>
-				<li class="nav-item">
-					<a class="nav-link " href="/user/login">Connexion</a>
 
-				</li>
-				<li>
-					<a class="nav-link " href="/user/signin">S'inscrire</a>
-				</li>
-			</ul>
-		</div>
-		<main>
-			<h1>Ma page web</h1>
-			<p>Aujourd'hui nous sommes le
-			</p>
-		</main>
-		{% block body %}{% endblock %}
-
-
-		<footer>
-			<div class="footer-content">
-				<div class="social-icons">
-				<li>
-						<a href="#">Contactez Moi</a>
+				{% if userLoggedIn %}
+					<li>
+						<a class="nav-link logout" href="/deconnexion">Déconnexion</a>
 					</li>
-					<a href="#" class="social-icon">
-						<strong class="fab fa-facebook">facebook</strong>
-					</a>
-					<a href="#" class="social-icon">
-						<strong class="fab fa-x">twitter</strong>
-					</a>
-					<a href="#" class="social-icon">
-						<strong class="fab fa-linkedIn">linkedIn</strong>
-					</a>
-					<a href="https://github.com/LudGold" target="_blank">
-						<strong class="fab fa-github">github</strong>
-					</a>
+				{% else %}
+					<li class="nav-item connexion">
+						<a class="nav-link login" href="/login">Connexion</a>
+					</li>
+					<li>
+						<a class="nav-link sign-in" href="/register">S'inscrire</a>
+					</li>
+					</ul>
+				{% endif %}
+			</div>
+			{# Utilisation de session.flash #}
+			{% if flashMessages %}
+				{% for message in flashMessages %}
+					<div class="flash-message {{ message.type }}">
+						{{ message.message }}
+					</div>
+				{% endfor %}
+			{% endif %}
 
+
+			{% block body %}{% endblock %}
+
+
+			<footer>
+				<div class="footer-content">
+					<div class="social-icons">
+						<li>
+							<a href="ludivinezarkos@gmail.com">Contactez Moi</a>
+
+						</li>
+						<a href="#" class="social-icon">
+							<i class="fas fa-solid fa-envelope"></i>
+						</a>
+						<a href="#" class="social-icon">
+							<i class="fab fa-facebook"></i>
+						</a>
+						<a href="#" class="social-icon">
+							<i class="fab fa-twitter"></i>
+						</a>
+						<a href="#" class="social-icon">
+							<i class="fab fa-linkedin"></i>
+						</a>
+						<a href="https://github.com/LudGold" target="_blank">
+							<i class="fab fa-github"></i>
+						</a>
+
+					</div>
+
+					<ul class="footer-links">
+						<li>
+							<a href="#" class="confidential">Politique de confidentialité</a>
+						</li>
+						<li>
+							<a href="#" class="credit">Credits</a>
+						</li>
+
+					</ul>
 				</div>
 
-				<ul class="footer-links">
-					<li>
-						<a href="#">Politique de confidentialité</a>
-					</li>
-					<li>
-						<a href="#">Credits</a>
-					</li>
-					
+				<div class="footer-bottom">
+					<p>&copy;
+						<span id="current-year">2023</span>
+						LudGold. All Rights Reserved.</p>
 
-				</ul>
-			</div>
-
-			<div class="footer-bottom">
-				<p>&copy;
-					<span id="current-year">2023</span>
-					LudGold. All Rights Reserved.</p>
-
-				<div class="footer-administration">
-					<li>
-						<a href="#">Mode Admin</a>
-					</li>
+					<div class="footer-administration">
+						<li>
+							<a href="#">Admin</a>
+						</li>
+					</div>
 				</div>
-			</div>
-		</footer>
+			</footer>
+
+			{% block js %}{% endblock %}
+		</body>
 	</body>
-
 </html>
