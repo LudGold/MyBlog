@@ -6,11 +6,13 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		{% block style %}
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-		<link rel="stylesheet" type="text/css" href="/css/normalize.css">
-		<link rel="stylesheet" type="text/css" href="/css/style.css">
+			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+			<link rel="stylesheet" type="text/css" href="/css/normalize.css">
+			<link rel="stylesheet" type="text/css" href="/css/style.css">
 		{% endblock %}
-		 <title>{% block title %}{% endblock %}</title>
+		<title>
+			{% block title %}{% endblock %}
+		</title>
 	</head>
 
 	<body>
@@ -41,16 +43,12 @@
 				<li class="nav-item articles">
 					<a class="nav-link " href="/articles">Articles</a>
 					<ul class="edit-articles">
-					<li>
+						<li>
 							<a href="/admin/articles">Index des articles</a>
 						</li>
 						<li>
 							<a href="/admin/newArticle">Ajouter un article</a>
 						</li>
-						<li>
-							<a href="#comments-article">Commenter l'article</a>
-						</li>
-						
 					</ul>
 				</li>
 				<li class="nav-item contact">
@@ -68,72 +66,78 @@
 					<li>
 						<a class="nav-link sign-in" href="/register">S'inscrire</a>
 					</li>
-					</ul>
-				{% endif %}
-			</div>
-			{# Utilisation de session.flash #}
-			{% if flashMessages %}
-				{% for message in flashMessages %}
-					<div class="flash-message {{ message.type }}">
-						{{ message.message }}
-					</div>
-				{% endfor %}
+				</ul>
 			{% endif %}
+		</div>
+		{# Utilisation de session.flash #}
+		{% if flashMessages %}
+			{% for message in flashMessages %}
+				<div class="flash-message {{ message.type }}">
+					{{ message.message }}
+				</div>
+			{% endfor %}
+		{% endif %}
 
 
-			{% block body %}{% endblock %}
+		{% block body %}{% endblock %}
 
 
-			<footer>
-				<div class="footer-content">
-					<div class="social-icons">
-						<li>
-							<a href="ludivinezarkos@gmail.com">Contactez Moi</a>
+		<footer>
+			<div class="footer-content">
+				<div class="social-icons">
+					<li>
+						<a href="ludivinezarkos@gmail.com">Contactez Moi</a>
 
-						</li>
-						<a href="#" class="social-icon">
-							<i class="fas fa-solid fa-envelope"></i>
-						</a>
-						<a href="#" class="social-icon">
-							<i class="fab fa-facebook"></i>
-						</a>
-						<a href="#" class="social-icon">
-							<i class="fab fa-twitter"></i>
-						</a>
-						<a href="#" class="social-icon">
-							<i class="fab fa-linkedin"></i>
-						</a>
-						<a href="https://github.com/LudGold" target="_blank">
-							<i class="fab fa-github"></i>
-						</a>
+					</li>
+					<a href="#" class="social-icon">
+						<i class="fas fa-solid fa-envelope"></i>
+					</a>
+					<a href="#" class="social-icon">
+						<i class="fab fa-facebook"></i>
+					</a>
+					<a href="#" class="social-icon">
+						<i class="fab fa-twitter"></i>
+					</a>
+					<a href="#" class="social-icon">
+						<i class="fab fa-linkedin"></i>
+					</a>
+					<a href="https://github.com/LudGold" target="_blank">
+						<i class="fab fa-github"></i>
+					</a>
 
-					</div>
-
-					<ul class="footer-links">
-						<li>
-							<a href="#" class="confidential">Politique de confidentialité</a>
-						</li>
-						<li>
-							<a href="#" class="credit">Credits</a>
-						</li>
-
-					</ul>
 				</div>
 
-				<div class="footer-bottom">
-					<p>&copy;
-						<span id="current-year">2023</span>
-						LudGold. All Rights Reserved.</p>
+				<ul class="footer-links">
+					<li>
+						<a href="#" class="confidential">Politique de confidentialité</a>
+					</li>
+					<li>
+						<a href="#" class="credit">Credits</a>
+					</li>
 
-					<div class="footer-administration">
-						<li>
-							<a href="#">Admin</a>
-						</li>
-					</div>
+				</ul>
+			</div>
+
+			<div class="footer-bottom">
+				<p>&copy;
+					<span id="current-year">2023</span>
+					LudGold. All Rights Reserved.</p>
+
+				<div class="footer-administration">
+					<li>
+						<a href="#">Admin</a>
+					</li>
+					<li>
+						<a href="/admin/comment/index">index</a>
+
+						<a href="/admin/comment/comments_pending">Commentaires soumis en attente</a>
+						<a href="/admin/comment/comments_approved">Commentaires approuvés</a>
+						<a href="/admin/comment/comments_rejected">Commentaires refusés</a>
+					</li>
 				</div>
-			</footer>
+			</div>
+		</footer>
 
-			{% block js %}{% endblock %}
-		</body>
+		{% block js %}{% endblock %}
 	</body>
-</html>
+</html></body></html>

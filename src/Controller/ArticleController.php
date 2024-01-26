@@ -20,14 +20,15 @@ class ArticleController extends AbstractController
         ]);
     }
 
-
     public function show(int $articleId)
     {
         $articleRepository = new ArticleRepository();
         $article = $articleRepository->getArticleById($articleId);
+       
         // Récupérer les commentaires associés à l'article depuis le CommentRepository
         $commentRepository = new CommentRepository();
         $comments = $commentRepository->getCommentsByArticleId($articleId);
+
         if (!$article) {
             // Gérer le cas où l'article n'est pas trouvé
             // Peut-être rediriger l'utilisateur ou afficher un message d'erreur
@@ -37,34 +38,38 @@ class ArticleController extends AbstractController
         return $this->render("article/show.html.twig", [
             'article' => $article,
             'comments' => $comments,
+           
         ]);
+       
     }
     // Ajoutez cette fonction à votre ArticleAdminController
     public function submitComment(int $articleId)
     {
         if ($this->isSubmitted('submit') && $this->isValided($_POST)) {
-        // Récupérer les données du formulaire
-        $pseudo = $_POST['pseudo'];
-        $mail = $_POST['mail'];
-        $content = $_POST['content'];
+          
+            // Récupérer les données du formulaire
+            $pseudo = $_POST['pseudo'];
+            $mail = $_POST['mail'];
+            $content = $_POST['content'];
 
 
-        // Créer une instance de la classe Comment avec les données
-        $commentData = [
-            'pseudo' => $pseudo,
-            'mail' => $mail,
-            'content' => $content,
-            'articleId' => $articleId,
-        ];
+            // Créer une instance de la classe Comment avec les données
+            $commentData = [
+                'pseudo' => $pseudo,
+                'mail' => $mail,
+                'content' => $content,
+                'articleId' => $articleId,
+            ];
 
-        $commentRepository = new CommentRepository();
-        $newComment = new Comment($commentData);
+            $commentRepository = new CommentRepository();
+            $newComment = new Comment($commentData);
+            
+            // Enregistrer le commentaire dans la base de données
+            $commentRepository->saveComment($newComment);
 
-        // Enregistrer le commentaire dans la base de données
-        $commentRepository->submitComment($newComment);
-
-        // message de succès
-        $this->addFlash('success', 'Commentaire ajouté avec succès. En attente d\'approbation.');
+            // message de succès
+            $this->addFlash('success', 'Commentaire ajouté avec succès. En attente d\'approbation.');
+        }
+        $this->redirect("/article/{$articleId}");
     }
-}
 }

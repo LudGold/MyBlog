@@ -9,7 +9,8 @@
 	<p>Contenu :
 		{{ article.content }}</p>
 	<p>Auteur :
-		{{ article.getAuthorFullName }}</p>
+		{{ article.firstname }} {{ article.lastname }}</p>
+		
 	{% if article.updateDate %}
 		<p>Date de Modification :
 			{{ article.updateDate|date('d/m/Y') }}</p>

@@ -3,7 +3,7 @@
 namespace App\Model\Entity;
 
 use DateTime;
-use App\Model\Repository\UserRepository;
+
 
 class Article
 {
@@ -116,7 +116,7 @@ public function getUpdateDate(): \DateTime|string|null
     {
         return $this->userId;
     }
- 
+    
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;

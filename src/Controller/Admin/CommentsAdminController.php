@@ -3,70 +3,61 @@
 namespace App\Controller\Admin;
 
 use Core\component\AbstractController;
-use App\Model\Entity\Comment;
+use App\Service\CommentHandler;
+use App\Model\Repository\CommentRepository; 
 
-use App\Model\Repository\CommentRepository;
 
 
 class CommentsAdminController extends AbstractController
 {
+    private $commentHandler;
 
+    public function __construct()
+    {
+        parent::__construct();
+        // Initialisation directe dans le constructeur
+        $this->commentHandler = new CommentHandler(new CommentRepository());
+    }
     public function showPendingComments()
     {
-        $commentRepository = new CommentRepository();
-        $pendingComments = $commentRepository->getPendingComments(); // Assurez-vous d'avoir une méthode dans le repository pour récupérer les commentaires en attente
-
+        $pendingComments = $this->commentHandler->getPendingComments();
         return $this->render("admin/comment/comments_pending.html.twig", [
             'pendingComments' => $pendingComments,
         ]);
     }
     public function showApprovedComments()
     {
-        $commentRepository = new CommentRepository();
-        $approvedComments = $commentRepository->getApprovedComments();
-
+        $approvedComments = $this->commentHandler->getApprovedComments();
         return $this->render("admin/comment/comments_approved.html.twig", [
             'approvedComments' => $approvedComments,
         ]);
     }
     public function showRejectedComments()
     {
-        $commentRepository = new CommentRepository();
-        $rejectedComments = $commentRepository->getRejectedComments();
-
+        $rejectedComments = $this->commentHandler->getRejectedComments();
         return $this->render("admin/comment/comments_rejected.html.twig", [
             'rejectedComments' => $rejectedComments,
         ]);
     }
-    public function rejectedComments()
-    {
-        // faire un service d'envoi de mail avec message "le commentaire ne correspond pas aux cgv du site"
-    }
 
     public function showAllComments()
     {
-        $commentRepository = new CommentRepository();
-        $allComments = $commentRepository->getAllComments();
+        $commentsWithStatus = $this->commentHandler->getAllCommentsWithStatus();
+        return $this->render('admin/comment/index.html.twig', [
+            'allComments' => $commentsWithStatus,
+        ]);}
 
-        return $this->render("admin/comment/index.html.twig", [
-            'allComments' => $allComments,
-        ]);
-    }
-
-
-    public function validateComment()
+    public function checkedComment()
     {
         $this->isAdmin();
 
-        // Récupérer la valeur de 'action' depuis $_POST
-        $action = isset($_POST['action']) ? $_POST['action'] : null;
-
-        if ($action === 'validate') {
-            // Logique pour valider le commentaire
-        } elseif ($action === 'reject') {
-            // Logique pour rejeter le commentaire
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action'])) {
+            [$type, $message] = $this->commentHandler->handleCommentAction($_POST['commentId'], $_POST['action']);
+            $this->addFlash($type, $message);
+        } else {
+            $this->addFlash('error', 'Requête invalide.');
         }
-        $this->addFlash('success', 'Le commentaire a été validé avec succès.');
         return $this->redirect("/admin/comment/index");
     }
+
 }
