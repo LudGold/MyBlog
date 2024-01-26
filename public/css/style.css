@@ -9,16 +9,18 @@ body {
     justify-content: center;
     text-align: center;
 }
+
 .navbar {
     width: 100%;
     height: 250px;
     display: flex !important;
     background-image: url('../img/header.png');
-    background-size: cover; /* Assurez-vous que l'image couvre toute la barre */
+    background-size: cover;
+    /* Assurez-vous que l'image couvre toute la barre */
     background-repeat: no-repeat;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    justify-content: flex-end!important;
-    }
+    justify-content: flex-end !important;
+}
 
 
 .blog-brand {
@@ -28,20 +30,22 @@ body {
 }
 
 .navbar.with-background a.nav-link:hover {
-    background-color: rgba(0,123,255,.25);
+    background-color: rgba(0, 123, 255, .25);
     border-radius: 10px;
-    color: #ffffff; /* Changer la couleur du texte au survol, si nécessaire */
-     transition: background-color 0.5s ease, color 0.5s ease;  
+    color: #ffffff;
+    /* Changer la couleur du texte au survol, si nécessaire */
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
 .who {
     width: 50%;
 }
+
 .navbar ul.navbar-nav {
-      display: flex;
+    display: flex;
     align-items: center;
     flex-direction: row;
-   
+
 }
 
 /* Style pour les éléments de la liste */
@@ -58,7 +62,7 @@ body {
     padding: 14px 16px;
     transition: background-color 0.3s;
     font-size: larger;
-   }
+}
 
 /* Style pour les liens au survol */
 .navbar a.nav-link:hover {
@@ -73,15 +77,11 @@ body {
 /* Style pour le menu déroulant des articles */
 .navbar .edit-articles {
     display: none;
-    /* Caché par défaut */
     position: absolute;
-    background-color: rgba(0,123,255,.25);
+    background-color: rgba(0, 123, 255, .25);
     border-radius: 10px;
-    /* Couleur de fond */
     min-width: 100px;
-    /* Largeur du menu déroulant */
     z-index: 1;
-    /* Place au-dessus des autres éléments */
 
 }
 
@@ -112,9 +112,10 @@ body {
     display: block;
 }
 
-.welcome{
+.welcome {
     text-align: center;
 }
+
 .erreur {
     font-size: 4em;
     color: #333;
@@ -182,7 +183,7 @@ a {
 .form-article input[type="submit"] {
     width: auto;
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #0056b3;
     color: #fff;
     border: none;
     border-radius: 3px;
@@ -191,7 +192,7 @@ a {
 }
 
 .form-article input[type="submit"]:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
 }
 
 /* .change-article {
@@ -321,10 +322,23 @@ a {
 }
 
 .success {
-    background-color: #4CAF50;
+    background-color: #7ebe80;
     /* couleur de fond pour les messages de succès */
     color: white;
+    width: 20%;
+    text-align: center;
+    border-radius: 10px;
+    margin: 0 auto;
+}
 
+.success::before {
+    content: "😊";
+    /* Caractère Unicode pour un émoticône sourire */
+    display: block;
+    font-size: 42px;
+    /* Taille de police pour l'émoticône (ajustez selon vos besoins) */
+    margin-bottom: 10px;
+    /* Espace entre l'émoticône et le texte du message */
 }
 
 .error {
@@ -440,9 +454,10 @@ button:hover {
 
 /* style pour articles et commentaires */
 
-.article-list{
-    list-style-type: none;  
+.article-list {
+    list-style-type: none;
 }
+
 .article-title {
     font-size: 36px;
     margin-top: 0;
