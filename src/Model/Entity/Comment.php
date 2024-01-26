@@ -15,15 +15,17 @@ class Comment
     private ?int $userId = null; // mettre le lastname du userid methode getauthorfullname
     private ?string $mail = null;
     private ?bool $isPending;
-    private ?bool $isApprouved;
+    private ?bool $isApproved;
     private ?bool $isRejected;
+    private ?string $status = null;
+    
 
 
     public function __construct(array $datas = [])
     {
         $this->date = new \DateTime();
         $this->isPending = false;
-        $this->isApprouved = false;
+        $this->isApproved = false;
         $this->isRejected = false;
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
@@ -111,14 +113,14 @@ public function getDate(): string|\DateTime
 
         return $this;
     }
-    public function getIsApprouved(): ?bool
+    public function getIsApproved(): ?bool
     {
-        return $this->isApprouved;
+        return $this->isApproved;
     }
 
-    public function setIsApprouved(bool $isApprouved): self
+    public function setIsApproved(bool $isApproved): self
     {
-        $this->isApprouved = $isApprouved;
+        $this->isApproved = $isApproved;
 
         return $this;
     }
@@ -132,6 +134,18 @@ public function getDate(): string|\DateTime
         $this->isRejected = $isRejected;
 
         return $this;
+    }
+    public function getStatus(): ?string
+    {
+        if ($this->isPending) {
+            return 'En attente';
+        } elseif ($this->isApproved) {
+            return 'Approuvé';
+        } elseif ($this->isRejected) {
+            return 'Rejeté';
+        } else {
+            return null;
+        }
     }
 
 }

@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Modifier mon profil</h2>
+
+    <form action="/editProfil" method="post" >
+        <label for="firstname">Prénom:</label>
+        <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}">
+        <br>
+
+        <label for="lastname">Nom:</label>
+        <input type="text" id="lastname" name="lastname" value="{{ user.lastname }}" >
+        <br>
+
+        <label for="mail">Email:</label>
+        <input type="email" id="mail" name="mail" value="{{ user.mail }}">
+        <br>
+
+        <label for="password">Nouveau mot de passe:</label>
+        <input type="password" id="password" name="password" value="{{ user.password}}">
+        <br>
+
+        <button type="submit" name="submit" value="enregistrer">Enregistrer</button>
+    </form>
+{% endblock %}

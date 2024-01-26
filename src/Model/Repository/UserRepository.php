@@ -119,6 +119,28 @@ class UserRepository
         }
     }
 
+    public function editProfil(User $user)
+    {
+
+        try {
+            $sql = "UPDATE user 
+                SET lastname = :lastname, firstname = :firstname, mail = :mail, password = :password
+                WHERE id = :id";
+
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':id' => $user->getId(),
+                ':lastname' => $user->getLastname(),
+                ':firstname' => $user->getFirstname(),
+                ':mail' => $user->getMail(),
+                ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
+            ]);
+
+            
+        } catch (PDOException $e) {
+            echo "Erreur lors de la mise à jour du profil : " . $e->getMessage();
+        }
+    }
 
     //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()
@@ -135,17 +157,9 @@ class UserRepository
 
         return $users;
     }}
-//     public function deleteUser($id)
-//      {
-//         try {
-//              $sql = "DELETE FROM user WHERE id = :id";
-//              $stmt = $this->db->prepare($sql);
-//              $stmt->execute([':id' => $id]);
-//              echo "L'utilisateur avec l'ID $id a été supprimé avec succès de la base de données.";
-//          } catch (PDOException $e) {
-//              echo "Erreur lors de la suppression de l'utilisateur : " . $e->getMessage();
-//          } 
-// }}
+    
+
+
     // public function editRoleUser($role)
     // {
         

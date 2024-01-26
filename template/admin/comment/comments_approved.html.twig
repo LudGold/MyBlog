@@ -1,41 +1,45 @@
 {% extends 'base.html.twig' %}
 
 {% block style %}
-    {{ parent() }}
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
 
 {% block body %}
-    <h2>Commentaires validés</h2>
-    
-    <table id="comments_approved_table" class="display">
-        <thead>
-            <tr>
-                <th>Auteur</th>
-                <th>Date de Publication</th>
-                <th>Contenu</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for comment in approvedComments %}
-                <tr>
-                    <td>{{ comment.name }}</td>
-                   <td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
-                    <td>{{ comment.content }}</td>
-                    <td>
-                        <a href='/admin/rejectedArticle/{{ comment.id }}'>
-							<i class="fas fa-times">Rejeter</i>
-						</a>
-                    </td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-{% endblock %}
+	<h2>Commentaires validés</h2>
 
-{% block js %}
-    {{ parent() }}
-    <!-- Ajoutez les scripts JS spécifiques à cette page si nécessaire -->
-    <script src="../js/comments_approved.js"></script>
+	<table id="comments_approved_table" class="display">
+		<thead>
+			<tr>
+				<th>Auteur</th>
+				<th>Date de Publication</th>
+				<th>Contenu</th>
+				<th>Mail</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for comment in approvedComments %}
+				<tr>
+					<td>{{ comment.pseudo }}</td>
+					<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+					<td>{{ comment.content }}</td>
+					<td>{{ comment.mail }}</td>
+					<td>{{ comment.status }}</td>
+					<td>
+						<form action="/admin/check-comment" method="POST">
+							<input type="hidden" name="commentId" value="{{ comment.id }}">
+
+							<select name="action">
+								<option value=""></option>
+								<option value="reject">Rejeter</option>
+							</select>
+
+							<button type="submit">Soumettre</button>
+						</form>
+					</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
 {% endblock %}

@@ -206,4 +206,36 @@ class UserController extends AbstractController
 
         return $this->redirect('/login');
     }
+
+    public function editProfil()
+    {
+        // 1. Récupérer l'utilisateur actuellement connecté
+        $userId = $_SESSION['userId'];
+
+        $userRepository = new UserRepository();
+        $user = $userRepository->getUserBy('id', $userId);
+
+        if (!$user) {
+            // Gérer le cas où l'utilisateur n'est pas trouvé
+            return $this->redirect('/');
+        }
+        // Valider et traiter les données du formulaire
+        if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
+           
+            $user->setLastname($_POST['lastname']);
+            $user->setFirstname($_POST['firstname']);
+            $user->setMail($_POST['mail']);
+            $user->setPassword($_POST['password']);
+            $userRepository->saveUser($user);
+
+            // Rediriger l'utilisateur après la mise à jour
+            return $this->redirect('/');
+        } else {
+            // Gérer le cas où la validation échoue
+            $this->addFlash('error', 'Erreur de validation. Veuillez vérifier vos données.');
+        }
+
+        // Afficher le formulaire avec les valeurs actuelles
+        return $this->render('/editProfil.html.twig', ['user' => $user]);
+    }
 }

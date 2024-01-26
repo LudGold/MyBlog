@@ -12,9 +12,11 @@ class AbstractController
 
     public function __construct()
     {
+        
         $loader = new FilesystemLoader(TEMPLATE_DIR . '//');
         $this->twig = new Environment($loader, ["debug" => true]);
         $this->twig->addExtension(new DebugExtension());
+        
     }
 
     public function render($template, array $datas = [])

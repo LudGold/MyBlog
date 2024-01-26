@@ -2,7 +2,7 @@
 namespace App\Controller;
 
 use Core\component\AbstractController;
-use App\Model\Entity\Article;
+
 
 class HomeController extends AbstractController{
     

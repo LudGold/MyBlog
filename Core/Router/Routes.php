@@ -14,12 +14,15 @@ Router::all('/admin/deleteArticle/{articleId}', "Admin\ArticleAdminController@de
 Router::get('/admin/comment/comments_pending', "Admin\CommentsAdminController@showPendingComments")->setName("admin_pending_comments");
 Router::get('/admin/comment/comments_approved', "Admin\CommentsAdminController@showApprovedComments")->setName("admin_approved_comments");
 Router::get('/admin/comment/comments_rejected', "Admin\CommentsAdminController@showRejectedComments")->setName("admin_rejected_comments");
+Router::post('/admin/check-comment', "Admin\CommentsAdminController@checkedComment")->setName("check_comment");
 Router::get('/admin/comment/index', "Admin\CommentsAdminController@showAllComments")->setName("admin_allComments");
 Router::post('/article/{articleId}/submitComment', "ArticleController@submitComment")->setName("submitComment");
+Router::all('/admin/check-comment/reject', "Admin\CommentsAdminController@rejectedComments")->setName("rejectComment");
 Router::get('/articles', "ArticleController@displayAllArticles")->setName("articles");
 Router::all('/article/{articleId}', "ArticleController@show")->setName("article_show");
 Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
+Router::all('/editProfil', "UserController@editProfil")->setName("profil_modifié");
 Router::all('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
 Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");
 Router::all('/login', "UserController@loginUser")->setName("login");
