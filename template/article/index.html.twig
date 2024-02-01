@@ -3,9 +3,10 @@
 
 {% extends 'base.html.twig' %}
 {% block body %}
+    <div class="title-article">
     <h1>Liste des Articles</h1>
-
-    <ul>
+</div>
+    <ul class="display-article">
         {% for article in articles %}
             <li class="article-list">
                 <h2>{{ article.title }}</h2>
