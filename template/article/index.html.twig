@@ -3,11 +3,12 @@
 
 {% extends 'base.html.twig' %}
 {% block body %}
+    <div class="title-article">
     <h1>Liste des Articles</h1>
-
-    <ul>
+</div>
+    <ul class="display-article">
         {% for article in articles %}
-            <li>
+            <li class="article-list">
                 <h2>{{ article.title }}</h2>
                 {% if article.updateDate %}
                     <p>Date de Modification : {{ article.updateDate|date('d/m/Y') }}</p>

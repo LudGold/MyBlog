@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $('#article_table').DataTable({
         //js où sont toutes les options du tableau de l'index des articles
