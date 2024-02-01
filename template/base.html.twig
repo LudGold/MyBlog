@@ -54,7 +54,14 @@
 				<li class="nav-item contact">
 					<a class="nav-link" href="#rs">Me contacter</a>
 				</li>
-
+				<li class="nav-item profil">
+					<a class="nav-link edit-profil" href="/editProfil">Voir mon profil</a>
+				</li>
+				{% if isAdmin %}
+				<li class="nav-item dashboard">
+					<a class="nav-link dashboard" href="/admin/user/adminDashboard">Tableau de bord</a>
+				</li>
+			 {% endif %}
 				{% if userLoggedIn %}
 					<li>
 						<a class="nav-link logout" href="/deconnexion">Déconnexion</a>
