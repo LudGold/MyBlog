@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h2>Admin Dashboard</h2>
+
+    {% for user in users %}
+        <div>
+            <p>{{ user.lastname }} {{ user.firstname }} - {{ user.mail }}</p>
+            <form action="/admin/user/addRole" method="post">
+                <input type="hidden" name="user_id" value="{{ user.id }}">
+                <label for="role">Role:</label>
+                <select name="role" id="role">
+                    <option value="ROLE_USER" {% if user.role == 'ROLE_USER' %} selected {% endif %}>Utilisateur</option>
+                    <option value="ROLE_ADMIN" {% if user.role == 'ROLE_ADMIN' %} selected {% endif %}>Administrateur</option>
+                </select>
+                <button type="submit">Mettre à jour</button>
+            </form>
+            <hr>
+        </div>
+    {% endfor %}
+{% endblock %}

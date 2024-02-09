@@ -3,38 +3,22 @@
 namespace App\Service;
 
 use Core\Config\ConfigMail;
-use PHPMailer\PHPMailer\Exception;
-
 
 
 
 class EmailCommentNotification extends ConfigMail
 {
+    private $emailRenderer;
 
-    public function __construct()
+    public function __construct(EmailRenderer $emailRenderer)
     {
         parent::__construct();
+        $this->emailRenderer = $emailRenderer;
     }
 
     public function sendEmailComment($comment, $subject)
     {
-        try {
-    
-            $htmlContent = $this->emailRenderer->renderCommentNotificationEmail();
-            //Contenu
-            $this->mailer->isHTML(true);
-            $this->mailer->Subject = $subject;
-            $this->mailer->Body    = $htmlContent;
-            $this->mailer->AltBody = strip_tags($htmlContent);
-
-            //Destinataires
-            $this->mailer->setFrom('nepasrepondre@vdweb.fr', 'myBlog');
-            $this->mailer->addAddress($comment->getMail());
-
-            $this->mailer->send();
-            echo 'Message has been sent';
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$this->mailer->ErrorInfo}";
-        }
+        $htmlContent = $this->emailRenderer->renderCommentNotificationEmail();
+        $this->sendGenericEmail($comment->getMail(), $subject, $htmlContent);
     }
 }

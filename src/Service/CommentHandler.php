@@ -7,6 +7,7 @@ use App\Service\EmailCommentNotification;
 class CommentHandler
 {
     private $commentRepository;
+    private $emailRenderer; 
 
     public function __construct(CommentRepository $commentRepository)
     {
@@ -57,7 +58,7 @@ class CommentHandler
         } elseif ($action === 'reject') {
             $this->commentRepository->rejectedComment($commentId);
             $subject = 'Votre commentaire a été refusé';
-            $emailCommentNotification = new EmailCommentNotification();
+            $emailCommentNotification = new EmailCommentNotification($this->emailRenderer);
             $emailCommentNotification->sendEmailComment($comment, $subject);
             return ['success', 'Le commentaire a été rejeté, un e-mail a été envoyé à l\'utilisateur'];
         } else {

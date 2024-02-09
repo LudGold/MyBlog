@@ -22,12 +22,11 @@ class UserRepository
     public function saveUser(User $user)
     {
         try {
-
             $role =  json_encode($user->getRoles());
             $mail = $user->getMail();
 
             // Vérifier si l'utilisateur existe déjà dans la base de données
-            $existingUser = $this->getUserBy('mail', $mail);
+            $existingUser = $this->getUserBy('registrationToken', $user->getRegistrationToken());
 
             if ($existingUser) {
                 // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
@@ -65,6 +64,7 @@ class UserRepository
             echo "Erreur lors de l'enregistrement de l'utilisateur : " . $e->getMessage();
         }
     }
+
     public function updateResetToken(User $user)
     {
         try {
@@ -119,12 +119,11 @@ class UserRepository
         }
     }
 
-    public function editProfil(User $user)
+    public function editBddProfil(User $user)
     {
-
         try {
             $sql = "UPDATE user 
-                SET lastname = :lastname, firstname = :firstname, mail = :mail, password = :password
+                SET lastname = :lastname, firstname = :firstname, mail = :mail
                 WHERE id = :id";
 
             $stmt = $this->db->prepare($sql);
@@ -133,14 +132,25 @@ class UserRepository
                 ':lastname' => $user->getLastname(),
                 ':firstname' => $user->getFirstname(),
                 ':mail' => $user->getMail(),
-                ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
             ]);
+        
+            // Si un nouveau mot de passe est fourni
+            if (!empty($_POST['new_password'])) {
 
-            
+                $passwordSql = "UPDATE user SET password = :password WHERE id = :id";
+                $passwordStmt = $this->db->prepare($passwordSql);
+                $passwordStmt->execute([
+                    ':id' => $user->getId(),
+                    ':password' => $user->getPassword(), // Assurez-vous que ceci est déjà haché
+                ]);
+            }
         } catch (PDOException $e) {
+            // Annuler la transaction en cas d'erreur
+
             echo "Erreur lors de la mise à jour du profil : " . $e->getMessage();
         }
     }
+
 
     //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()
@@ -156,11 +166,10 @@ class UserRepository
         }
 
         return $users;
-    }}
-    
+    }
+}
+
 
 
     // public function editRoleUser($role)
     // {
-        
-    

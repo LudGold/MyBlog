@@ -12,12 +12,11 @@ class AbstractController
 
     public function __construct()
     {
-        
-        $loader = new FilesystemLoader(TEMPLATE_DIR . '//');
+
+        $loader = new FilesystemLoader(TEMPLATE_DIR . '/');
         $this->twig = new Environment($loader, ["debug" => true]);
         $this->twig->addExtension(new DebugExtension());
-        
-    }
+        }
 
     public function render($template, array $datas = [])
     {
@@ -25,13 +24,13 @@ class AbstractController
         $datas['flashMessages'] = $this->getFlash();
         $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
-        $this->getFlash();   //pour unset le message apres affichage
+        // $this->getFlash();   //pour unset le message apres affichage
 
     }
     public function redirect($url)
     {
-    header("Location:" . $url);
-    exit();
+        header("Location:" . $url);
+        exit();
     }
     public function newSession()
     {
@@ -76,17 +75,107 @@ class AbstractController
 
         return false;
     }
-    public function isValided($inputFields)
+    // public function isValided($inputFields)
+    // {
+    //     // Vérification de base : champs non nuls et non vides
+    //     foreach ($inputFields as $key => $input) {
+    //         if (empty($input)) {
+    //             return false;
+    //         }
+    //         if (empty($inputFields['firstname']) || empty($inputFields['lastname']) || !filter_var($inputFields['mail'], FILTER_VALIDATE_EMAIL)) {
+    //             return false;
+    //         }
+    //     }
+
+    //     // Validation spécifique de l'email
+    //     if (!filter_var($inputFields['mail'], FILTER_VALIDATE_EMAIL)) {
+    //         return false;
+    //     }
+
+    //     // Validation conditionnelle des mots de passe, s'ils sont fournis
+    //     // Assurez-vous que ces champs existent dans votre $inputFields avant de les valider ici
+    //     if (isset($inputFields['new_password'], $inputFields['new_checkpassword'])) {
+    //         if (empty($inputFields['new_password']) || empty($inputFields['new_checkpassword'])) {
+    //             return false; // Les champs de mot de passe sont vides
+    //         }
+
+    //         if ($inputFields['new_password'] !== $inputFields['new_checkpassword']) {
+    //             return false; // Les mots de passe ne correspondent pas
+    //         }
+    //     }
+
+    //     return true;
+    // }
+
+    // public function isValided($inputFields) : bool
+    //   { if (empty(trim($inputFields['firstname']))) {
+
+    //     return false;
+    // }
+
+    // if (empty(trim($inputFields['lastname']))) {
+
+    //     return false;
+    // }
+
+    // if (filter_var($inputFields['mail'], FILTER_VALIDATE_EMAIL) === FALSE) {
+
+    //     return false;
+    // }
+
+    // if (!empty($inputFields['new_password']) && empty($inputFields['new_checkpassword'])) {
+
+    //     return false;
+    // } elseif (!empty($inputFields['new_password']) && $inputFields['new_password'] !== $inputFields['new_checkpassword']) {
+
+    //     return false;
+    // }
+
+    // return true;
+
+    //  }
+    public function isValided($inputFields): bool
     {
         $isvalid = true;
         foreach ($inputFields as $input) {
-            if ($input === null || $input === "" || !isset($input)) {
+            if ($input === null || $input === "") {
                 $isvalid = false;
             }
         }
 
         return $isvalid;
     }
+    public function isValidedProfil($inputFields)
+    {
+        // Validation des champs obligatoires
+        $requiredFields = ['lastname', 'firstname', 'mail'];
+        foreach ($requiredFields as $field) {
+            if (empty($inputFields[$field])) {
+                // Si un champ obligatoire est vide, retourner false
+                return false;
+            }
+        }
+
+        // Validation spécifique de l'email
+        if (!filter_var($inputFields['mail'], FILTER_VALIDATE_EMAIL)) {
+            return false;
+        }
+
+        // Validation des champs de mot de passe si présents
+        if (!empty($inputFields['new_password']) || !empty($inputFields['new_checkpassword'])) {
+            if (empty($inputFields['new_password']) || empty($inputFields['new_checkpassword'])) {
+                // Si un des champs de mot de passe est vide, retourner false
+                return false;
+            }
+            if ($inputFields['new_password'] !== $inputFields['new_checkpassword']) {
+                // Si les mots de passe ne correspondent pas, retourner false
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     //gestion des erreurs
     protected function addFlash($type, $message)
     {

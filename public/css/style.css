@@ -194,7 +194,12 @@ a {
 .form-article input[type="submit"]:hover {
     background-color: #0056b3;
 }
-
+.mdp-change{
+    font-size: 16px;
+    font-weight: 200;
+    font-style: italic;
+    margin-top: 10px;
+}
 /* .change-article {
     width: 30%;
     margin: auto;
@@ -316,30 +321,33 @@ a {
 /*style pour messages erreur ou succes*/
 .flash-message {
     padding: 10px;
-    margin: 10px 0;
+    margin: 10px auto;
     border-radius: 5px;
     font-weight: bold;
+    width: 50%;
+    text-align: center;
 }
 
 .success {
     background-color: #d1a1d0;
     /* couleur de fond pour les messages de succès */
     color: white;
+    opacity: 0.6;
     width: 20%;
     text-align: center;
     border-radius: 10px;
     margin: 0 auto;
 }
 
-.success::before {
+/* .success::before {
     content: "😊";
     /* Caractère Unicode pour un émoticône sourire */
-    display: block;
+    /* display: block;
     font-size: 42px;
     /* Taille de police pour l'émoticône (ajustez selon vos besoins) */
-    margin-bottom: 10px;
+    /* margin-bottom: 10px;
     /* Espace entre l'émoticône et le texte du message */
-}
+/* }  */ 
 
 .error {
     background-color: #c53830;
@@ -355,7 +363,17 @@ a {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-
+.edit-profile{
+    background-color: #f5f5f5;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
 .btn-primary {
     background-color: #007bff;
     color: #fff;
@@ -555,9 +573,6 @@ button:hover {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.form-group {
-    margin: 10px 0;
-}
 
 label {
     display: block;
@@ -584,6 +599,28 @@ input[type="submit"] {
 
 input[type="submit"]:hover {
     background-color: #0056b3;
+}
+.profil-field{
+    margin-bottom: 0px !important;
+}
+.profil-title{
+text-align: center;
+margin: 1rem;
+}
+.edit-profile {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    
+}
+
+.form-group {
+    margin-top: 10px;
+}
+
+.password-modify {
+    margin-top: 10px;
+    border-color: transparent;
 }
 
 /* Style de base pour le footer */
