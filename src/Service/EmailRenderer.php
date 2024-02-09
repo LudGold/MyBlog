@@ -15,7 +15,6 @@ class EmailRenderer
         $this->twig = new Environment(new FilesystemLoader('../template'));
     }
 
-
     public function renderConfirmationEmail($registrationToken)
     {
         // Charge le template Twig

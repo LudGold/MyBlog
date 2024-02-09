@@ -3,12 +3,11 @@
 namespace App\Controller;
 
 use Core\component\AbstractController;
-use App\Model\Entity\User;
 use App\Model\Repository\UserRepository;
-use App\Service\RegisterHandler;
-use App\Service\EmailConfirmation;
+use App\Service\EmailService;
 use App\Service\EmailRenderer;
-
+use App\Service\UserService;
+use App\Service\ValidationService;
 
 class UserController extends AbstractController
 {
@@ -25,38 +24,35 @@ class UserController extends AbstractController
                 'password' => $_POST["password"],
                 'checkpassword' => $_POST["checkpassword"],
             ];
-            // Créer un objet User avec les données du formulaire
-            $user = new User($userDatas);
+            $userRepository = new UserRepository();
+            $userService = new UserService($userRepository);
+            $validationService = new ValidationService();
+            $emailRenderer = new EmailRenderer();
+            $emailService = new EmailService($emailRenderer, $userService);
 
-            $registerHandler = new RegisterHandler();
-            $errorMessages = $registerHandler->checkFields($userDatas);
+            if ($userService->userExists($userDatas['mail'])) {
+                $this->addFlash('error', 'Cette adresse mail est déjà enregistrée.');
+                return $this->redirect("/register");
+            }
+            $errorMessages = $validationService->validateRegistration($userDatas);
             if (!empty($errorMessages)) {
                 $this->addFlash("error", $errorMessages);
                 return $this->redirect("/register");
             }
-            // $userRepository->deleteUser($user); en attente de la fonction
 
-            // Générer le token d'inscription
-            $registrationToken = $this->generateMailToken();
+            $user = $userService->createUser($userDatas);
+            // Enregistrer l'utilisateur dans la base de données
+            $userService->saveUser($user);
+            $emailService->sendEmail($user,  'Confirmez votre inscription', $user->getRegistrationToken());
 
-            // Hacher le token et le définir pour l'utilisateur
-            $user->setRegistrationToken(($registrationToken));
-            //statut par defaut avant confirmation email
-            $user->setIsConfirmed(false);
-
-            //enregistre l'utilisateur dans la bdd
-            $userRepository = new UserRepository();
-            $userRepository->saveUser($user);
-            //envoi email de confirmation
-
-            $emailRenderer = new EmailRenderer();
-            $emailService = new EmailConfirmation($emailRenderer);
-            $emailService->sendEmail($user, 'Confirmez votre inscription', $registrationToken);
             $this->addFlash('success', 'Un email de confirmation vous a été envoyé.');
             return $this->redirect("/");
         }
+
         return $this->render("security/register.html.twig");
     }
+
+
 
     public function loginUser()
     {
@@ -95,27 +91,12 @@ class UserController extends AbstractController
         return $this->render("security/login.html.twig");
     }
 
-    private function generateMailToken()
-    {
-        // Générez votre token de manière sécurisée ici (peut-être en utilisant une librairie dédiée)
-        $token = bin2hex(random_bytes(32));
-
-        return $token;
-    }
 
     public function confirmEmail(string $token)
     {
-        $userRepository = new UserRepository();
-        $user = $userRepository->getUserBy('registrationToken', $token);
-        // Vérifiez si le token est valide
-
-        if ($user) {
-            // Mettez à jour isConfirmed à true
-            $user->setIsConfirmed(true);
-
-            // Mettez à jour le statut dans la base de données
-            $userRepository->saveUser($user);
-
+        $userService = new UserService(new UserRepository());
+    
+        if ($userService->confirmEmail($token)) {
             $this->addFlash('success', 'Votre adresse e-mail a été confirmée avec succès. Vous pouvez maintenant vous connecter.');
             return $this->redirect('/login');
         } else {
@@ -123,14 +104,7 @@ class UserController extends AbstractController
             return $this->redirect("/");
         }
     }
-
-    protected function generateResetToken()
-    {
-        // Générez votre token de manière sécurisée ici
-        $resetToken = bin2hex(random_bytes(32));
-
-        return $resetToken;
-    }
+    
 
     public function forgotPassword()
     {
@@ -139,21 +113,23 @@ class UserController extends AbstractController
             // Récupérer l'utilisateur par son adresse e-mail
             $userEmail = $_POST['mail'];
 
+            // Créez des objets de repository et de service
             $userRepository = new UserRepository();
+            $userService = new UserService($userRepository);
+            $emailRenderer = new EmailRenderer();
+            $emailService = new EmailService($emailRenderer, $userService);
+
+            // Recuperer l'utilisateur par son adresse e-mail
             $user = $userRepository->getUserBy('mail', $userEmail);
-
             if ($user) {
-                // Générer un jeton de réinitialisation
-                $resetToken = $this->generateResetToken();
+                // Générer le token de réinitialisation
+                $resetToken = $userService->generateResetToken();
 
-                // Enregistrez le jeton dans la base de données pour cet utilisateur
+                // Enregistrer le jeton dans la base de données pour cet utilisateur
                 $user->setResetToken($resetToken);
                 $userRepository->updateResetToken($user);
 
-                // Envoyez un e-mail à l'utilisateur avec un lien contenant le jeton de réinitialisation
-                $emailRenderer = new EmailRenderer();
-                $emailService = new EmailConfirmation($emailRenderer);
-                $emailService->sendResetEmail($user, 'Nouveau mot de passe', $resetToken);
+                $emailService->sendResetEmail($user, 'Nouveau mot de passe', $user->getResetToken());
 
                 $this->addFlash('success', 'Un e-mail de réinitialisation a été envoyé à votre adresse e-mail.');
             } else {
@@ -162,7 +138,6 @@ class UserController extends AbstractController
 
             return $this->redirect('/forgotPassword');
         }
-
         return $this->render('security/forgotPassword.html.twig');
     }
 
@@ -220,22 +195,31 @@ class UserController extends AbstractController
             return $this->redirect('/');
         }
         // Valider et traiter les données du formulaire
-        if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
-           
+        if ($this->isSubmitted("submit") && $this->isValidedProfil($_POST)) {
+            if (
+                $userRepository->getUserBy('mail', $_POST['mail'])
+                && ($_POST['mail'] !== $user->getMail())
+            ) {
+                $this->addFlash('error', 'Cette adresse est déjà utilisée.');
+                return $this->redirect('/editProfil');
+            }
             $user->setLastname($_POST['lastname']);
             $user->setFirstname($_POST['firstname']);
             $user->setMail($_POST['mail']);
-            $user->setPassword($_POST['password']);
-            $userRepository->saveUser($user);
 
+            $userService = new UserService($userRepository);
+            $userService->updateUserPassword($user, $_POST['new_password']);
+            // Vérifier si un nouveau mot de passe a été soumis
+            $userRepository->editBddProfil($user);
+
+            $this->addFlash('success', 'Vos données ont bien été modifiées.');
             // Rediriger l'utilisateur après la mise à jour
             return $this->redirect('/');
-        } else {
-            // Gérer le cas où la validation échoue
+        } else if ($this->isSubmitted("submit") && !$this->isValidedProfil($_POST)) {
+            // Gérer le cas où la validation échoue - la condition n'a pas l'air conditionné à $_POST
             $this->addFlash('error', 'Erreur de validation. Veuillez vérifier vos données.');
         }
-
         // Afficher le formulaire avec les valeurs actuelles
-        return $this->render('/editProfil.html.twig', ['user' => $user]);
+        return $this->render('security/editProfil.html.twig', ['user' => $user]);
     }
 }

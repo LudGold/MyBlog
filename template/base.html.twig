@@ -10,23 +10,20 @@
 			<link rel="stylesheet" type="text/css" href="/css/normalize.css">
 			<link rel="stylesheet" type="text/css" href="/css/style.css">
 		{% endblock %}
+		{% block js %}
+			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+		{% endblock %}
 		<title>
 			{% block title %}{% endblock %}
 		</title>
 	</head>
 
 	<body>
-		<header>
-			<title>Ma Blog by LudGold</title>
-		</header>
-
-		<div class="navbar" id="navbar">
+		<div class="navbar with-background" id="navbar">
 			<ul class="navbar-nav">
-				<li class="nav-item blog-brand">
-
-					<a class="nav-link " id="blog-name" href="#home">My Blog</a>
-					<img src="./img/blog-img.jpg" alt="Logo du blog" id="blog-logo">
-				</li>
 				<li class="nav-item accueil">
 					<a class="nav-link " href="/">Accueil</a>
 				</li>
@@ -55,7 +52,15 @@
 					<a class="nav-link" href="#rs">Me contacter</a>
 				</li>
 
+				{% if "admin" in session.role %}
+					<li class="nav-item dashboard">
+						<a class="nav-link dashboard" href="/admin/user/adminDashboard">Tableau de bord</a>
+					</li>
+				{% endif %}
 				{% if userLoggedIn %}
+					<li class="nav-item profil">
+						<a class="nav-link edit-profil" href="/editProfil">Voir mon profil</a>
+					</li>
 					<li>
 						<a class="nav-link logout" href="/deconnexion">Déconnexion</a>
 					</li>
@@ -66,9 +71,11 @@
 					<li>
 						<a class="nav-link sign-in" href="/register">S'inscrire</a>
 					</li>
+					{% endif %}
 				</ul>
-			{% endif %}
+		
 		</div>
+
 		{# Utilisation de session.flash #}
 		{% if flashMessages %}
 			{% for message in flashMessages %}
@@ -77,67 +84,76 @@
 				</div>
 			{% endfor %}
 		{% endif %}
-
-
 		{% block body %}{% endblock %}
 
 
-		<footer>
-			<div class="footer-content">
-				<div class="social-icons">
-					<li>
-						<a href="ludivinezarkos@gmail.com">Contactez Moi</a>
+<footer>
+    <div class="footer-content">
+        <ul class="social-icons">
+            <!-- Correction: Les éléments <li> sont maintenant correctement intégrés dans une liste <ul> -->
+            <li>
+                <a href="mailto:ludivinezarkos@gmail.com">Contactez Moi</a>
+            </li>
+            <li>
+                <a href="#" class="social-icon">
+                    <i class="fas fa-envelope"></i> <!-- Correction: Classe Font Awesome pour l'enveloppe -->
+                </a>
+            </li>
+            <li>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-facebook"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-twitter"></i>
+                </a>
+            </li>
+            <li>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+            </li>
+            <li>
+                <a href="https://github.com/LudGold" target="_blank" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a>
+            </li>
+        </ul>
 
-					</li>
-					<a href="#" class="social-icon">
-						<i class="fas fa-solid fa-envelope"></i>
-					</a>
-					<a href="#" class="social-icon">
-						<i class="fab fa-facebook"></i>
-					</a>
-					<a href="#" class="social-icon">
-						<i class="fab fa-twitter"></i>
-					</a>
-					<a href="#" class="social-icon">
-						<i class="fab fa-linkedin"></i>
-					</a>
-					<a href="https://github.com/LudGold" target="_blank">
-						<i class="fab fa-github"></i>
-					</a>
+        <ul class="footer-links">
+            <li>
+                <a href="#" class="confidential">Politique de confidentialité</a>
+            </li>
+            <li>
+                <a href="#" class="credit">Crédits</a>
+            </li>
+        </ul>
+    </div>
 
-				</div>
+    <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2023</span> LudGold. All Rights Reserved.</p>
 
-				<ul class="footer-links">
-					<li>
-						<a href="#" class="confidential">Politique de confidentialité</a>
-					</li>
-					<li>
-						<a href="#" class="credit">Credits</a>
-					</li>
+        <ul class="footer-administration">
+            <!-- Correction: Utilisation correcte des éléments <li> à l'intérieur d'une liste <ul> -->
+            <li>
+                <a href="#">Admin</a>
+            </li>
+            <li>
+                <a href="/admin/comment/index">Index</a>
+            </li>
+            <li>
+                <a href="/admin/comment/comments_pending">Commentaires soumis en attente</a>
+            </li>
+            <li>
+                <a href="/admin/comment/comments_approved">Commentaires approuvés</a>
+            </li>
+            <li>
+                <a href="/admin/comment/comments_rejected">Commentaires refusés</a>
+            </li>
+        </ul>
+    </div>
+</footer>
 
-				</ul>
-			</div>
-
-			<div class="footer-bottom">
-				<p>&copy;
-					<span id="current-year">2023</span>
-					LudGold. All Rights Reserved.</p>
-
-				<div class="footer-administration">
-					<li>
-						<a href="#">Admin</a>
-					</li>
-					<li>
-						<a href="/admin/comment/index">index</a>
-
-						<a href="/admin/comment/comments_pending">Commentaires soumis en attente</a>
-						<a href="/admin/comment/comments_approved">Commentaires approuvés</a>
-						<a href="/admin/comment/comments_rejected">Commentaires refusés</a>
-					</li>
-				</div>
-			</div>
-		</footer>
-
-		{% block js %}{% endblock %}
 	</body>
-</html></body></html>
+</html>

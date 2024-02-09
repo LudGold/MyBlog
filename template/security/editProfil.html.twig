@@ -1,25 +1,45 @@
 {% extends 'base.html.twig' %}
 
+{# {% block js %}
+    {{ parent() }}
+    <script src="../js/newPassword.js"></script>
+{% endblock %} #}
+
 {% block body %}
-    <h2>Modifier mon profil</h2>
+	<div class="profil-container">
+		<h2 class="profil-title">Mes données personnelles</h2>
 
-    <form action="/editProfil" method="post" >
-        <label for="firstname">Prénom:</label>
-        <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}">
-        <br>
+		<form action="/editProfil" method="post" class="edit-profile">
+			<div class="form-group profil-field">
+				<label for="firstname">Prénom:</label>
+				<input type="text" id="firstname" name="firstname" 
+                value="{{ user.firstname }} " >
+			</div>
 
-        <label for="lastname">Nom:</label>
-        <input type="text" id="lastname" name="lastname" value="{{ user.lastname }}" >
-        <br>
+			<div class="form-group profil-field">
+				<label for="lastname">Nom:</label>
+				<input type="text" id="lastname" name="lastname" 
+                value="{{ user.lastname }}" >
+			</div>
 
-        <label for="mail">Email:</label>
-        <input type="email" id="mail" name="mail" value="{{ user.mail }}">
-        <br>
+			<div class="form-group profil-field">
+				<label for="mail">Email:</label>
+				<input type="email" id="mail" name="mail" value="{{ user.mail }}">
+			</div>
 
-        <label for="password">Nouveau mot de passe:</label>
-        <input type="password" id="password" name="password" value="{{ user.password}}">
-        <br>
+			<!-- Section pour la réinitialisation du mot de passe -->
+			<h4 class="mdp-change">Changement du mot de passe</h4>
 
-        <button type="submit" name="submit" value="enregistrer">Enregistrer</button>
-    </form>
+			<div class="form-group password">
+				<input type="password" name="new_password" class="form-control" id="password" placeholder="Nouveau mot de passe">
+			</div>
+			<div class="form-group rewrite-password">
+				<input type="password" name="new_checkpassword" class="form-control" id="password-verify" placeholder="Confirmer le nouveau mot de passe">
+			</div>
+
+			<div class="form-group">
+				<input type="submit" class="modify-btn" name="submit" value="Modifier le profil">
+			</div>
+		</form>
+	</div>
 {% endblock %}

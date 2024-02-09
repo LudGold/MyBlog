@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<body>
+    <h2>Admin Dashboard</h2>
+
+    {# Afficher les informations des utilisateurs ici #}
+    {% for user in users %}
+        <p>{{ user.lastname }} {{ user.firstname }} - {{ user.mail }}</p>
+    {% endfor %}
+</body>
+{% endblock %}
