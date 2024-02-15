@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block style %}
+	 {{ parent() }} 
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+{% endblock %}
+{% block body %}
+	<h2>Tableau de bord administrateur</h2>
+
+	<div class="row">
+		<div class="col-md-4">
+			<h3>Gestion des utilisateurs</h3>
+			<ul>
+				{% include 'admin/user/addRole.html.twig' %}
+			</ul>
+		</div>
+		<div class="col-md-4">
+			<h3>Gestion des commentaires</h3>
+			{% include 'admin/comment/index.html.twig' %}
+		</div>
+
+		<div class="col-md-4">
+			<h3>Gestion des articles</h3>
+            <ul>
+			{% include 'admin/article/_article_table.html.twig' %}
+            </ul>
+		</div>
+	</div>
+{% endblock %}

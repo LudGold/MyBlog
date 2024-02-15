@@ -98,11 +98,13 @@ class User
     // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
     public function getRoles(): array
     {
-        return array_unique([$this->role, self::ROLES[2]]);
+         return array_unique([$this->role, self::ROLES[1]]);
+       
     }
     public function setRoles($role): void
     {
-        $this->role = json_decode($role);
+        $this->role=$role;
+        //  = json_decode($role);
     }
     public function setRegistrationToken(?string $registrationToken): void
     {

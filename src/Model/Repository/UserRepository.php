@@ -158,7 +158,7 @@ class UserRepository
         $users = []; // Initialisation du tableau vide pour stocker tous les utilisateurs
 
         try {
-            $sql = "SELECT id, lastname, firstname, mail, password, role FROM user";
+            $sql = "SELECT id, lastname, firstname, mail, password, role FROM user WHERE isConfirmed = 1";
             $stmt = $this->db->query($sql);
             $users = $stmt->fetchAll(\PDO::FETCH_ASSOC); // Récupére tous les utilisateurs sous forme d'un tableau associatif
         } catch (PDOException $e) {

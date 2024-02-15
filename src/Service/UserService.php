@@ -71,6 +71,17 @@ class UserService
         }
         return false;
     }
+
+    public function updateUserPassword($user, $newPassword)
+    {
+        // Vérifier si un nouveau mot de passe a été soumis
+        if (!empty($newPassword)) {
+            // Hasher le nouveau mot de passe
+            $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
+            // Mettre à jour le mot de passe de l'utilisateur
+            $user->setPassword($hashedPassword);
+        }
+    }
 }
 
 

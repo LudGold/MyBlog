@@ -1,8 +1,10 @@
-{% extends 'base.html.twig' %}
-
+{# {% extends 'base.html.twig' %} #}
+{% block style %}
+	{# {{ parent() }} #}
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+{% endblock %}
 {% block body %}
-    <h2>Admin Dashboard</h2>
-
+    
     {% for user in users %}
         <div>
             <p>{{ user.lastname }} {{ user.firstname }} - {{ user.mail }}</p>
@@ -10,8 +12,8 @@
                 <input type="hidden" name="user_id" value="{{ user.id }}">
                 <label for="role">Role:</label>
                 <select name="role" id="role">
-                    <option value="ROLE_USER" {% if user.role == 'ROLE_USER' %} selected {% endif %}>Utilisateur</option>
-                    <option value="ROLE_ADMIN" {% if user.role == 'ROLE_ADMIN' %} selected {% endif %}>Administrateur</option>
+                <option value="member" {% if user.role == 'member' %}selected{% endif %}>Utilisateur</option>
+                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Administrateur</option>
                 </select>
                 <button type="submit">Mettre à jour</button>
             </form>
@@ -19,3 +21,4 @@
         </div>
     {% endfor %}
 {% endblock %}
+

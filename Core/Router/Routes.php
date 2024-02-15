@@ -23,7 +23,7 @@ Router::all('/article/{articleId}', "ArticleController@show")->setName("article_
 Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
 Router::all('/editProfil', "UserController@editProfil")->setName("profil_modifié");
-Router::all('/admin/user/adminDashboard', "Admin\UserAdminController@adminDashboard")->setName("tableau_de_bord");
+Router::all('/admin/adminDashboard', "Admin\UserAdminController@adminDashboard")->setName("tableau_de_bord");
 Router::all('/admin/user/addRole', "Admin\UserAdminController@updateUserRole")->setName("attribution_role");
 Router::all('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
 Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");

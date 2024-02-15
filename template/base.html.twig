@@ -54,7 +54,7 @@
 
 				{% if "admin" in session.role %}
 					<li class="nav-item dashboard">
-						<a class="nav-link dashboard" href="/admin/user/adminDashboard">Tableau de bord</a>
+						<a class="nav-link dashboard" href="/admin/adminDashboard">Tableau de bord</a>
 					</li>
 				{% endif %}
 				{% if userLoggedIn %}
@@ -137,7 +137,7 @@
         <ul class="footer-administration">
             <!-- Correction: Utilisation correcte des éléments <li> à l'intérieur d'une liste <ul> -->
             <li>
-                <a href="#">Admin</a>
+                <a href="/admin/adminDashboard">Admin</a>
             </li>
             <li>
                 <a href="/admin/comment/index">Index</a>

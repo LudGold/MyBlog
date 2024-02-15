@@ -65,8 +65,8 @@ class UserController extends AbstractController
             // Exemple : Vérifier si l'utilisateur existe dans la base de données
             $userRepository = new UserRepository();
             $user = $userRepository->getUserBy('mail', $_POST["mail"]);
-
             if ($user && password_verify($_POST["password"], $user->getPassword())) {
+               
                 // Connexion réussie et nom prenom du user affiché
                 $userFullName = $user->getFullName();
                 $message = "Bienvenue, $userFullName !";
@@ -79,6 +79,7 @@ class UserController extends AbstractController
                 $this->setSessionInfos("mail", $user->getMail());
                 $this->setSessionInfos("lastName", $user->getLastname());
                 $this->setSessionInfos("role", $user->getRoles());
+            
 
                 return $this->redirect("/");
             } else {

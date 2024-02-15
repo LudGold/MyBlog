@@ -16,7 +16,7 @@ class AbstractController
         $loader = new FilesystemLoader(TEMPLATE_DIR . '/');
         $this->twig = new Environment($loader, ["debug" => true]);
         $this->twig->addExtension(new DebugExtension());
-        }
+    }
 
     public function render($template, array $datas = [])
     {
@@ -208,17 +208,26 @@ class AbstractController
         return isset($_SESSION['mail']);
     }
 
+    //     public function isAdmin()
+    //     {
+    //         // Vérifier que la variable de session 'role' est définie
+    //         if (!isset($_SESSION['role'])) {
+    //             return $this->redirect('/not-authorised');
+    //         }
+
+    //         // verifier que le user est bien en rôle admin
+    //         if (!in_array('admin', $_SESSION['role'])) {
+    //             return $this->redirect('/not-authorised');
+    //         }
+    //         return true;
+    //     }
     public function isAdmin()
     {
-        // Vérifier que la variable de session 'role' est définie
-        if (!isset($_SESSION['role'])) {
-            return $this->redirect('/not-authorised');
+        // Vérifier que la variable de session 'role' est définie et que le rôle 'admin' est présent
+        if (!isset($_SESSION['role']) && !in_array('admin', $_SESSION['role'])) {
+            return true; // L'utilisateur est un administrateur
+        } else {
+            return false; // L'utilisateur n'est pas un administrateur
         }
-
-        // verifier que le user est bien en rôle admin
-        if (!in_array('admin', $_SESSION['role'])) {
-            return $this->redirect('/not-authorised');
-        }
-        return true;
     }
 }

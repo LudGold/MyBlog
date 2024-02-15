@@ -502,14 +502,15 @@ button:hover {
 }
 
 .new-btn {
-    background-color: #0056b3;
-    width: 75px;
+    background-color: #7b99b9;
+    width: 30%;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 10px;
     color: white;
     margin-top: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
 
 }
 
