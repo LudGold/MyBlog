@@ -224,7 +224,7 @@ class AbstractController
     public function isAdmin()
     {
         // Vérifier que la variable de session 'role' est définie et que le rôle 'admin' est présent
-        if (!isset($_SESSION['role']) && !in_array('admin', $_SESSION['role'])) {
+        if (isset($_SESSION['role']) && in_array('admin', $_SESSION['role'])) {
             return true; // L'utilisateur est un administrateur
         } else {
             return false; // L'utilisateur n'est pas un administrateur

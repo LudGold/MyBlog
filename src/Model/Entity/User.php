@@ -11,21 +11,16 @@ class User
     private ?string $password = null;
     private $role = [];
     private $creationDate;
-    private ?string $registrationToken = null; 
+    private ?string $registrationToken = null;
     private ?string $resetToken = null;
     private ?bool $isConfirmed;
-
-    const ROLES = [
-        1 => 'member',
-        2 => 'admin',
-    ];
 
     public function __construct(array $datas = [])
     {
         $this->creationDate = new \DateTime();
         $this->isConfirmed = false;
         $this->registrationToken = bin2hex(random_bytes(32));
-        $this->role = self::ROLES[1];
+
         foreach ($datas as $attr => $value) {
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
@@ -95,16 +90,13 @@ class User
         $this->role = array_filter($this->role);
     }
 
-    // Renvoie la chaîne de caractères représentant le rôle actuel de l'utilisateur
-    public function getRoles(): array
+    public function getRole(): array
     {
-         return array_unique([$this->role, self::ROLES[1]]);
-       
+        return $this->role;
     }
-    public function setRoles($role): void
+    public function setRole($role): void
     {
-        $this->role=$role;
-        //  = json_decode($role);
+        $this->role = $role;
     }
     public function setRegistrationToken(?string $registrationToken): void
     {
@@ -137,7 +129,7 @@ class User
         return $this;
     }
     public function getFullName(): ?string
-{
-    return $this->firstname . ' ' . $this->lastname;
-}
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }

@@ -8,21 +8,29 @@
 
 	<div class="row">
 		<div class="col-md-4">
+		<div class="edit-user">
+						<a button="edit-btn" class="edit-btn" href="user/addRole">Gérer le statut</a>
+					</div>
 			<h3>Gestion des utilisateurs</h3>
 			<ul>
-				{% include 'admin/user/addRole.html.twig' %}
+				{% include 'admin/user/_user_profil.html.twig' %}
 			</ul>
 		</div>
 		<div class="col-md-4">
-			<h3>Gestion des commentaires</h3>
-			{% include 'admin/comment/index.html.twig' %}
-		</div>
-
-		<div class="col-md-4">
+		
 			<h3>Gestion des articles</h3>
             <ul>
 			{% include 'admin/article/_article_table.html.twig' %}
             </ul>
 		</div>
-	</div>
+	
+		<div class="col-md-4">
+		<div class="edit-comment">
+						<a button="edit-btn" class="edit-btn" href="comment/comments_pending">Modifier</a>
+					</div>
+			<h3>Gestion des commentaires</h3>
+			{% include 'admin/comment/_comment_table.html.twig' %}
+		</div>
+</div>
+		
 {% endblock %}

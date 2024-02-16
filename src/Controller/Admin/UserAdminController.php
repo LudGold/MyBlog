@@ -15,7 +15,11 @@ class UserAdminController extends AbstractController
 
     public function adminDashboard()
     {
-        // if ($this->isAdmin()) {
+        if(!$this->isAdmin()){
+            $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
+            return $this->redirect('/');
+        }
+        if ($this->isAdmin()) {
         // Récupérez les informations des utilisateurs depuis la base de données
         $userRepository = new UserRepository();
         $users = $userRepository->getAllUsers();
@@ -34,14 +38,15 @@ class UserAdminController extends AbstractController
 
         // Si l'utilisateur n'est pas un administrateur, redirigez-le vers une page d'erreur ou une autre page appropriée
         return $this->redirect('/not-authorised');
-    }
+    }}
+
     public function updateUserRole()
     {
-        // if (!$this->isAdmin()) {
+         if (!$this->isAdmin()) {
             // Si l'utilisateur n'est pas un administrateur, redirigez-le vers une page d'erreur ou une autre page appropriée
-            // $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
-            // return $this->redirect('/');
-        // }
+            $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
+             return $this->redirect('/');
+        }
 
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
             $userId = $_POST['user_id'];

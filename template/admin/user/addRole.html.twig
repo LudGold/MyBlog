@@ -1,24 +1,23 @@
-{# {% extends 'base.html.twig' %} #}
+ {% extends 'base.html.twig' %} 
 {% block style %}
-	{# {{ parent() }} #}
+	 {{ parent() }} 
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
 {% block body %}
-    
+   
     {% for user in users %}
         <div>
             <p>{{ user.lastname }} {{ user.firstname }} - {{ user.mail }}</p>
-            <form action="/admin/user/addRole" method="post">
-                <input type="hidden" name="user_id" value="{{ user.id }}">
-                <label for="role">Role:</label>
-                <select name="role" id="role">
-                <option value="member" {% if user.role == 'member' %}selected{% endif %}>Utilisateur</option>
-                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Administrateur</option>
-                </select>
-                <button type="submit">Mettre à jour</button>
-            </form>
+            <form action="/admin/user/addRole" method="post" class="update-role-form">
+                            <input type="hidden" name="user_id" value="{{ user.id }}">
+                            <select name="role" id="role-{{ user.id }}">
+                                <option value="member" {% if user.role == 'member' %}selected{% endif %}>Utilisateur</option>
+                                <option value="admin" {% if user.role == 'admin' %}selected{% endif %}>Administrateur</option>
+                            </select>
+                            <button type="submit">Mettre à jour</button>
+                        </form>
             <hr>
-        </div>
+        </div> 
     {% endfor %}
 {% endblock %}
 

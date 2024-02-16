@@ -78,7 +78,7 @@ class UserController extends AbstractController
                 $this->setSessionInfos("userId", $user->getId());
                 $this->setSessionInfos("mail", $user->getMail());
                 $this->setSessionInfos("lastName", $user->getLastname());
-                $this->setSessionInfos("role", $user->getRoles());
+                $this->setSessionInfos("role", $user->getRole());
             
 
                 return $this->redirect("/");
