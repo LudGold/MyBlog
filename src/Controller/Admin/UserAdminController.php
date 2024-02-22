@@ -15,45 +15,49 @@ class UserAdminController extends AbstractController
 
     public function adminDashboard()
     {
-        if(!$this->isAdmin()){
+        if (!$this->isAdmin()) {
             $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
             return $this->redirect('/');
         }
         if ($this->isAdmin()) {
-        // Récupérez les informations des utilisateurs depuis la base de données
-        $userRepository = new UserRepository();
-        $users = $userRepository->getAllUsers();
-        $commentRepository = new CommentRepository();
-        $comments = $commentRepository->getPendingComments();
-        $articleRepository = new ArticleRepository();
-        $articles = $articleRepository->getAllArticles();
+            // Récupérez les informations des utilisateurs depuis la base de données
+            $userRepository = new UserRepository();
+            $users = $userRepository->getAllUsers();
+            $commentRepository = new CommentRepository();
+            $comments = $commentRepository->getPendingComments();
+            $articleRepository = new ArticleRepository();
+            $articles = $articleRepository->getAllArticles();
 
-        // Affichez le template administrateur avec les informations des utilisateurs
-        return $this->render('admin/adminDashboard.html.twig', [
-            'users' => $users,
-            'allComments' => $comments,
-            'articles' => $articles,
+            // Affichez le template administrateur avec les informations des utilisateurs
+            return $this->render('admin/adminDashboard.html.twig', [
+                'users' => $users,
+                'allComments' => $comments,
+                'articles' => $articles,
 
-        ]);
+            ]);
 
-        // Si l'utilisateur n'est pas un administrateur, redirigez-le vers une page d'erreur ou une autre page appropriée
-        return $this->redirect('/not-authorised');
-    }}
+            // Si l'utilisateur n'est pas un administrateur, redirigez-le vers une page d'erreur ou une autre page appropriée
+            return $this->redirect('/not-authorised');
+        }
+    }
 
     public function updateUserRole()
     {
-         if (!$this->isAdmin()) {
+        if (!$this->isAdmin()) {
             // Si l'utilisateur n'est pas un administrateur, redirigez-le vers une page d'erreur ou une autre page appropriée
             $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
-             return $this->redirect('/');
+            return $this->redirect('/');
         }
-
+      
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
+            
             $userId = $_POST['user_id'];
             $newRole = $_POST['role'];
+
             $userRepository = new UserRepository();
             $userService = new UserService($userRepository);
             if ($userService->updateUserRole($userId, $newRole)) {
+             
                 $this->addFlash('success', 'Le rôle de l\'utilisateur a été mis à jour avec succès.');
             } else {
                 $this->addFlash('error', 'Impossible de mettre à jour le rôle de l\'utilisateur.');

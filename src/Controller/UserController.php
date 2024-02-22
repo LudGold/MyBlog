@@ -41,6 +41,7 @@ class UserController extends AbstractController
             }
 
             $user = $userService->createUser($userDatas);
+            
             // Enregistrer l'utilisateur dans la base de données
             $userService->saveUser($user);
             $emailService->sendEmail($user,  'Confirmez votre inscription', $user->getRegistrationToken());

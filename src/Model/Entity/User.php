@@ -83,12 +83,18 @@ class User
         $this->password = $password;
     }
 
-    // Permet d'ajouter un rôle à l'utilisateur
-    public function addRole(int $role): void
-    {
-        $this->role[] = $role;
-        $this->role = array_filter($this->role);
-    }
+
+    // public function addRole($role): void
+    // {
+    //     if (!is_array($this->role)) {
+    //         $this->role = [];
+    //     }
+    //     // Vérifie si le rôle est déjà présent dans le tableau
+    //     if (!in_array($role, $this->role)) {
+    //         // Si le rôle n'est pas déjà présent, l'ajoute au tableau
+    //         $this->role[] = $role;
+    //     }
+    // }
 
     public function getRole(): array
     {

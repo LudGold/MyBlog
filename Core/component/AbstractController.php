@@ -5,6 +5,7 @@ namespace Core\component;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
+use Twig\TwigFilter;
 
 class AbstractController
 {
@@ -172,7 +173,6 @@ class AbstractController
                 return false;
             }
         }
-
         return true;
     }
 
@@ -208,19 +208,6 @@ class AbstractController
         return isset($_SESSION['mail']);
     }
 
-    //     public function isAdmin()
-    //     {
-    //         // Vérifier que la variable de session 'role' est définie
-    //         if (!isset($_SESSION['role'])) {
-    //             return $this->redirect('/not-authorised');
-    //         }
-
-    //         // verifier que le user est bien en rôle admin
-    //         if (!in_array('admin', $_SESSION['role'])) {
-    //             return $this->redirect('/not-authorised');
-    //         }
-    //         return true;
-    //     }
     public function isAdmin()
     {
         // Vérifier que la variable de session 'role' est définie et que le rôle 'admin' est présent

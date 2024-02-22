@@ -63,10 +63,11 @@ class UserService
 
     public function updateUserRole($userId, $newRole)
     {
-        $user = $this->userRepository->getUserById($userId);
+        $user = $this->userRepository->getUserBy('id', $userId);
+        
         if ($user) {
             $user->setRole($newRole);
-            $this->userRepository->saveUser($user);
+            $this->userRepository->updateUserRole($userId, $newRole);
             return true;
         }
         return false;
