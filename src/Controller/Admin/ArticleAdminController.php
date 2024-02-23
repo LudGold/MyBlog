@@ -25,8 +25,10 @@ class ArticleAdminController extends AbstractController
     public function newArticle()
     {
         $this->isAdmin();
+
         // Récupérer l'ID de l'utilisateur depuis la session
         $userId = $this->getSessionInfos("userId");
+
         $userRepository = new UserRepository();
 
         // Récupérer l'utilisateur par son ID
@@ -74,10 +76,10 @@ class ArticleAdminController extends AbstractController
 
     public function changeArticle(int $articleId)
     {
-        if(!$this->isAdmin()){
-        $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
-        return $this->redirect('/');
-    }
+        if (!$this->isAdmin()) {
+            $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
+            return $this->redirect('/');
+        }
 
         $this->isAdmin();
         $userId = $this->getSessionInfos("userId");
@@ -128,7 +130,7 @@ class ArticleAdminController extends AbstractController
 
     public function deleteArticle(int $articleId)
     {
-        if(!$this->isAdmin()){
+        if (!$this->isAdmin()) {
             $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
             return $this->redirect('/');
         }

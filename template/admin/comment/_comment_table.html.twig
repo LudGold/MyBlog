@@ -1,25 +1,25 @@
 <table id="comment_table" class="display">
-		<thead>
+	<thead>
+		<tr>
+
+			<th>Date</th>
+			<th>content</th>
+			<th>Pseudo</th>
+			<th>Mail</th>
+			<th>Action</th>
+
+		</tr>
+	</thead>
+	<tbody>
+		{% for comment in allComments %}
 			<tr>
-
-				<th>Date</th>
-				<th>content</th>
-				<th>Pseudo</th>
-				<th>Mail</th>
-				<th>Action</th>
-
+				<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+				<td>{{ comment.content }}</td>
+				<td>{{ comment.pseudo }}</td>
+				<td>{{ comment.mail }}</td>
+				<td>{{ comment.status }}</td>
 			</tr>
-		</thead>
-		<tbody>
-			{% for comment in allComments %}
-				<tr>
-					<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
-					<td>{{ comment.content }}</td>
-					<td>{{ comment.pseudo }}</td>
-					<td>{{ comment.mail }}</td>
-					<td>{{ comment.status }}</td>
-				</tr>
-								
-			{% endfor %}
-		</tbody>
-	</table>
+
+		{% endfor %}
+	</tbody>
+</table>

@@ -6,52 +6,43 @@
 {% endblock %}
 
 {% block body %}
-	<h2>Commentaires validés</h2>
+<h2>Commentaires validés</h2>
 
-	<table id="comments_approved_table" class="display">
-		<thead>
+<table id="comments_approved_table" class="display">
+	<thead>
+		<tr>
+			<th>Auteur</th>
+			<th>Date de Publication</th>
+			<th>Contenu</th>
+			<th>Mail</th>
+			<th>Action</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for comment in approvedComments %}
 			<tr>
-				<th>Auteur</th>
-				<th>Date de Publication</th>
-				<th>Contenu</th>
-				<th>Mail</th>
-				<th>Action</th>
+				<td>{{ comment.pseudo }}</td>
+				<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+				<td>{{ comment.content }}</td>
+				<td>{{ comment.mail }}</td>
+				<td>{{ comment.status }}</td>
+				<td>
+
+					<form action="/admin/check-comment" method="POST">
+						<input type="hidden" name="commentId" value="{{ comment.id }}">
+
+						<select name="action">
+							<option value=""></option>
+							<option value="reject">Rejeter</option>
+						</select>
+
+						<button type="submit">Soumettre</button>
+					</form>
+				</td>
+				<td>
+					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Détails du commentaire</button>
+				</td>
 			</tr>
-		</thead>
-		<tbody>
-			{% for comment in approvedComments %}
-				<tr>
-					<td>{{ comment.pseudo }}</td>
-					<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
-					<td>{{ comment.content }}</td>
-					<td>{{ comment.mail }}</td>
-					<td>{{ comment.status }}</td>
-					<td>
-                    
-						<form action="/admin/check-comment" method="POST">
-							<input type="hidden" name="commentId" value="{{ comment.id }}">
-
-							<select name="action">
-								<option value=""></option>
-								<option value="reject">Rejeter</option>
-							</select>
-
-							<button type="submit">Soumettre</button>
-
-						</form>
-                        <td>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Détails du commentaire</button>
-					</td>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-    {% endblock %}
-    {% block js %}
-	{{ parent() }}
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
-	<script src="../js/datatable_init.js"></script>
-{% endblock %}
-
+		</td>
+	</tbody>
+</tr>{% endfor %}</tbody></table>{% endblock %}{% block js %}{{ parent() }}<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script><script src="../js/datatable_init.js"></script>{% endblock %}

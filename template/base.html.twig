@@ -71,9 +71,9 @@
 					<li>
 						<a class="nav-link sign-in" href="/register">S'inscrire</a>
 					</li>
-					{% endif %}
-				</ul>
-		
+				{% endif %}
+			</ul>
+
 		</div>
 
 		{# Utilisation de session.flash #}
@@ -87,73 +87,76 @@
 		{% block body %}{% endblock %}
 
 
-<footer>
-    <div class="footer-content">
-        <ul class="social-icons">
-            <!-- Correction: Les éléments <li> sont maintenant correctement intégrés dans une liste <ul> -->
-            <li>
-                <a href="mailto:ludivinezarkos@gmail.com">Contactez Moi</a>
-            </li>
-            <li>
-                <a href="#" class="social-icon">
-                    <i class="fas fa-envelope"></i> <!-- Correction: Classe Font Awesome pour l'enveloppe -->
-                </a>
-            </li>
-            <li>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-facebook"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-twitter"></i>
-                </a>
-            </li>
-            <li>
-                <a href="#" class="social-icon">
-                    <i class="fab fa-linkedin"></i>
-                </a>
-            </li>
-            <li>
-                <a href="https://github.com/LudGold" target="_blank" class="social-icon">
-                    <i class="fab fa-github"></i>
-                </a>
-            </li>
-        </ul>
+		<footer>
+			<div class="footer-content">
+				<ul
+					class="social-icons">
+					<!-- Correction: Les éléments <li> sont maintenant correctement intégrés dans une liste <ul> -->
+					<li>
+						<a href="mailto:ludivinezarkos@gmail.com">Contactez Moi</a>
+					</li>
+					<li>
+						<a href="mailto:ludivinezarkos@gmail.com" class="social-icon">
+							<i class="fas fa-envelope"></i>
+							<!-- Correction: Classe Font Awesome pour l'enveloppe -->
+						</a>
+					</li>
+					<li>
+						<a href="https://www.facebook.com/titanegirl" class="social-icon">
+							<i class="fab fa-facebook"></i>
+						</a>
+					</li>
+					<li>
+						<a href="#" class="social-icon">
+							<i class="fab fa-twitter"></i>
+						</a>
+					</li>
+					<li>
+						<a href="www.linkedin.com/in/ludivine-goldstein-4677ab128" class="social-icon">
+							<i class="fab fa-linkedin"></i>
+						</a>
+					</li>
+					<li>
+						<a href="https://github.com/LudGold" target="_blank" class="social-icon">
+							<i class="fab fa-github"></i>
+						</a>
+					</li>
+				</ul>
 
-        <ul class="footer-links">
-            <li>
-                <a href="#" class="confidential">Politique de confidentialité</a>
-            </li>
-            <li>
-                <a href="#" class="credit">Crédits</a>
-            </li>
-        </ul>
-    </div>
+				<ul class="footer-links">
+					<li>
+						<a href="#" class="confidential">Politique de confidentialité</a>
+					</li>
 
-    <div class="footer-bottom">
-        <p>&copy; <span id="current-year">2023</span> LudGold. All Rights Reserved.</p>
+				</ul>
+			</div>
 
-        <ul class="footer-administration">
-            <!-- Correction: Utilisation correcte des éléments <li> à l'intérieur d'une liste <ul> -->
-            <li>
-                <a href="/admin/adminDashboard">Admin</a>
-            </li>
-            <li>
-                <a href="/admin/comment/index">Index</a>
-            </li>
-            <li>
-                <a href="/admin/comment/comments_pending">Commentaires soumis en attente</a>
-            </li>
-            <li>
-                <a href="/admin/comment/comments_approved">Commentaires approuvés</a>
-            </li>
-            <li>
-                <a href="/admin/comment/comments_rejected">Commentaires refusés</a>
-            </li>
-        </ul>
-    </div>
-</footer>
+			<div class="footer-bottom">
+				<p>&copy;
+					<span id="current-year">2023</span>
+					LudGold. All Rights Reserved.</p>
+
+				<ul
+					class="footer-administration">
+					<!-- Correction: Utilisation correcte des éléments <li> à l'intérieur d'une liste <ul> -->
+					<li>
+						<a href="/admin/adminDashboard">Admin</a>
+					</li>
+					<li>
+						<a href="/admin/comment/index">Index</a>
+					</li>
+					<li>
+						<a href="/admin/comment/comments_pending">Commentaires soumis en attente</a>
+					</li>
+					<li>
+						<a href="/admin/comment/comments_approved">Commentaires approuvés</a>
+					</li>
+					<li>
+						<a href="/admin/comment/comments_rejected">Commentaires refusés</a>
+					</li>
+				</ul>
+			</div>
+		</footer>
 
 	</body>
 </html>

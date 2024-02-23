@@ -27,19 +27,19 @@
 					<td>{{ comment.mail }}</td>
 					<td>{{ comment.status }}</td>
 					<td>
-                    
+
 						<form action="/admin/check-comment" method="POST">
-                <input type="hidden" name="commentId" value="{{ comment.id }}">
+							<input type="hidden" name="commentId" value="{{ comment.id }}">
 
-                <select name="action">
-                    <option value=""></option>
-                    <option value="validate">Valider</option>
-                    </select>
+							<select name="action">
+								<option value=""></option>
+								<option value="validate">Valider</option>
+							</select>
 
-                <button type="submit">Soumettre</button>
-            </form>
+							<button type="submit">Soumettre</button>
+						</form>
 					</td>
-                    <td>
+					<td>
 						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Détails du commentaire</button>
 					</td>
 				</tr>
@@ -54,4 +54,3 @@
 	<script src="https:/cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 	<script src="../js/datatable_init.js"></script>
 {% endblock %}
-

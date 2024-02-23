@@ -36,8 +36,7 @@ class UserService
     public function createUser($userDatas)
     {
         $user = new User($userDatas);
-        // Vous pourriez ici générer le token, hacher le mot de passe, etc
-        // Générer et définir le token de confirmation
+
         $registrationToken = $this->generateToken();
         $user->setRegistrationToken($registrationToken);
         return $user;
@@ -64,7 +63,7 @@ class UserService
     public function updateUserRole($userId, $newRole)
     {
         $user = $this->userRepository->getUserBy('id', $userId);
-        
+
         if ($user) {
             $user->setRole($newRole);
             $this->userRepository->updateUserRole($userId, $newRole);
@@ -84,5 +83,3 @@ class UserService
         }
     }
 }
-
-

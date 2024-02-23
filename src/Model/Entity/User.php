@@ -42,6 +42,10 @@ class User
         return $this->id;
     }
 
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
     public function getLastname(): ?string
     {
         return $this->lastname;
@@ -82,19 +86,6 @@ class User
     {
         $this->password = $password;
     }
-
-
-    // public function addRole($role): void
-    // {
-    //     if (!is_array($this->role)) {
-    //         $this->role = [];
-    //     }
-    //     // Vérifie si le rôle est déjà présent dans le tableau
-    //     if (!in_array($role, $this->role)) {
-    //         // Si le rôle n'est pas déjà présent, l'ajoute au tableau
-    //         $this->role[] = $role;
-    //     }
-    // }
 
     public function getRole(): array
     {

@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Service;
 
 use App\Model\Repository\CommentRepository;
@@ -7,7 +8,7 @@ use App\Service\EmailCommentNotification;
 class CommentHandler
 {
     private $commentRepository;
-    private $emailRenderer; 
+    private $emailRenderer;
 
     public function __construct(CommentRepository $commentRepository)
     {

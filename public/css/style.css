@@ -275,7 +275,7 @@ a {
     transform: translate(0, -50%);
     padding: 20px;
     text-align: center;
-    width: 25%;
+    width: 30%;
     height: 32%;
 }
 
@@ -377,7 +377,7 @@ a {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary, 
+.btn-primary,
 .edit-btn {
     background-color: #007bff;
     color: #fff;
@@ -483,7 +483,7 @@ button:hover {
 }
 
 a.edit-btn {
-    
+
     background-color: #007bff;
     color: white;
 }
@@ -491,10 +491,14 @@ a.edit-btn {
 #user_table,
 #comment_table,
 #article_table {
-    width: 100%;
+    margin: 20px;
+    width: 95%;
     border-collapse: collapse;
 }
+.front-table{
+    margin: 0 20px;
 
+}
 #user_table th,
 #user_table td {
     border: 1px solid #ddd;
@@ -503,15 +507,13 @@ a.edit-btn {
 
 #user_table tr:nth-child(even),
 #comment_table tr:nth-child(even),
-#article_table tr:nth-child(even)
-{
+#article_table tr:nth-child(even) {
     background-color: #f2f2f2;
 }
 
 #user_table th,
 #comment_table th,
-#article_table th
- {
+#article_table th {
     background-color: #86a6e9;
     color: white;
 }
@@ -523,7 +525,7 @@ a.edit-btn {
 
 .new-btn {
     background-color: #7b99b9;
-    width: 30%;
+    width: 10%;
     height: 60px;
     border-radius: 10px;
     color: white;

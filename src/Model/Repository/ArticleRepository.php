@@ -45,17 +45,16 @@ class ArticleRepository extends AbstractController
 
         try {
             $db = Database::connect();
-             $sql = "SELECT article.*, user.lastname, user.firstname FROM article INNER JOIN user ON article.userId = user.id  WHERE article.id = :articleId";
+            $sql = "SELECT article.*, user.lastname, user.firstname FROM article INNER JOIN user ON article.userId = user.id  WHERE article.id = :articleId";
             // $sql = "SELECT * FROM article WHERE id = :articleId" ;
             $stmt = $db->prepare($sql);
             $stmt->execute([':articleId' => $articleId]);
-           
+
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\Article");
             $result = $stmt->fetch();
-            
-                       
-                return $result;
-        
+
+
+            return $result;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'article : " . $e->getMessage();
             return null;

@@ -56,9 +56,16 @@ class EmailRenderer
         $template = $this->twig->load('admin/comment/mailCommentNotification.html.twig');
 
         $variables = [
-            'contactLink' => 'mailto:ludivinegoldstein@gmail.com',  // Remplacez l'adresse e-mail statique par celle de votre template Twig
+            'contactLink' => 'mailto:ludivinezarkos@gmail.com',  // Remplacez l'adresse e-mail statique par celle de votre template Twig
         ];
         // Rend le template avec les variables
         return $template->render($variables);
+    }
+    public function renderContactEmail($name, $email, $message)
+    {
+        $htmlContent = "Vous avez reçu un nouveau message de contact de la part de $name ($email): <br><br> $message";
+        $htmlContent .= "$message<br>";
+        // Retournez directement le contenu personnalisé
+        return $htmlContent;
     }
 }

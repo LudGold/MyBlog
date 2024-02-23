@@ -48,16 +48,16 @@ class UserAdminController extends AbstractController
             $this->addFlash('error', 'Vous n\'êtes pas autorisé à effectuer cette action.');
             return $this->redirect('/');
         }
-      
+
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
-            
+
             $userId = $_POST['user_id'];
             $newRole = $_POST['role'];
 
             $userRepository = new UserRepository();
             $userService = new UserService($userRepository);
             if ($userService->updateUserRole($userId, $newRole)) {
-             
+
                 $this->addFlash('success', 'Le rôle de l\'utilisateur a été mis à jour avec succès.');
             } else {
                 $this->addFlash('error', 'Impossible de mettre à jour le rôle de l\'utilisateur.');

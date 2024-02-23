@@ -1,9 +1,8 @@
- {# {% extends 'base.html.twig' %}  #}
+{# {% extends 'base.html.twig' %}  #}
 {# on prend les blocs de style de et de base.html.twig #}
-{% block style %}
-	 {# {{ parent() }}  #}
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
-{% endblock %}
+	{% block style %}
+	{# {{ parent() }}  #}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/> {% endblock %}
 {% block body %}
 	{% include "admin/comment/_comment_table.html.twig" %}
 {% endblock %}

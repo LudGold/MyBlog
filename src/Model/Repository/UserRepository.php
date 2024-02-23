@@ -174,20 +174,21 @@ class UserRepository
         return $users;
     }
     public function updateUserRole($userId, $newRole)
-{
-    try {
-        $sql = "UPDATE user SET role = :role WHERE id = :id";
-        $stmt = $this->db->prepare($sql);
-        $stmt->execute([
-            ':role' => json_encode($newRole),
-            ':id' => $userId,
-        ]);
-        return true;
-    } catch (PDOException $e) {
-        // Gérer l'exception si nécessaire
-        echo "Erreur lors de la mise à jour du rôle de l'utilisateur : " . $e->getMessage();
-        return false;
+    {
+        try {
+            $role = [];
+            $role[] = $newRole;
+            $sql = "UPDATE user SET role = :role WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':role' => json_encode($role),
+                ':id' => $userId,
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            // Gérer l'exception si nécessaire
+            echo "Erreur lors de la mise à jour du rôle de l'utilisateur : " . $e->getMessage();
+            return false;
+        }
     }
-}
-
 }
