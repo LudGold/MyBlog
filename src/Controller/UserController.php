@@ -41,6 +41,7 @@ class UserController extends AbstractController
             }
 
             $user = $userService->createUser($userDatas);
+
             // Enregistrer l'utilisateur dans la base de données
             $userService->saveUser($user);
             $emailService->sendEmail($user,  'Confirmez votre inscription', $user->getRegistrationToken());
@@ -51,8 +52,6 @@ class UserController extends AbstractController
 
         return $this->render("security/register.html.twig");
     }
-
-
 
     public function loginUser()
     {
@@ -65,8 +64,8 @@ class UserController extends AbstractController
             // Exemple : Vérifier si l'utilisateur existe dans la base de données
             $userRepository = new UserRepository();
             $user = $userRepository->getUserBy('mail', $_POST["mail"]);
-
             if ($user && password_verify($_POST["password"], $user->getPassword())) {
+
                 // Connexion réussie et nom prenom du user affiché
                 $userFullName = $user->getFullName();
                 $message = "Bienvenue, $userFullName !";
@@ -78,7 +77,8 @@ class UserController extends AbstractController
                 $this->setSessionInfos("userId", $user->getId());
                 $this->setSessionInfos("mail", $user->getMail());
                 $this->setSessionInfos("lastName", $user->getLastname());
-                $this->setSessionInfos("role", $user->getRoles());
+                $this->setSessionInfos("role", $user->getRole());
+
 
                 return $this->redirect("/");
             } else {
@@ -95,7 +95,7 @@ class UserController extends AbstractController
     public function confirmEmail(string $token)
     {
         $userService = new UserService(new UserRepository());
-    
+
         if ($userService->confirmEmail($token)) {
             $this->addFlash('success', 'Votre adresse e-mail a été confirmée avec succès. Vous pouvez maintenant vous connecter.');
             return $this->redirect('/login');
@@ -104,7 +104,7 @@ class UserController extends AbstractController
             return $this->redirect("/");
         }
     }
-    
+
 
     public function forgotPassword()
     {

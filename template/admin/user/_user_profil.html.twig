@@ -1,0 +1,20 @@
+<table id="user_table" class="display">
+	<thead>
+		<tr>
+			<th>lastname</th>
+			<th>firstname</th>
+			<th>Mail</th>
+			<th>Role</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for user in users %}
+			<tr>
+				<td>{{ user.lastname }}</td>
+				<td>{{ user.firstname }}</td>
+				<td>{{ user.mail }}</td>
+				<td>{{ user.role }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

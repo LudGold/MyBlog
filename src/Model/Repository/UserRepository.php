@@ -22,7 +22,7 @@ class UserRepository
     public function saveUser(User $user)
     {
         try {
-            $role =  json_encode($user->getRoles());
+
             $mail = $user->getMail();
 
             // Vérifier si l'utilisateur existe déjà dans la base de données
@@ -52,9 +52,9 @@ class UserRepository
                     ':firstname' => $user->getFirstname(),
                     ':mail' => $user->getMail(),
                     ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
-                    ':role' => $role,
+                    ':role' => json_encode(['member']),
                     ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
-                    ':isConfirmed' => $user->getIsConfirmed(),
+                    ':isConfirmed' => 0,
                     ':registrationToken' => $user->getRegistrationToken(),
 
                 ]);
@@ -106,9 +106,15 @@ class UserRepository
 
             // Vérifier si la requête a réussi
             if ($stmt->rowCount() > 0) {
-                $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\User");
+                $stmt->setFetchMode(\PDO::FETCH_ASSOC);
                 $userData = $stmt->fetch(); // Utilisation de fetch pour récupérer un seul utilisateur
-                return $userData;
+
+                if ($userData) {
+                    $userData['creationDate'] = new \DateTime($userData['creationDate']);
+                    $userData['role'] = json_decode($userData['role'], true);
+
+                    return new User($userData);
+                }
             } else {
                 // Aucun utilisateur trouvé avec la propriété spécifiée
                 return null;
@@ -133,7 +139,7 @@ class UserRepository
                 ':firstname' => $user->getFirstname(),
                 ':mail' => $user->getMail(),
             ]);
-        
+
             // Si un nouveau mot de passe est fourni
             if (!empty($_POST['new_password'])) {
 
@@ -158,7 +164,7 @@ class UserRepository
         $users = []; // Initialisation du tableau vide pour stocker tous les utilisateurs
 
         try {
-            $sql = "SELECT id, lastname, firstname, mail, password, role FROM user";
+            $sql = "SELECT id, lastname, firstname, mail, password, role FROM user WHERE isConfirmed = 1";
             $stmt = $this->db->query($sql);
             $users = $stmt->fetchAll(\PDO::FETCH_ASSOC); // Récupére tous les utilisateurs sous forme d'un tableau associatif
         } catch (PDOException $e) {
@@ -167,9 +173,22 @@ class UserRepository
 
         return $users;
     }
+    public function updateUserRole($userId, $newRole)
+    {
+        try {
+            $role = [];
+            $role[] = $newRole;
+            $sql = "UPDATE user SET role = :role WHERE id = :id";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([
+                ':role' => json_encode($role),
+                ':id' => $userId,
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            // Gérer l'exception si nécessaire
+            echo "Erreur lors de la mise à jour du rôle de l'utilisateur : " . $e->getMessage();
+            return false;
+        }
+    }
 }
-
-
-
-    // public function editRoleUser($role)
-    // {

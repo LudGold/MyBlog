@@ -194,12 +194,14 @@ a {
 .form-article input[type="submit"]:hover {
     background-color: #0056b3;
 }
-.mdp-change{
+
+.mdp-change {
     font-size: 16px;
     font-weight: 200;
     font-style: italic;
     margin-top: 10px;
 }
+
 /* .change-article {
     width: 30%;
     margin: auto;
@@ -273,7 +275,7 @@ a {
     transform: translate(0, -50%);
     padding: 20px;
     text-align: center;
-    width: 25%;
+    width: 30%;
     height: 32%;
 }
 
@@ -342,12 +344,12 @@ a {
 /* .success::before {
     content: "😊";
     /* Caractère Unicode pour un émoticône sourire */
-    /* display: block;
+/* display: block;
     font-size: 42px;
     /* Taille de police pour l'émoticône (ajustez selon vos besoins) */
-    /* margin-bottom: 10px;
+/* margin-bottom: 10px;
     /* Espace entre l'émoticône et le texte du message */
-/* }  */ 
+/* }  */
 
 .error {
     background-color: #c53830;
@@ -363,7 +365,8 @@ a {
     border: 1px solid #ccc;
     border-radius: 5px;
 }
-.edit-profile{
+
+.edit-profile {
     background-color: #f5f5f5;
     padding: 20px;
     border: 1px solid #ddd;
@@ -372,9 +375,10 @@ a {
     margin-left: auto;
     margin-right: auto;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-.btn-primary {
+}
+
+.btn-primary,
+.edit-btn {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -405,30 +409,6 @@ a {
     max-width: 400px;
     margin: 0 auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-
-
-
-/* Style pour le bouton "Se connecter" */
-.btn-primary {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.btn-primary:hover {
-    background-color: #0056b3;
-}
-
-.btn-block {
-    display: block;
-    width: 100%;
-    margin-top: 10px;
 }
 
 .forgot-password {
@@ -476,10 +456,11 @@ button:hover {
     list-style-type: none;
 }
 
-.title-article{
-   display: flex; 
-   justify-content: center;
+.title-article {
+    display: flex;
+    justify-content: center;
 }
+
 .section {
     margin-bottom: 20px;
 }
@@ -501,15 +482,57 @@ button:hover {
     margin-top: 0;
 }
 
+a.edit-btn {
+
+    background-color: #007bff;
+    color: white;
+}
+
+#user_table,
+#comment_table,
+#article_table {
+    margin: 20px;
+    width: 95%;
+    border-collapse: collapse;
+}
+.front-table{
+    margin: 0 20px;
+
+}
+#user_table th,
+#user_table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+#user_table tr:nth-child(even),
+#comment_table tr:nth-child(even),
+#article_table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+#user_table th,
+#comment_table th,
+#article_table th {
+    background-color: #86a6e9;
+    color: white;
+}
+
+.update-role-form {
+    display: inline-block;
+    margin-right: 10px;
+}
+
 .new-btn {
-    background-color: #0056b3;
-    width: 75px;
+    background-color: #7b99b9;
+    width: 10%;
     height: 60px;
-    border-radius: 50%;
+    border-radius: 10px;
     color: white;
     margin-top: 20px;
     display: flex;
     align-items: center;
+    justify-content: center;
 
 }
 
@@ -600,18 +623,21 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #0056b3;
 }
-.profil-field{
+
+.profil-field {
     margin-bottom: 0px !important;
 }
-.profil-title{
-text-align: center;
-margin: 1rem;
+
+.profil-title {
+    text-align: center;
+    margin: 1rem;
 }
+
 .edit-profile {
     display: flex;
     flex-direction: column;
     text-align: center;
-    
+
 }
 
 .form-group {

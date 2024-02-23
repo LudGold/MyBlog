@@ -1,21 +1,29 @@
 {% extends 'base.html.twig' %}
-
+{% block style %}
+	{{ parent() }}
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+{% endblock %}
 {% block body %}
-    <h2>Admin Dashboard</h2>
 
-    {% for user in users %}
-        <div>
-            <p>{{ user.lastname }} {{ user.firstname }} - {{ user.mail }}</p>
-            <form action="/admin/user/addRole" method="post">
-                <input type="hidden" name="user_id" value="{{ user.id }}">
-                <label for="role">Role:</label>
-                <select name="role" id="role">
-                    <option value="ROLE_USER" {% if user.role == 'ROLE_USER' %} selected {% endif %}>Utilisateur</option>
-                    <option value="ROLE_ADMIN" {% if user.role == 'ROLE_ADMIN' %} selected {% endif %}>Administrateur</option>
-                </select>
-                <button type="submit">Mettre à jour</button>
-            </form>
-            <hr>
-        </div>
-    {% endfor %}
+	{% for user in users %}
+		<div>
+			<p>{{ user.lastname }}
+				{{ user.firstname }}
+				-
+				{{ user.mail }}
+				- Statut :
+				{{ user.role}}</p>
+
+			<form action="/admin/user/addRole" method="post" class="update-role-form">
+				<input type="hidden" name="user_id" value="{{ user.id }}">
+				<select name="role" id="role-{{ user.id }}">
+					<option selected disabled value="">{{user.role|replace({'[':'', ']':'', '"':''})}}</option>
+					<option value="member" {% if user.role == 'Utilisateur' %} selected {% endif %}>Utilisateur</option>
+					<option value="admin" {% if user.role == 'Administrateur' %} selected {% endif %}>Administrateur</option>
+				</select>
+				<button type="submit" name="submit" value="submit">Mettre à jour</button>
+			</form>
+			<hr>
+		</div>
+	{% endfor %}
 {% endblock %}

@@ -1,13 +1,15 @@
-
- {% extends 'base.html.twig' %}
-
+{% extends 'base.html.twig' %}
+{% block style %}
+	{{parent()}}
+	<link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+	<script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
+{% endblock %}
 {% block body %}
 
 	<div class="change-article">
-		
-			<h2>Modifier l'article</h2>
-			
-		{% include 'admin/article/_form.html.twig' %}
-	</div> 
- {% endblock %} 
 
+		<h2>Modifier l'article</h2>
+
+		{% include 'admin/article/_form.html.twig' %}
+	</div>
+{% endblock %}

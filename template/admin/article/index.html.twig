@@ -5,40 +5,10 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
 {% block body %}
-<a href="/admin/newArticle" class="new-btn">Nouvel article</a>
-	<table id="article_table" class="display">
-		<thead>
-			<tr>
-				<th>Titre</th>
-				<th>Date de Modification</th>
-				<th>Chapo</th>
-				<th>Action</th>
-
-			</tr>
-		</thead>
-		<tbody>
-			{% for article in articles|sort %}
-				<tr>
-					<td>{{ article.title }}</td>
-					<td>{{ article.updateDate }}</td>
-					<td>{{ article.chapo }}</td>
-													
-
-					<td>
-						<a href="/article/{{ article.id }}" target="_blank">Lien vers l'article</a>
-						<a href="/admin/changeArticle/{{ article.id }}">
-							<i class="fas fa-pencil-alt"></i>
-						</a>
-
-						<a href='/admin/deleteArticle/{{ article.id }}' onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?')">
-							<i class="fas fa-trash"></i>
-						</a>
-					</td>
-
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+	<a href="/admin/newArticle" class="new-btn">Nouvel article</a>
+	<div class="front-table">
+		{% include "admin/article/_article_table.html.twig" %}
+	</div>
 {% endblock %}
 {% block js %}
 	{{ parent() }}

@@ -1,0 +1,24 @@
+{% block body %}
+	<body>
+		<title>Vous voulez me joindre? c'est par ici</title>
+
+		<form action="/contact" method="POST">
+			<label for="name">Nom/Prénom:</label>
+			<input type="text" id="name" name="name" required><br><br>
+
+			<label for="email">E-mail de contact:</label>
+			<input type="email" id="email" name="email" required><br><br>
+
+			<label for="message">Message:</label>
+			<textarea id="message" name="message" rows="4" required></textarea><br><br>
+			<label>
+				<input type="checkbox" name="consent" required>
+				J'accepte les mentions légales
+			</label>
+			{# gestion anti-spam #}
+			<input type="hidden" id="spam" name="spam">
+
+			<input type="submit" name="submit" value="Envoyer">
+		</form>
+	</body>
+{% endblock %}

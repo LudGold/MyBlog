@@ -4,7 +4,7 @@ namespace App\Controller\Admin;
 
 use Core\component\AbstractController;
 use App\Service\CommentHandler;
-use App\Model\Repository\CommentRepository; 
+use App\Model\Repository\CommentRepository;
 
 
 
@@ -15,7 +15,7 @@ class CommentsAdminController extends AbstractController
     public function __construct()
     {
         parent::__construct();
-        // Initialisation directe dans le constructeur
+        // Initialisation 
         $this->commentHandler = new CommentHandler(new CommentRepository());
     }
     public function showPendingComments()
@@ -45,7 +45,8 @@ class CommentsAdminController extends AbstractController
         $commentsWithStatus = $this->commentHandler->getAllCommentsWithStatus();
         return $this->render('admin/comment/index.html.twig', [
             'allComments' => $commentsWithStatus,
-        ]);}
+        ]);
+    }
 
     public function checkedComment()
     {
@@ -59,5 +60,4 @@ class CommentsAdminController extends AbstractController
         }
         return $this->redirect("/admin/comment/index");
     }
-
 }

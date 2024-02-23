@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Model\Entity;
- 
+
 use DateTime;
 
 
@@ -18,7 +18,7 @@ class Comment
     private ?bool $isApproved;
     private ?bool $isRejected;
     private ?string $status = null;
-    
+
 
 
     public function __construct(array $datas = [])
@@ -31,30 +31,30 @@ class Comment
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
                 if (method_exists($this, $method) && isset($value)) {
-                        $this->$method($value);
-                    
-
-    }}}}
+                    $this->$method($value);
+                }
+            }
+        }
+    }
     public function getId(): ?int
     {
         return $this->id;
     }
     public function setDate($date): void
-{
-    if (is_string($date)) {
-        $date = new DateTime($date);
-    }
-    $this->date = $date;
-}
-public function getDate(): string|\DateTime
-{
-    if(is_string($this->date))
     {
-        $this->date = new \DateTime($this->date);
+        if (is_string($date)) {
+            $date = new DateTime($date);
+        }
+        $this->date = $date;
     }
+    public function getDate(): string|\DateTime
+    {
+        if (is_string($this->date)) {
+            $this->date = new \DateTime($this->date);
+        }
 
-    return $this->date;
-}
+        return $this->date;
+    }
     public function setPseudo(string $pseudo): void
     {
         $this->pseudo = $pseudo;
@@ -92,7 +92,7 @@ public function getDate(): string|\DateTime
     {
         return $this->userId;
     }
-    
+
     public function setMail(string $mail): void
     {
         $this->mail = $mail;
@@ -147,5 +147,4 @@ public function getDate(): string|\DateTime
             return null;
         }
     }
-
 }

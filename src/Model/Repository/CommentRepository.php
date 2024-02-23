@@ -18,7 +18,7 @@ class CommentRepository extends AbstractController
     }
     public function saveComment(Comment $comment)
     {
-                try {
+        try {
             $sql = "INSERT INTO comment (content, pseudo, articleId, userId, mail, isPending, isApproved, isRejected) 
                     VALUES (:content, :pseudo, :articleId, :userId, :mail, :isPending, :isApproved, :isRejected)";
 
@@ -68,7 +68,7 @@ class CommentRepository extends AbstractController
             $stmt->execute([':commentId' => $commentId]);
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, Comment::class);
             $comment = $stmt->fetch();
-    
+
             return $comment;
         } catch (PDOException $e) {
             // Gérer l'erreur de récupération du commentaire
@@ -135,7 +135,7 @@ class CommentRepository extends AbstractController
             $stmt = $this->db->prepare("UPDATE comment SET isPending = 0, isApproved = 1, isRejected = 0 WHERE id = :commentId");
             $stmt->bindParam(':commentId', $commentId, \PDO::PARAM_INT);
             $stmt->execute();
-           
+
             // Retournez un indicateur de succès ou effectuez d'autres actions nécessaires
             return true;
         } catch (PDOException $e) {
@@ -146,7 +146,7 @@ class CommentRepository extends AbstractController
     public function rejectedComment($commentId)
     {
         try {
-          
+
             // Utilisez $this->db pour accéder à la connexion à la base de données
             $stmt = $this->db->prepare("UPDATE comment SET isPending = 0, isApproved = 0, isRejected = 1 WHERE id = :commentId");
             $stmt->bindParam(':commentId', $commentId, \PDO::PARAM_INT);
@@ -176,6 +176,4 @@ class CommentRepository extends AbstractController
             return [];
         }
     }
-
-
 }

@@ -23,34 +23,34 @@ Router::all('/article/{articleId}', "ArticleController@show")->setName("article_
 Router::all('/register', "UserController@registerUser")->setName("register");
 Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
 Router::all('/editProfil', "UserController@editProfil")->setName("profil_modifié");
-Router::all('/admin/user/adminDashboard', "Admin\UserAdminController@adminDashboard")->setName("tableau_de_bord");
+Router::all('/admin/adminDashboard', "Admin\UserAdminController@adminDashboard")->setName("tableau_de_bord");
 Router::all('/admin/user/addRole', "Admin\UserAdminController@updateUserRole")->setName("attribution_role");
 Router::all('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
 Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");
 Router::all('/login', "UserController@loginUser")->setName("login");
-Router::all('/deconnexion', "UserController@logout")->setName("logout");  
+Router::post('/contact', "ContactController@contact")->setName("contact");
+Router::all('/deconnexion', "UserController@logout")->setName("logout");
 //where permet de gérer les regex des suites d'url
 Router::get('/test/{id}', "HomeController@param")->where(['id' => '[0-9]+'])
     ->setName("test");
-Router::all('/contact', "ContactController@contact")->setName("contact"); 
+Router::all('/contact', "ContactController@contact")->setName("contact");
 Router::get('/not-found', 'ErrorController@notFound');
 Router::get('/not-authorised', 'ErrorController@notAuthorised');
 
 Router::error(function (Request $request, \Exception $exception) {
-
-    // switch($exception->getCode()) {
-    //     // Page not found
-    //     case 404:
-    //         response()->redirect('/not-found');
-    //         break;
-    //     // Forbidden
-    //     case 403:
-    //         response()->redirect('/not-authorised');
-    //         break;
-    //     // other error
-    //     default: 
-    //         response()->redirect('/not-found');
-    //         break;
-    // }
-
+    switch($exception->getCode()) {
+        // Page not found
+        case 404:
+            Router::redirect('/not-found', 404);
+            break;
+        // Forbidden
+        case 403:
+            Router::redirect('/not-authorised', 403);
+            break;
+        // other error
+        default: 
+            Router::redirect('/not-found', 404);
+            break;
+    }
 });
+

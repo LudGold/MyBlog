@@ -24,10 +24,10 @@ class Article
             $method = "set" . ucfirst($attr);
             if (is_callable([$this, $method])) {
                 if (method_exists($this, $method) && isset($value)) {
-                        $this->$method($value);
-                    }
+                    $this->$method($value);
                 }
             }
+        }
     }
 
     public function generateSlug(): void
@@ -54,39 +54,37 @@ class Article
     }
 
     public function setDate($date): void
-{
-    if (is_string($date)) {
-        $date = new DateTime($date);
-    }
-    $this->date = $date;
-}
-public function getDate(): string|\DateTime
-{
-    if(is_string($this->date))
     {
-        $this->date = new \DateTime($this->date);
+        if (is_string($date)) {
+            $date = new DateTime($date);
+        }
+        $this->date = $date;
     }
+    public function getDate(): string|\DateTime
+    {
+        if (is_string($this->date)) {
+            $this->date = new \DateTime($this->date);
+        }
 
-    return $this->date;
-}
+        return $this->date;
+    }
     //  * @param \DateTime|null $updateDate
     //  */    
     public function setUpdateDate(\DateTime|string|null $updateDate): void
-{
-    if (is_string($updateDate)) {
-        $updateDate = new \DateTime($updateDate);
-    }
-    $this->updateDate = $updateDate;
-}
-
-public function getUpdateDate(): \DateTime|string|null
-{
-    if(is_string($this->updateDate))
     {
-        $this->updateDate = new \DateTime($this->updateDate);
+        if (is_string($updateDate)) {
+            $updateDate = new \DateTime($updateDate);
+        }
+        $this->updateDate = $updateDate;
     }
-    return $this->updateDate;
-}
+
+    public function getUpdateDate(): \DateTime|string|null
+    {
+        if (is_string($this->updateDate)) {
+            $this->updateDate = new \DateTime($this->updateDate);
+        }
+        return $this->updateDate;
+    }
     public function setContent(?string $content): void
     {
         $this->content = $content;
@@ -116,7 +114,7 @@ public function getUpdateDate(): \DateTime|string|null
     {
         return $this->userId;
     }
-    
+
     public function setSlug(string $slug): void
     {
         $this->slug = $slug;
