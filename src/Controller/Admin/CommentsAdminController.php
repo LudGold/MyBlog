@@ -15,7 +15,7 @@ class CommentsAdminController extends AbstractController
     public function __construct()
     {
         parent::__construct();
-        // Initialisation directe dans le constructeur
+        // Initialisation 
         $this->commentHandler = new CommentHandler(new CommentRepository());
     }
     public function showPendingComments()

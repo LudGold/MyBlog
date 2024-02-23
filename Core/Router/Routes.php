@@ -8,7 +8,7 @@ Router::setDefaultNameSpace("App\Controller");
 
 Router::all('/', "HomeController@home")->setName("home");
 Router::all('/admin/articles', "Admin\ArticleAdminController@index")->setName("admin_articles");
-Router::post('/admin/newArticle', "Admin\ArticleAdminController@newArticle")->setName("admin_newArticle");
+Router::all('/admin/newArticle', "Admin\ArticleAdminController@newArticle")->setName("admin_newArticle");
 Router::all('/admin/changeArticle/{articleId}', "Admin\ArticleAdminController@changeArticle")->setName("admin_changeArticle");
 Router::all('/admin/deleteArticle/{articleId}', "Admin\ArticleAdminController@deleteArticle")->setName("supp_articles");
 Router::get('/admin/comment/comments_pending', "Admin\CommentsAdminController@showPendingComments")->setName("admin_pending_comments");
