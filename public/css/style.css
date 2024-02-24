@@ -148,6 +148,66 @@ a {
 /* style page signin/login*/
 
 /* Style pour le formulaire d'inscription */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    padding: 20px;
+}
+
+.title-contact-form {
+    text-align: center;
+    font-family: Arial, sans-serif;
+
+}
+
+.contact-form {
+    background-color: #e8f0fe;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    margin: auto;
+}
+
+label {
+    margin-top: 10px;
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+textarea {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+input[type="submit"] {
+    background-color: #7ebed3;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.submit-btn.active {
+    background-color: #215e72;
+    /* Bleu foncé (mentions légales acceptées) */
+}
+
+  
+/* Anti-spam - hidden from users */
+input#spam {
+    display: none;
+}
+
 .card {
     background-color: #f2f2f2;
     border-radius: 10px;
@@ -284,6 +344,39 @@ a {
     color: white;
     margin-bottom: 20px;
 }
+
+.profile-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.text-container {
+    flex: 1;
+    font-size: larger;
+}
+
+.welcome {
+
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.pres-profile {
+    text-align: justify;
+    line-height: 1.5;
+}
+
+.contact-img {
+    flex: 1;
+    max-width: 15%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
 
 .arrow-right {
     width: 0;
@@ -495,10 +588,12 @@ a.edit-btn {
     width: 95%;
     border-collapse: collapse;
 }
-.front-table{
+
+.front-table {
     margin: 0 20px;
 
 }
+
 #user_table th,
 #user_table td {
     border: 1px solid #ddd;
@@ -611,18 +706,7 @@ textarea {
     border-radius: 5px;
 }
 
-input[type="submit"] {
-    background-color: #007bff;
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
 
-input[type="submit"]:hover {
-    background-color: #0056b3;
-}
 
 .profil-field {
     margin-bottom: 0px !important;
@@ -746,4 +830,36 @@ footer {
 
 .credit {
     font-size: 8px;
+}
+.checkbox-submit label {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centrer verticalement la checkbox avec le texte */
+}
+
+.checkbox-submit input[type="checkbox"] {
+    margin-top: 10px;
+    margin-right: 10px; /* Espace entre la checkbox et le texte */
+}
+.ml{
+    font-size: 1em;
+    margin-top: 5px;
+}
+.present-txt{
+    text-align: center;
+}
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .text-container,
+    .contact-img {
+        max-width: 100%;
+    }
+
+    .welcome {
+        text-align: center;
+    }
 }

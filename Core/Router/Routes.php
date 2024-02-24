@@ -30,6 +30,7 @@ Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setN
 Router::all('/login', "UserController@loginUser")->setName("login");
 Router::post('/contact', "ContactController@contact")->setName("contact");
 Router::all('/deconnexion', "UserController@logout")->setName("logout");
+Router::get('/mentionsLegales', "LegalController@mentionsLegales")->setName("mentions_legales");
 //where permet de gérer les regex des suites d'url
 Router::get('/test/{id}', "HomeController@param")->where(['id' => '[0-9]+'])
     ->setName("test");

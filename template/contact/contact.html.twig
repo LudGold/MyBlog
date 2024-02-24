@@ -1,8 +1,11 @@
+{% block js %}
+	<script src="../js/effect.js"></script>
+{% endblock %}
 {% block body %}
 	<body>
-		<title>Vous voulez me joindre? c'est par ici</title>
+		<h5 class="title-contact-form">Vous souhaitez me contacter? c'est par ici</h5>
 
-		<form action="/contact" method="POST">
+		<form class="contact-form" action="/contact" method="POST">
 			<label for="name">Nom/Prénom:</label>
 			<input type="text" id="name" name="name" required><br><br>
 
@@ -11,14 +14,18 @@
 
 			<label for="message">Message:</label>
 			<textarea id="message" name="message" rows="4" required></textarea><br><br>
-			<label>
-				<input type="checkbox" name="consent" required>
-				J'accepte les mentions légales
-			</label>
-			{# gestion anti-spam #}
-			<input type="hidden" id="spam" name="spam">
+			<div class="checkbox-submit">
+				
+				{# gestion anti-spam #}
+				<input type="hidden" id="spam" name="spam">
 
-			<input type="submit" name="submit" value="Envoyer">
+				<input type="submit" name="submit" class="submit-btn" value="Envoyer">
+				<label>
+					<input type="checkbox" name="consent" required>
+					<p class="ml">J'accepte les mentions légales</p>
+				</label>
+			</div>
 		</form>
 	</body>
 {% endblock %}
+
