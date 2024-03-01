@@ -1,20 +1,25 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<div class="title-article">
-		<h1>Liste des Articles</h1>
+		<h1>Liste des Articles à consulter</h1>
+
 	</div>
 	<ul class="display-article">
 		{% for article in articles %}
 			<li class="article-list">
 				<h2>{{ article.title }}</h2>
-				{% if article.updateDate %}
-					<p>Date de Modification :
-						{{ article.updateDate|date('d/m/Y') }}</p>
-				{% endif %}
-				<p>Chapô :
-					{{ article.chapo }}</p>
-				<p>
-					<a href="/article/{{ article.id }}" target="_blank">Lire l'article</a>
+				 {% if article.updateDate %}
+                    <p class="date-style">Modifié le {{ article.updateDate|date('d/m/Y') }}</p>
+                {% else %}
+                    <p class="date-style">Publié le {{ article.date|date('d/m/Y') }}</p>
+                {% endif %}
+				<p>{{ article.chapo|split(' ')|slice(0, 10)|join(' ') }}
+					{% if article.chapo|split(' ')|length > 10 %}
+						...
+					{% endif %}
+				</p>
+				<p class="link-to-article">
+					<a href="/article/{{ article.id }}" target="_blank" class="link-article">Lire l'article</a>
 				</p>
 			</li>
 		{% endfor %}

@@ -19,22 +19,29 @@ class ArticleController extends AbstractController
             'articles' => $articles,
         ]);
     }
+    public function displayLatestArticles()
+    {
+      
+        $articleRepository = new ArticleRepository();
+        $limit = 4;
+        $articles = $articleRepository->findLatestArticles($limit);
+        return $articles;
+        
+    }
 
     public function show(int $articleId)
     {
         $articleRepository = new ArticleRepository();
         $article = $articleRepository->getArticleById($articleId);
-       
         // Récupérer les commentaires associés à l'article depuis le CommentRepository
         $commentRepository = new CommentRepository();
         $comments = $commentRepository->getCommentsByArticleId($articleId);
-
         if (!$article) {
             // Gérer le cas où l'article n'est pas trouvé
             // Peut-être rediriger l'utilisateur ou afficher un message d'erreur
             return $this->redirect("/articles");
         }
-
+      
         return $this->render("article/show.html.twig", [
             'article' => $article,
             'comments' => $comments,
@@ -42,7 +49,7 @@ class ArticleController extends AbstractController
         ]);
        
     }
-    // Ajoutez cette fonction à votre ArticleAdminController
+    
     public function submitComment(int $articleId)
     {
         if ($this->isSubmitted('submit') && $this->isValided($_POST)) {
@@ -72,4 +79,5 @@ class ArticleController extends AbstractController
         }
         $this->redirect("/article/{$articleId}");
     }
+
 }

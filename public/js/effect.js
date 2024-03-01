@@ -10,3 +10,10 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+//gestion nbr de mots dans trix
+document.addEventListener("trix-initialize", function(event) {
+  var editor = event.target.editor;
+  editor.setMaxLength(1000); 
+});
+

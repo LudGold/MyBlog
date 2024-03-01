@@ -1,38 +1,47 @@
 {# un article avec le détail #}
 {% extends 'base.html.twig' %}
+{% block js %}
+	<script src="../js/effect.js"></script>
+{% endblock %}
 
 {% block body %}
-
-	<h1>{{ article.title }}</h1>
-	<p>Chapô :
-		{{ article.chapo }}</p>
-	<p>Contenu :
+	<div class="article-liste">
+		<h2 class="article-title">{{ article.title }}</h2>
+		<p>{{ article.chapo|split(' ')|slice(0, 10)|join(' ') }}
+			{% if article.chapo|split(' ')|length > 10 %}
+				...
+			{% endif %}
+		</p>
 		<div class="style-content">
 			{{ article.content|raw }}</p>
 	</p>
 </div>
-<p>Auteur :
+<p class="auteur-article">by
 	{{ article.firstname }}
 	{{ article.lastname }}</p>
 
 {% if article.updateDate %}
-	<p>Date de Modification :
-		{{ article.updateDate|date('d/m/Y') }}</p>
-{% endif %}
-
-<h2>Commentaires validés et publiés :</h2>
-<ul>
-	{% for comment in approvedComments %}
-		{% if comment.getIsApproved %}
-			<li>
-				<p>{{ comment.content }}</p>
-				<p>Auteur :
-					{{ comment.getAuthorFullName }}</p>
-				<p>Date de Publication :
-					{{ comment.getDate|date('d/m/Y') }}</p>
+                    <p class="date-style">Modifié le{{ article.updateDate|date('d/m/Y') }}</p>
+                {% else %}
+                    <p class="date-style">Publié le {{ article.date|date('d/m/Y') }}</p>
+                {% endif %}
+<div class="comment-section">
+	<h5>Commentaires</h5>
+	<ul>
+		{% for comment in comments %}
+			<li class="comment-item">
+			
+					<span class="bullet-point">&#8226;</span>
+				
+				<div class="comment-details">
+					<div class="comment-content">{{ comment.content }}</div>
+					<div class="comment-meta">{{ comment.pseudo }}
+						le
+						{{ comment.Date|date('d/m/Y') }}</div>
+				</div>
 			</li>
-		{% endif %}
-
-	{% endfor %}
-	{% include 'comment/addComment.html.twig' %}
-</ul>{% endblock %}
+		{% else %}
+			<p>Aucun commentaire pour cet article.</p>
+		{% endfor %}
+	</div>
+	{% include 'comment/addComment.html.twig' %}</ul>{% endblock %}

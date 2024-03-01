@@ -9,137 +9,39 @@
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 			<link rel="stylesheet" type="text/css" href="/css/normalize.css">
 			<link rel="stylesheet" type="text/css" href="/css/style.css">
-		{% endblock %}
-		{% block js %}
 			<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-			<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-			<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 		{% endblock %}
+
 		<title>
 			{% block title %}{% endblock %}
 		</title>
 	</head>
-
 	<body>
-		<div class="navbar with-background" id="navbar">
-			<ul class="navbar-nav">
-				<li class="nav-item accueil">
-					<a class="nav-link " href="/">Accueil</a>
-				</li>
-				<li class="nav-item who">
-					<a class="nav-link " href="/home">Qui suis-je?</a>
-				</li>
-								
-				<li class="nav-item articles">
-					<a class="nav-link " href="/articles">Articles</a>
-					<ul class="edit-articles">
-						<li>
-							<a href="/admin/articles">Index des articles</a>
-						</li>
-						<li>
-							<a href="/admin/newArticle">Ajouter un article</a>
-						</li>
-					</ul>
-				</li>
-				<li class="nav-item contact">
-					<a class="nav-link" href="#rs">Me contacter</a>
-				</li>
-
-				{% if "admin" in session.role %}
-					<li class="nav-item dashboard">
-						<a class="nav-link dashboard" href="/admin/adminDashboard">Tableau de bord</a>
-					</li>
-				{% endif %}
-				{% if userLoggedIn %}
-					<li class="nav-item profil">
-						<a class="nav-link edit-profil" href="/editProfil">Voir mon profil</a>
-					</li>
-					<li>
-						<a class="nav-link logout" href="/deconnexion">Déconnexion</a>
-					</li>
-				{% else %}
-					<li class="nav-item connexion">
-						<a class="nav-link login" href="/login">Connexion</a>
-					</li>
-					<li>
-						<a class="nav-link sign-in" href="/register">S'inscrire</a>
-					</li>
-				{% endif %}
-			</ul>
-
-		</div>
-
-		{# Utilisation de session.flash #}
+		{% block menu %}
+			{% include 'home/menu.html.twig' %}
+		{% endblock %}
+		{# Activation des messages flash #}
 		{% if flashMessages %}
-			{% for message in flashMessages %}
-				<div class="flash-message {{ message.type }}">
-					{{ message.message }}
-				</div>
-			{% endfor %}
+			<div class="container">
+				{% for message in flashMessages %}
+					<div class="flash-message {{ message.type }}">
+						{{ message.message }}
+					</div>
+				{% endfor %}
+			</div>
 		{% endif %}
-		{% block body %}{% endblock %}
-
-
-		<footer>
-			<div class="footer-content">
-				<ul
-					class="social-icons">
-					
-					<li>
-						<a href="mailto:ludivinezarkos@gmail.com">Contactez Moi</a>
-					</li>
-					<li>
-						<a href="mailto:ludivinezarkos@gmail.com" class="social-icon">
-							<i class="fas fa-envelope"></i>
-							
-						</a>
-					</li>
-					<li>
-						<a href="https://www.facebook.com/titanegirl" class="social-icon">
-							<i class="fab fa-facebook"></i>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="social-icon">
-							<i class="fab fa-twitter"></i>
-						</a>
-					</li>
-					<li>
-						<a href="www.linkedin.com/in/ludivine-goldstein-4677ab128" class="social-icon">
-							<i class="fab fa-linkedin"></i>
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/LudGold" target="_blank" class="social-icon">
-							<i class="fab fa-github"></i>
-						</a>
-					</li>
-				</ul>
-
-				<ul class="footer-links">
-					<li>
-						<a href="/mentionsLegales" class="confidential">Mentions Légales</a>
-					</li>
-
-				</ul>
+		<div class="main-content"> 
+		{% block body %}
+		{% endblock %}
 			</div>
+			{% block footer %}
+				{% include 'home/footer.html.twig' %}
+			{% endblock %}
+			{% block js %}
 
-			<div class="footer-bottom">
-				<p>&copy;
-					<span id="current-year">2023</span>
-					LudGold. All Rights Reserved.</p>
-
-				<ul
-					class="footer-administration">
-					<!-- Correction: Utilisation correcte des éléments <li> à l'intérieur d'une liste <ul> -->
-					<li>
-						<a href="/admin/adminDashboard">Admin</a>
-					</li>
-				
-				</ul>
-			</div>
-		</footer>
-
-	</body>
-</html>
+				<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+				<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+				<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+			{% endblock %}
+		</body>
+	</html>

@@ -4,15 +4,17 @@ namespace App\Service;
 
 use App\Model\Repository\CommentRepository;
 use App\Service\EmailCommentNotification;
+use App\Service\EmailRenderer;
 
 class CommentHandler
 {
     private $commentRepository;
     private $emailRenderer;
 
-    public function __construct(CommentRepository $commentRepository)
+    public function __construct(CommentRepository $commentRepository, EmailRenderer $emailRenderer)
     {
         $this->commentRepository = $commentRepository;
+        $this->emailRenderer = $emailRenderer;
     }
 
     public function getPendingComments()

@@ -53,8 +53,11 @@ class UserController extends AbstractController
         return $this->render("security/register.html.twig");
     }
 
-    public function loginUser()
-    {
+    public function loginUser(){
+    // { si oui login, message 
+        // if ($this->isUserLoggedIn()){
+            
+        // }
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
             $this->newSession();
 

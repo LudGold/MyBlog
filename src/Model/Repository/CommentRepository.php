@@ -59,6 +59,17 @@ class CommentRepository extends AbstractController
             return [];
         }
     }
+    public function deleteCommentById(int $commentId)
+    {
+        try {
+            $sql = "DELETE FROM comment WHERE id = :commentId";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':commentId' => $commentId]);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression du commentaire : " . $e->getMessage();
+        }
+    }
+
     public function getCommentById(int $commentId): ?Comment
     {
         try {
@@ -68,7 +79,6 @@ class CommentRepository extends AbstractController
             $stmt->execute([':commentId' => $commentId]);
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, Comment::class);
             $comment = $stmt->fetch();
-
             return $comment;
         } catch (PDOException $e) {
             // Gérer l'erreur de récupération du commentaire

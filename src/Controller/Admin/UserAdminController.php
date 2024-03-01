@@ -11,11 +11,8 @@ use App\Service\UserService;
 
 class UserAdminController extends AbstractController
 {
-
-
     public function adminDashboard()
     {
-       
         if ($this->isAdmin()) {
             // Récupérez les informations des utilisateurs depuis la base de données
             $userRepository = new UserRepository();
@@ -30,7 +27,6 @@ class UserAdminController extends AbstractController
                 'users' => $users,
                 'allComments' => $comments,
                 'articles' => $articles,
-
             ]);
 
             // Si l'utilisateur n'est pas un administrateur, redirigez-le vers une page d'erreur ou une autre page appropriée
@@ -41,7 +37,7 @@ class UserAdminController extends AbstractController
     public function updateUserRole()
     {
         $this->isAdmin();
-
+        
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
 
             $userId = $_POST['user_id'];

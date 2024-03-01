@@ -1,14 +1,22 @@
 {% extends 'base.html.twig' %}
+{% block js %}
+	<script src="../js/effect.js"></script>
+{% endblock %}
 {% block body %}
 	<div class="profile-container">
 		<div class="text-container">
 			<div class="welcome">Bienvenue sur mon blog de developpeuse web
 			</div>
 			<div class="present-txt">
-		Transformer votre vision numérique en réalité, avec une touche de passion et d'innovation! <br> Ludivine Goldstein, développeuse web engagée."
-		</div>
+				Transformer votre vision numérique en réalité, avec une touche de passion et d'innovation!
+				<br>
+				Ludivine Goldstein, développeuse web engagée."
 			</div>
+		</div>
 		<img class="contact-img" src="./img/ludDev.jpg" alt="img-profil">
 	</div>
 	{% include 'contact/contact.html.twig' %}
+	{% include 'article/latestArticles.html.twig' %}
+	<div class="CV">Pour voir et télécharger mon parcours professionnel <a href="./CV/mon-CV.pdf">cliquez ici</a></div>
+
 {% endblock %}
