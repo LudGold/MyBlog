@@ -6,6 +6,7 @@
 		<meta name="description" content="">
 		<meta name="author" content="">
 		{% block style %}
+			<link rel="icon" type="image/x-icon" href="/img/favicon.jpg">
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 			<link rel="stylesheet" type="text/css" href="/css/normalize.css">
 			<link rel="stylesheet" type="text/css" href="/css/style.css">
@@ -30,9 +31,7 @@
 				{% endfor %}
 			</div>
 		{% endif %}
-		<div class="main-content"> 
-		{% block body %}
-		{% endblock %}
+		<div class="main-content"> {% block body %}{% endblock %}
 			</div>
 			{% block footer %}
 				{% include 'home/footer.html.twig' %}

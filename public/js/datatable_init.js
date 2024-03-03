@@ -24,7 +24,7 @@ $(document).ready(function () {
       },
     },
     order: [[0, "desc"]],
-    responsive : true,
+    responsive: true,
   });
 
   $("#comment_table").DataTable({
@@ -81,9 +81,6 @@ $(document).ready(function () {
     },
     order: [[0, "desc"]],
     responsive: true,
-    columnDefs: [
-      { targets: [2], className: 'none' }
-  ]
-
+    columnDefs: [{ targets: [2], className: "none" }],
   });
 });

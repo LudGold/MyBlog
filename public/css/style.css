@@ -48,6 +48,7 @@ body {
     align-items: center;
     flex-direction: row;
     margin-left: 30em;
+    font-size: 20px;
 }
 
 /* Style pour les éléments de la liste */
@@ -168,6 +169,12 @@ a {
     font-weight: bold;
 }
 
+h2.CV {
+    font-weight: bold;
+    font-style: italic;
+    text-decoration: underline;
+}
+
 .CV a {
     color: #3faacd;
 }
@@ -188,9 +195,9 @@ a {
 .contact-form {
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
-    margin: auto;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    margin: 40px;
 }
 
 .title-contact-form {
@@ -200,9 +207,10 @@ a {
     font-weight: bolder;
 }
 
+
 a.ML,
 .ml {
-    color: #0056b3;
+    color: #3faacd;
 }
 
 .table-container {
@@ -341,10 +349,6 @@ input#spam {
     margin-top: 10px;
 }
 
-.modify-btn {
-    margin-left: 50px;
-}
-
 .change-article {
     padding: 20px;
 }
@@ -364,15 +368,21 @@ input#spam {
 
 .profile-container {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: center;
-    gap: 100px;
-    padding: 20px;
+    gap: 50px;
+    padding: 40px;
+    background-color: darkgray;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+    max-width: 100%;
+    margin-bottom: 5em;
 }
 
 .text-container {
     flex: 1;
-    font-size: larger;
+    font-size: 28px;
 }
 
 .welcome {
@@ -553,11 +563,62 @@ select {
 
 .latest-articles {
     margin-top: 20px;
+
 }
 
-.article-details {
+.latest-articles h2 {
+    margin-top: 50px;
+    text-align: center;
+
+}
+
+.article-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.article-card {
+    flex: 1 1 calc(33.33% - 20px);
+    margin: 10px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.article-card h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.article-card p {
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.article-card .date-style {
+    font-size: 12px;
+    color: #888;
+    margin-bottom: 10px;
+}
+
+.link-to-article {
+    text-align: right;
+}
+
+.link-article {
+    color: #007bff;
+    /* Couleur du lien */
+    text-decoration: none;
+    /* Enlevez la soulignement du lien */
+}
+
+/* .article-details {
     background-color: #fff;
     padding: 20px;
+    opacity: 0.9;
+    margin-top: 30px;
     margin-bottom: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -569,7 +630,7 @@ select {
 
 .article-details p {
     margin-bottom: 10px;
-}
+} */
 
 .article-list h2 {
     font-size: 1.4rem;
@@ -824,6 +885,12 @@ a.link-article:hover {
     border-color: transparent;
 }
 
+.update-btn {
+    margin-left: 50px !important;
+}
+
+
+
 /* Style de base pour le footer */
 footer {
     background-color: rgb(12, 7, 43);
@@ -1051,6 +1118,9 @@ a.nav-link {
         display: inline-block;
     }
 
+    .contact-form {
+        width: 100%
+    }
 
     .profile-container {
         flex-direction: column;
@@ -1064,6 +1134,11 @@ a.nav-link {
 
     .form-article {
         width: 100%;
+    }
+
+    .article-card {
+        flex: 0 0 100%;
+        /* Sur les appareils de taille plus petite, chaque article occupera 100% de la largeur */
     }
 
     .form-article input[type="submit"] {

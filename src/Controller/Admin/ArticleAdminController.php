@@ -13,8 +13,7 @@ use App\Model\Entity\Article;
 class ArticleAdminController extends AbstractController
 {
     // page articles avec les differents infos, icone stylo et icon trash à droite
-    public function index()
-    {
+    public function index()  {
         $this->isAdmin();
 
         $articleRepository = new ArticleRepository();

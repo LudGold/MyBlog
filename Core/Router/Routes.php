@@ -5,11 +5,9 @@ use Pecee\Http\Request;
 
 Router::setDefaultNameSpace("App\Controller");
 
-// Pages publiques et accueil
-Router::get('/', "HomeController@home")->setName("home");
 Router::get('/articles', "ArticleController@displayAllArticles")->setName("articles");
 Router::get('/article/{articleId}', "ArticleController@show")->setName("article_show");
-Router::get('/latest-articles', "ArticleController@displayLatestArticles")->setName("latest_articles");
+Router::get('/', "ArticleController@displayLatestArticles")->setName("latest_articles");
 Router::get('/register', "UserController@registerUser")->setName("register");
 Router::get('/login', "UserController@loginUser")->setName("login");
 Router::get('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
@@ -43,7 +41,6 @@ Router::all('/admin/user/addRole', "Admin\UserAdminController@updateUserRole")->
 // Authentification et gestion de profil
 Router::post('/login', "UserController@loginUser")->setName("login");
 Router::post('/register', "UserController@registerUser")->setName("register");
-
 Router::post('/contact', "ContactController@contact")->setName("contact");
 
 // Gestion des erreurs

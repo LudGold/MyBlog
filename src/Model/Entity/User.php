@@ -89,7 +89,7 @@ class User
 
     public function getRole(): array
     {
-        return [$this->role];
+        return $this->role;
     }
     public function setRole($role): void
     {

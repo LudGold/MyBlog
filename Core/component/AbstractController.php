@@ -5,7 +5,7 @@ namespace Core\component;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 use Twig\Extension\DebugExtension;
-use Twig\TwigFilter;
+
 
 class AbstractController
 {
@@ -31,7 +31,7 @@ class AbstractController
     public function redirect($url)
     {
         header("Location:" . $url);
-        exit();
+        // exit();
     }
     public function newSession()
     {

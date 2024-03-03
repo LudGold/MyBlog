@@ -63,8 +63,8 @@ class EmailRenderer
     }
     public function renderContactEmail($name, $email, $message)
     {
-        $htmlContent = "Vous avez reçu un nouveau message de contact de la part de $name ($email): <br><br> $message";
-        $htmlContent .= "$message<br>";
+        $htmlContent = "Vous avez reçu un nouveau message de contact de la part de M $name ($email): <br><br> $message";
+        
         // Retournez directement le contenu personnalisé
         return $htmlContent;
     }

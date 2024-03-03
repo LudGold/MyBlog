@@ -21,18 +21,19 @@
 	{{ article.lastname }}</p>
 
 {% if article.updateDate %}
-                    <p class="date-style">Modifié le{{ article.updateDate|date('d/m/Y') }}</p>
-                {% else %}
-                    <p class="date-style">Publié le {{ article.date|date('d/m/Y') }}</p>
-                {% endif %}
+	<p class="date-style">Modifié le{{ article.updateDate|date('d/m/Y') }}</p>
+{% else %}
+	<p class="date-style">Publié le
+		{{ article.date|date('d/m/Y') }}</p>
+{% endif %}
 <div class="comment-section">
 	<h5>Commentaires</h5>
 	<ul>
 		{% for comment in comments %}
 			<li class="comment-item">
-			
-					<span class="bullet-point">&#8226;</span>
-				
+
+				<span class="bullet-point">&#8226;</span>
+
 				<div class="comment-details">
 					<div class="comment-content">{{ comment.content }}</div>
 					<div class="comment-meta">{{ comment.pseudo }}
