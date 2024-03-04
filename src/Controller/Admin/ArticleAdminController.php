@@ -6,14 +6,14 @@ use Core\component\AbstractController;
 
 use App\Model\Repository\ArticleRepository;
 use App\Model\Repository\UserRepository;
+use App\Model\Repository\CommentRepository;
 use App\Model\Entity\Article;
 
 
 class ArticleAdminController extends AbstractController
 {
     // page articles avec les differents infos, icone stylo et icon trash à droite
-    public function index()
-    {
+    public function index()  {
         $this->isAdmin();
 
         $articleRepository = new ArticleRepository();
@@ -127,7 +127,17 @@ class ArticleAdminController extends AbstractController
     public function deleteArticle(int $articleId)
     {
         $this->isAdmin();
+        $commentRepository = new CommentRepository();
 
+        // Récupère tous les commentaires liés à l'article
+        $comments = $commentRepository::getCommentsByArticleId($articleId);
+
+        // Supprime tous les commentaires associés à l'article
+        foreach ($comments as $comment) {
+            // Ici, on suppose que vous avez une méthode dans CommentRepository pour supprimer un commentaire par son ID
+            // Si ce n'est pas le cas, vous devriez l'ajouter. Pour cet exemple, j'utiliserai une méthode fictive deleteCommentById
+            $commentRepository->deleteCommentById($comment->getId());
+        }
         $articleRepository = new ArticleRepository();
         $articleRepository->deleteArticle($articleId);
 

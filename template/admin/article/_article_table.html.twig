@@ -2,20 +2,26 @@
 	<thead>
 		<tr>
 			<th>Titre</th>
-			<th>Date de Modification</th>
-			<th>Chapo</th>
+			<th class="none-mobile">Date de Modification</th>
+			<th>Résumé</th>
 			<th>Action</th>
 
 		</tr>
 	</thead>
 	<tbody>
 		{% if articles is not null %}
-			{% for article in articles|sort %}
+			{% for article in articles %}
 				<tr>
 					<td>
 						<a href="/article/{{ article.id }}" target="_blank">{{ article.title }}</a>
 					</td>
-					<td>{{ article.updateDate|date("d/m/Y H:i") }}</td>
+					<td class="none-mobile">
+						{% if article.updateDate %}
+							{{ article.updateDate|date("d/m/Y") }}
+							{% else %}
+						{% endif %}
+					</td>
+
 					<td>{{ article.chapo }}</td>
 					<td>
 						<a href="/article/{{ article.id }}" target="_blank"></a>
@@ -29,8 +35,6 @@
 
 				</tr>
 			{% endfor %}
-			{# {% else %}
-										                        <tr><td colspan="4">Aucun article trouvé.</td></tr> #}
 		{% endif %}
 	</tbody>
 </table>

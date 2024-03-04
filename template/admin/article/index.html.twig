@@ -5,7 +5,9 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
 {% block body %}
-	<a href="/admin/newArticle" class="new-btn">Nouvel article</a>
+	<div class="new-btn-display">
+		<a href="/admin/newArticle" class="new-btn">Nouvel article</a>
+	</div>
 	<div class="front-table">
 		{% include "admin/article/_article_table.html.twig" %}
 	</div>

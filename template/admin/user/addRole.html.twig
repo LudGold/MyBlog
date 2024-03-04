@@ -3,27 +3,46 @@
 	{{ parent() }}
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
+{% block js %}
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+	<script src="../js/datatable_init.js"></script>
+{% endblock %}
 {% block body %}
-
-	{% for user in users %}
-		<div>
-			<p>{{ user.lastname }}
-				{{ user.firstname }}
-				-
-				{{ user.mail }}
-				- Statut :
-				{{ user.role}}</p>
-
-			<form action="/admin/user/addRole" method="post" class="update-role-form">
-				<input type="hidden" name="user_id" value="{{ user.id }}">
-				<select name="role" id="role-{{ user.id }}">
-					<option selected disabled value="">{{user.role|replace({'[':'', ']':'', '"':''})}}</option>
-					<option value="member" {% if user.role == 'Utilisateur' %} selected {% endif %}>Utilisateur</option>
-					<option value="admin" {% if user.role == 'Administrateur' %} selected {% endif %}>Administrateur</option>
-				</select>
-				<button type="submit" name="submit" value="submit">Mettre à jour</button>
-			</form>
-			<hr>
-		</div>
-	{% endfor %}
+	<div class="table-container">
+		<h4 class="title-tableau-bord-user">
+			Tableau de bord des utilisateurs</h4>
+		<table id="user_table" class="display">
+			<thead>
+				<tr>
+					<th>Nom</th>
+					<th>Prénom</th>
+					<th>Mail</th>
+					<th>Rôle attribué</th>
+					<th>Modifier</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for user in users %}
+					<tr>
+						<td>{{ user.lastname }}</td>
+						<td>{{ user.firstname }}</td>
+						<td>{{ user.mail }}</td>
+						<td>{{ user.role|replace({'[':'', ']':'', '"':''}) }}</td>
+						<td>
+							<form action="/admin/user/addRole" method="post" class="update-role-form">
+								<input type="hidden" name="user_id" value="{{ user.id }}">
+							<select name="role" id="role-{{ user.id }}">
+									<option selected disabled value="">{{ user.role|replace({'[':'', ']':'', '"':''}) }}</option>
+									<option value="member" {% if user.role == 'Member' %} selected {% endif %}>Member</option>
+									<option value="admin" {% if user.role == 'Administrateur' %} selected {% endif %}>Administrateur</option>
+								</select>
+								<button type="submit" class="modify-btn update-btn" name="submit" value="submit">Mettre à jour</button>
+							</form>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
 {% endblock %}

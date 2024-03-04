@@ -5,6 +5,8 @@ namespace App\Controller\Admin;
 use Core\component\AbstractController;
 use App\Service\CommentHandler;
 use App\Model\Repository\CommentRepository;
+use App\Service\EmailRenderer; 
+use PDOException;
 
 
 
@@ -16,7 +18,8 @@ class CommentsAdminController extends AbstractController
     {
         parent::__construct();
         // Initialisation 
-        $this->commentHandler = new CommentHandler(new CommentRepository());
+        $emailRenderer = new EmailRenderer();
+        $this->commentHandler = new CommentHandler(new CommentRepository(), $emailRenderer);
     }
     public function showPendingComments()
     {
@@ -60,4 +63,6 @@ class CommentsAdminController extends AbstractController
         }
         return $this->redirect("/admin/comment/index");
     }
+
+
 }

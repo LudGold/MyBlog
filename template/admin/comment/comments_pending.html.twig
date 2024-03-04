@@ -1,88 +1,67 @@
 {% extends 'base.html.twig' %}
 
 {% block style %}
-	{{ parent() }}
-	<link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
+    {{ parent() }}
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.css"/>
 {% endblock %}
 
 {% block body %}
-	<h2>Commentaires en attente de validation</h2>
+    <h2>Commentaires en attente de validation</h2>
 
-	<table id="comments_pending_table" class="display">
-		<thead>
-			<tr>
-				<th>Pseudo</th>
-				<th>Date de Publication</th>
-				<th>Contenu</th>
-				<th>Email</th>
-				<th>Statut</th>
-				<th>Action</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for comment in pendingComments %}
-				<tr>
-					<td>{{ comment.pseudo }}</td>
-					<td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
-					<td>{{ comment.content }}</td>
-					<td>{{ comment.mail }}</td>
-					<td>{{ comment.status }}</td>
-					<td></td>
-					<td>
-						<form action="/admin/check-comment" method="POST">
-							<input type="hidden" name="commentId" value="{{ comment.id }}">
+    {% if pendingComments is not empty %}
+        <table id="comments_pending_table" class="display">
+            <thead>
+                <tr>
+                    <th>Pseudo</th>
+                    <th>Date de Publication</th>
+                    <th>Contenu</th>
+                    <th>Email</th>
+                    <th>Statut</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for comment in pendingComments %}
+                    <tr>
+                        <td>{{ comment.pseudo }}</td>
+                        <td>{{ comment.date.format('Y-m-d H:i:s') }}</td>
+                        <td>{{ comment.content }}</td>
+                        <td>{{ comment.mail }}</td>
+                        <td>{{ comment.status }}</td>
+                        <td>
+                            <form action="/admin/check-comment" method="POST">
+                                <input type="hidden" name="commentId" value="{{ comment.id }}">
 
-							<select name="action">
-								<option value=""></option>
-								<option value="validate">Valider</option>
-								<option value="reject">Rejeter</option>
-							</select>
+                                <select name="action">
+                                    <option value=""></option>
+                                    <option value="validate">Valider</option>
+                                    <option value="reject">Rejeter</option>
+                                </select>
 
-							<button type="submit">Soumettre</button>
-						</form>
-					</td>
-					<td>
-						<button type="button" class="btn btn-primary  view-comment-btn" data-toggle="modal" data-comment="{{ comment.content }}">Détails du commentaire</button>
-					</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-	<!-- Modal -->
-	<div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="commentModalLabel">Commentaire</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Fermer">
-						<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-					<p id="commentContent"></p>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				</div>
-			</div>
-		</div>
-	</div>
+                                <button type="submit">Soumettre</button>
+                            </form>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn-primary view-comment-btn" data-toggle="modal" data-comment="{{ comment.content }}">Détails du commentaire</button>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun en attente d'approbation.</p>
+    {% endif %}
 
-	<script>
-		$(document).ready(function () {
-$('.view-comment-btn').on('click', function () {
-var commentContent = $(this).data('comment');
-$('#commentContent').text(commentContent);
-$('#commentModal').modal('show');
-});
+    <!-- Modal pour afficher les détails d'un commentaire -->
+    <div class="modal fade" id="commentModal" tabindex="-1" role="dialog" aria-labelledby="commentModalLabel" aria-hidden="true">
+        ...
+    </div>
 
-});
-	</script>
-	{% block js %}
-		{{ parent() }}
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-		<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-		<script src="../js/datatable_init.js"></script>
-	{% endblock %}
+    {% block js %}
+        {{ parent() }}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script src="../js/datatable_init.js"></script>
+    {% endblock %}
 {% endblock %}

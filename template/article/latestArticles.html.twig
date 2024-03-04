@@ -1,0 +1,28 @@
+<div class="latest-articles">
+	<h2>les derniers articles publiés sur mon blog, à lire sans modération!</h2>
+	<div class="article-container">
+		{% for article in articles|slice(0, 3) %}
+			<div class="article-card">
+				<h2>{{ article.title }}</h2>
+				<p>{{ article.chapo|split(' ')|slice(0, 10)|join(' ') }}
+					{% if article.chapo|split(' ')|length > 10 %}
+						...
+					{% endif %}
+				</p>
+				<p class="date-style">
+					{% if article.updateDate %}
+						Modifié le
+						{{ article.updateDate|date('d/m/Y') }}
+					{% else %}
+						Publié le
+						{{ article.date|date('d/m/Y') }}
+					{% endif %}
+				</p>
+				<p class="link-to-article">
+					<a href="/article/{{ article.id }}" target="_blank" class="link-article">Lire l'article</a>
+				</p>
+			</div>
+
+		{% endfor %}
+	</div>
+</div>

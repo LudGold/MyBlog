@@ -19,7 +19,7 @@ class ContactController extends AbstractController
             if (!empty($_POST['spam'])) {
                 // Si le champ anti-spam rempli, il peut s'agir d'un bot
                 $this->addFlash('error', 'Votre message a été identifié comme spam, veuillez réessayer.');
-                return $this->render('contact/reachMe.html.twig');
+                return $this->render('contact/contact.html.twig');
             }
             $name = $_POST['name'];
             $email = $_POST['email'];
@@ -44,6 +44,6 @@ class ContactController extends AbstractController
                 $this->addFlash('error', 'Veuillez accepter les mentions légales avant de continuer.');
             }
         }
-        return $this->render('contact/reachMe.html.twig');
+         return $this->render('home/home.html.twig');
     }
 }

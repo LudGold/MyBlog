@@ -52,7 +52,7 @@ class UserRepository
                     ':firstname' => $user->getFirstname(),
                     ':mail' => $user->getMail(),
                     ':password' => password_hash($user->getPassword(), PASSWORD_BCRYPT),
-                    ':role' => json_encode(['member']),
+                    ':role' => json_encode(['Member']),
                     ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
                     ':isConfirmed' => 0,
                     ':registrationToken' => $user->getRegistrationToken(),

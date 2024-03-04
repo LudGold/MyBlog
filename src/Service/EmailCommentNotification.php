@@ -8,7 +8,7 @@ use Core\Config\ConfigMail;
 
 class EmailCommentNotification extends ConfigMail
 {
-    private $emailRenderer;
+    protected $emailRenderer;
 
     public function __construct(EmailRenderer $emailRenderer)
     {

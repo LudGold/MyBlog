@@ -1,9 +1,9 @@
-<table id="user_table" class="display">
+<table id="user_table" class="display responsive nowrap" width="100%">
 	<thead>
 		<tr>
 			<th>lastname</th>
 			<th>firstname</th>
-			<th>Mail</th>
+			<th class="none-mobile">Mail</th>
 			<th>Role</th>
 		</tr>
 	</thead>
@@ -12,8 +12,8 @@
 			<tr>
 				<td>{{ user.lastname }}</td>
 				<td>{{ user.firstname }}</td>
-				<td>{{ user.mail }}</td>
-				<td>{{ user.role }}</td>
+				<td class="none-mobile">{{ user.mail }}</td>
+				<td>{{ user.role|replace({'[':'', ']':'', '"':''}) }}</td>
 			</tr>
 		{% endfor %}
 	</tbody>

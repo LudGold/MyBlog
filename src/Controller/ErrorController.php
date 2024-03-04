@@ -15,4 +15,8 @@ class ErrorController extends AbstractController
     {
         return $this->render("errors/error403.html.twig");
     }
+    public function internalError()
+    {
+        return $this->render("errors/error500.html.twig");
+    }
 }

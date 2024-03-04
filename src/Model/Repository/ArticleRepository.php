@@ -42,7 +42,6 @@ class ArticleRepository extends AbstractController
 
     public static function getArticleById(int $articleId): ?Article
     {
-
         try {
             $db = Database::connect();
             $sql = "SELECT article.*, user.lastname, user.firstname FROM article INNER JOIN user ON article.userId = user.id  WHERE article.id = :articleId";
@@ -60,6 +59,26 @@ class ArticleRepository extends AbstractController
             return null;
         }
     }
+    public function findLatestArticles($limit = 4)
+    {
+        $articles = [];
+
+        try {
+            $sql = "SELECT * FROM article ORDER BY date DESC LIMIT :limit";
+            $stmt = $this->db->prepare($sql);
+            $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+            $stmt->execute();
+            $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            foreach ($results as $result) {
+                $articles[] = new Article($result);
+            }
+        } catch (PDOException $e) {
+            echo "Erreur lors de la récupération des articles : " . $e->getMessage();
+        }
+
+        return $articles;
+    }
+
 
     public function changeArticle(Article $article)
     {
@@ -78,12 +97,10 @@ class ArticleRepository extends AbstractController
                 ':userId' => $article->getUserId(),
                 ':title' => $article->getTitle(),
                 ':chapo' => $article->getChapo(),
-                ':updateDate' => ($updateDate ? $updateDate->format(self::DATE_FORMAT) : null),
+                ':updateDate' => $updateDate->format(self::DATE_FORMAT),
                 ':content' => $article->getContent(),
                 ':id' => $article->getId(),
             ]);
-
-            $this->addFlash('success', "Article mis à jour avec succès");
         } catch (PDOException $e) {
             echo "Erreur lors de la mise à jour de l'article : " . $e->getMessage();
         }
@@ -92,11 +109,20 @@ class ArticleRepository extends AbstractController
     public function deleteArticle(int $articleId)
     {
         try {
+            $this->db->beginTransaction();
+            // Suppression des commentaires associés à l'article
+            $sql = "DELETE FROM comment WHERE articleId = :articleId";
+            $stmt = $this->db->prepare($sql);
+            $stmt->execute([':articleId' => $articleId]);
+
             $sql = "DELETE FROM article WHERE id = :articleId";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':articleId' => $articleId]);
+
+            $this->db->commit();
         } catch (PDOException $e) {
-            echo "Erreur lors de la suppression de l'article : " . $e->getMessage();
+            $this->db->rollBack();
+            echo "Erreur lors de la suppression de l'article et de ses commentaires : " . $e->getMessage();
         }
     }
 
@@ -105,7 +131,7 @@ class ArticleRepository extends AbstractController
         $articles = [];
 
         try {
-            $sql = "SELECT * FROM article ORDER BY id DESC";
+            $sql = "SELECT * FROM article ORDER BY date DESC";
             $stmt = $this->db->query($sql);
             $articles = $stmt->fetchAll(\PDO::FETCH_ASSOC);
 

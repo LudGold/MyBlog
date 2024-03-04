@@ -1,0 +1,83 @@
+{% block body %}
+	<body>
+		<div class="navbar with-background" id="navbar">
+			<ul class="navbar-nav">
+				<li class="nav-item accueil">
+					<a class="nav-link " href="/">Accueil</a>
+				</li>
+				<li class="nav-item articles">
+					<a class="nav-link " href="/articles">Articles</a>
+				</li>
+
+				{% if "admin" in session.role %}
+					<li class="nav-item dashboard">
+						<a class="nav-link dashboard" href="/admin/adminDashboard">Tableau de bord</a>
+						<li class="nav-item dashboard">
+							<a class="nav-link dashboard" href="/admin/newArticle">Ajouter un article</a>
+						</li>
+					</li>
+				{% endif %}
+				{% if userLoggedIn %}
+					<li class="nav-item profil">
+						<a class="nav-link edit-profil" href="/editProfil">Voir mon profil</a>
+					</li>
+					<li>
+						<a class="nav-link logout" href="/deconnexion">Déconnexion</a>
+					</li>
+				{% else %}
+					<li class="nav-item connexion">
+						<a class="nav-link login" href="/login">Connexion</a>
+					</li>
+					<li>
+						<a class="nav-link sign-in" href="/register">S'inscrire</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+		<!-- Menu mobile -->
+		<div class="burger-menu">
+			<div class="burger-icon">
+				<div class="line"></div>
+				<div class="line"></div>
+				<div class="line"></div>
+			</div>
+		</div>
+		<div class="mobile-menu">
+			<ul class="mobile-menu-items">
+				<li class="nav-item-mobile accueil">
+					<a class="nav-link-mobile " href="/">Accueil</a>
+				</li>
+				<li class="nav-item-mobile articles">
+					<a class="nav-link-mobile" href="/articles">Articles</a>
+				</li>
+				<li class="nav-item-mobile article">
+					<a class="article-mobile" href="/admin/newArticle">Ajouter un article</a>
+				</li>
+
+				{% if "admin" in session.role %}
+					<li class="nav-item-mobile dashboard">
+						<a class="nav-link dashboard" href="/admin/adminDashboard">Tableau de bord</a>
+					</li>
+				{% endif %}
+				{% if userLoggedIn %}
+					<li class="nav-item-mobile profil">
+						<a class="nav-link edit-profil" href="/editProfil">Voir mon profil</a>
+					</li>
+					<li>
+						<a class="nav-link-mobile logout" href="/deconnexion">Déconnexion</a>
+					</li>
+				{% else %}
+					<li class="nav-item-mobile connexion">
+						<a class="nav-link-mobile login" href="/login">Connexion</a>
+					</li>
+					<li>
+						<a class="nav-link-mobile sign-in" href="/register">S'inscrire</a>
+					</li>
+				{% endif %}
+			</ul>
+		</div>
+	</body>
+	{% block js %}
+		<script src="../js/menuMobile.js"></script>
+	{% endblock %}
+{% endblock %}
