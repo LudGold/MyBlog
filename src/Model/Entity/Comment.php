@@ -40,7 +40,7 @@ class Comment
     {
         return $this->id;
     }
-    public function setDate($date): void
+    public function setDate(\DateTime|string $date): void
     {
         if (is_string($date)) {
             $date = new DateTime($date);

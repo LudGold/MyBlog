@@ -11,9 +11,7 @@ class UserRepository
 {
     private const DATE_FORMAT = "Y-m-d H:i:s";
     private $db;
-    //méthode dans laquelle tu mets la connexion et le fichier qui appelle la bdd 
-    // Connexion à la base de données
-
+    
     public function __construct()
     {
         $this->db = Database::connect();
@@ -24,7 +22,6 @@ class UserRepository
         try {
 
             $mail = $user->getMail();
-
             // Vérifier si l'utilisateur existe déjà dans la base de données
             $existingUser = $this->getUserBy('registrationToken', $user->getRegistrationToken());
 

@@ -5,7 +5,7 @@ namespace App\Service;
 class ValidationService
 {
 
-    public function validateRegistration($userDatas)
+    public function validateRegistration(array $userDatas)
     {
         $errors = [];
 

@@ -9,15 +9,13 @@ class EmailRenderer
 {
     private $twig;
 
-
     public function __construct()
     {
         $this->twig = new Environment(new FilesystemLoader('../template'));
     }
 
-    public function renderConfirmationEmail($registrationToken)
+    public function renderConfirmationEmail(string $registrationToken)
     {
-        // Charge le template Twig
         $template = $this->twig->load('security/mailConfirmation.html.twig');
 
         // Variables à utiliser dans le template
@@ -26,21 +24,21 @@ class EmailRenderer
         // Rend le template avec les variables
         return $template->render($variables);
     }
-    private function generateConfirmationLink($registrationToken)
+    private function generateConfirmationLink(string $registrationToken)
     {
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $url = $protocol . "://" . $_SERVER['HTTP_HOST'] . "/confirmation/" . $registrationToken;
 
         return $url;
     }
-    public function renderResetPasswordEmail($resetToken)
+    public function renderResetPasswordEmail(string $resetToken)
     {
         $template = $this->twig->load('security/resetPassword.html.twig');
         $variables = ['reset_link' => $this->generateResetLink($resetToken)];
         return $template->render($variables);
     }
 
-    private function generateResetLink($resetToken)
+    private function generateResetLink(string $resetToken)
     {
         // Générer le lien de réinitialisation de mot de passe
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
@@ -61,11 +59,10 @@ class EmailRenderer
         // Rend le template avec les variables
         return $template->render($variables);
     }
-    public function renderContactEmail($name, $email, $message)
+    public function renderContactEmail(string $name, string $email, string $message)
     {
         $htmlContent = "Vous avez reçu un nouveau message de contact de la part de M $name ($email): <br><br> $message";
-        
-        // Retournez directement le contenu personnalisé
+
         return $htmlContent;
     }
 }

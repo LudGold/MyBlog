@@ -5,7 +5,7 @@ namespace App\Service;
 class RegisterHandler
 {
 
-    public function checkFields($userDatas)
+    public function checkFields(array $userDatas)
     {
         $error = "";
 

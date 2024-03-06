@@ -19,16 +19,16 @@ class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
-    public function render($template, array $datas = [])
+    public function render($template, array $datas = []): void
     {
         $datas['userLoggedIn'] = $this->isUserLoggedIn();
         $datas['flashMessages'] = $this->getFlash();
         $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
-        // $this->getFlash();   //pour unset le message apres affichage
-
+       
     }
-    public function redirect($url)
+
+    public function redirect($url): void
     {
         header("Location:" . $url);
         // exit();
@@ -164,3 +164,4 @@ class AbstractController
         }
     }
 }
+

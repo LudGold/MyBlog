@@ -13,7 +13,7 @@ class ArticleService
         $this->articleRepository = $articleRepository;
     }
 
-    public function getLatestArticles($limit)
+    public function getLatestArticles(int $limit)
     {
         $limit = 5; // Limite de 5 articles
         return $this->articleRepository->findLatestArticles($limit);
