@@ -5,15 +5,15 @@
         "psr-4": {
             "App\\": "src/", 
             "Core\\": "Core/"
-
         }
     },
     "authors": [
         {
             "name": "Goldstein Ludivine",
-            "email": "sneakymombox@gmail.com"
+            "email": "ludivinezarkos@gmail.com"
         }
     ],
+    "license": "proprietary",
     "require": {
         "twig/twig": "^3.7",
         "pecee/simple-router": "4.*",

@@ -67,7 +67,7 @@ class AbstractController
         }
     }
 
-    public function isSubmitted($submitButton)
+    public function isSubmitted($submitButton): bool
     {
         if (isset($_POST[$submitButton])) {
 
@@ -92,7 +92,7 @@ class AbstractController
         return $isvalid;
     }
 
-    public function isValidedProfil($inputFields)
+    public function isValidedProfil($inputFields): bool
     {
         // Validation des champs obligatoires
         $requiredFields = ['lastname', 'firstname', 'mail'];
@@ -152,7 +152,7 @@ class AbstractController
         return isset($_SESSION['mail']);
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         // Vérifier que la variable de session 'role' est définie et que le rôle 'admin' est présent
         if (isset($_SESSION['role']) && in_array('admin', $_SESSION['role'])) {

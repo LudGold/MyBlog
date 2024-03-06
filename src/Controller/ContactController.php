@@ -7,7 +7,6 @@ use App\Service\EmailRenderer;
 use App\Service\EmailService;
 
 
-
 class ContactController extends AbstractController
 {
 

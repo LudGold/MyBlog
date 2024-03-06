@@ -53,18 +53,14 @@ class UserController extends AbstractController
         return $this->render("security/register.html.twig");
     }
 
-    public function loginUser(){
-    // { si oui login, message 
-        // if ($this->isUserLoggedIn()){
-            
-        // }
+    public function loginUser()
+    {
+        if ($this->isUserLoggedIn()) {
+            // Si l'utilisateur est déjà connecté, redirigez-le vers la page d'accueil
+            return $this->redirect("/");
+        }
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
             $this->newSession();
-
-            // Valider les données de connexion
-            //  ajouter ici la logique de validation du formulaire de connexion
-
-            // Exemple : Vérifier si l'utilisateur existe dans la base de données
             $userRepository = new UserRepository();
             $user = $userRepository->getUserBy('mail', $_POST["mail"]);
             if ($user && password_verify($_POST["password"], $user->getPassword())) {
@@ -76,12 +72,10 @@ class UserController extends AbstractController
                 // Stock l'objet utilisateur dans la session
                 $this->setSessionInfos("user", $user);
                 // ajout dans la session des infos du user
-
                 $this->setSessionInfos("userId", $user->getId());
                 $this->setSessionInfos("mail", $user->getMail());
                 $this->setSessionInfos("lastName", $user->getLastname());
                 $this->setSessionInfos("role", $user->getRole());
-
 
                 return $this->redirect("/");
             } else {

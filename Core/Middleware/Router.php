@@ -15,8 +15,6 @@ class Router extends SimpleRouter
     public static function start(): void
     {
 
-        require_once 'helpers.php';
-
         /* Load external routes file */
         require_once CORE_DIR . '/Router/Routes.php';
 
