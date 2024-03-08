@@ -8,7 +8,6 @@ class RegisterHandler
     public function checkFields(array $userDatas)
     {
         $error = "";
-
         if (!filter_var($userDatas["mail"], FILTER_VALIDATE_EMAIL)) {
             $error =  "veuillez saisir un email valide";
         } elseif ($userDatas["lastname"] === "" || $userDatas["firstname"] === "") {

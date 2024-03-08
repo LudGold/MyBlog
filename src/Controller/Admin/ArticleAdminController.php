@@ -28,9 +28,8 @@ class ArticleAdminController extends AbstractController
         // Récupérer l'ID de l'utilisateur depuis la session
         $userId = $this->getSessionInfos("userId");
         $userRepository = new UserRepository();
-        // Récupérer l'utilisateur par son ID
         $user = $userRepository->getUserBy('id', $userId);
-        // Vérifier si l'utilisateur existe
+
         if (!$user) {
             return $this->redirect("/");
         }
@@ -53,7 +52,6 @@ class ArticleAdminController extends AbstractController
             // Rediriger vers une autre page ou afficher un message de succès
             return $this->redirect("/admin/newArticle");
         }
-        // Si le formulaire n'a pas été soumis ou s'il y a une erreur, afficher le formulaire
         return $this->render("admin/article/newArticle.html.twig", [
             'userName' => $userName,
         ]);
@@ -73,7 +71,6 @@ class ArticleAdminController extends AbstractController
 
         // Vérifier si l'article existe
         if (!$article) {
-            // Gérer le cas où l'article n'est pas trouvé
             $this->redirect("/admin/articles");
         }
         // Vérifier si le formulaire a été soumis
@@ -83,14 +80,13 @@ class ArticleAdminController extends AbstractController
             $article->setChapo($_POST['chapo']);
             $article->setContent($_POST['content']);
             $article->setUserId($userId);
-            // // Mettre à jour la date de modification
+            // Mettre à jour la date de modification
             $article->setUpdateDate(new \DateTime());
             // Enregistrer les modifications dans la base de données
             $articleRepository->changeArticle($article);
             $this->addFlash('success', 'cet article a été modifié avec succès');
             $this->redirect("/admin/articles");
         }
-        // Si le formulaire n'a pas été soumis ou s'il y a une erreur
         $this->render("admin/article/changeArticle.html.twig", [
             'article' => $article,
         ]);

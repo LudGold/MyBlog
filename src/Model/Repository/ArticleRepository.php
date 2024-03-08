@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model\Repository;
 
 use Core\component\AbstractController;
@@ -48,8 +47,6 @@ class ArticleRepository extends AbstractController
 
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\Article");
             $result = $stmt->fetch();
-
-
             return $result;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'article : " . $e->getMessage();
@@ -59,7 +56,6 @@ class ArticleRepository extends AbstractController
     public function findLatestArticles($limit = 4)
     {
         $articles = [];
-
         try {
             $sql = "SELECT * FROM article ORDER BY date DESC LIMIT :limit";
             $stmt = $this->db->prepare($sql);
@@ -72,7 +68,6 @@ class ArticleRepository extends AbstractController
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des articles : " . $e->getMessage();
         }
-
         return $articles;
     }
 

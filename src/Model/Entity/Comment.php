@@ -4,7 +4,6 @@ namespace App\Model\Entity;
 
 use DateTime;
 
-
 class Comment
 {
     private ?int $id = null;
@@ -12,13 +11,12 @@ class Comment
     private ?string $pseudo = null;
     private ?string $content = null;
     private ?int $articleId = null;
-    private ?int $userId = null; // mettre le lastname du userid methode getauthorfullname
+    private ?int $userId = null;
     private ?string $mail = null;
     private ?bool $isPending;
     private ?bool $isApproved;
     private ?bool $isRejected;
     private ?string $status = null;
-
 
 
     public function __construct(array $datas = [])

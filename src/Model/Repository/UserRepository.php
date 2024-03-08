@@ -6,7 +6,6 @@ use App\Model\Entity\User;
 use Core\Database\Database;
 use PDOException;
 
-
 class UserRepository
 {
     private const DATE_FORMAT = "Y-m-d H:i:s";
@@ -20,27 +19,21 @@ class UserRepository
     public function saveUser(User $user)
     {
         try {
-
             $mail = $user->getMail();
-            // Vérifier si l'utilisateur existe déjà dans la base de données
             $existingUser = $this->getUserBy('registrationToken', $user->getRegistrationToken());
 
             if ($existingUser) {
-                // L'utilisateur existe déjà, mettre à jour le statut isConfirmed
                 $sql = "UPDATE user 
-                    SET isConfirmed = :isConfirmed, registrationToken= :registrationToken 
-                    WHERE mail = :mail";
+                SET isConfirmed = :isConfirmed, registrationToken= :registrationToken 
+                WHERE mail = :mail";
 
                 $stmt = $this->db->prepare($sql);
                 $stmt->execute([
                     ':isConfirmed' => $user->getIsConfirmed(),
                     ':mail' => $mail,
                     ':registrationToken' => null,
-
                 ]);
             } else {
-
-                // Préparer et exécuter la requête SQL
                 $sql = "INSERT INTO user (lastname ,firstname ,mail ,password ,role ,creationDate ,isConfirmed ,registrationToken) 
                         VALUES (:lastname, :firstname,:mail,:password ,:role ,:creationDate,:isConfirmed, :registrationToken)";
                 $stmt = $this->db->prepare($sql);
@@ -53,11 +46,9 @@ class UserRepository
                     ':creationDate' => $user->getCreationDate()->format(self::DATE_FORMAT),
                     ':isConfirmed' => 0,
                     ':registrationToken' => $user->getRegistrationToken(),
-
                 ]);
             }
         } catch (PDOException $e) {
-
             echo "Erreur lors de l'enregistrement de l'utilisateur : " . $e->getMessage();
         }
     }
@@ -68,7 +59,6 @@ class UserRepository
             $sql = "UPDATE user 
                 SET resetToken = :resetToken
                 WHERE mail = :mail";
-
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 ':resetToken' => $user->getResetToken(),
@@ -101,7 +91,6 @@ class UserRepository
             $stmt = $this->db->prepare($sql);
             $stmt->execute([':propertyValue' => $propertyValue]);
 
-            // Vérifier si la requête a réussi
             if ($stmt->rowCount() > 0) {
                 $stmt->setFetchMode(\PDO::FETCH_ASSOC);
                 $userData = $stmt->fetch(); // Utilisation de fetch pour récupérer un seul utilisateur
@@ -113,7 +102,7 @@ class UserRepository
                     return new User($userData);
                 }
             } else {
-                // Aucun utilisateur trouvé avec la propriété spécifiée
+
                 return null;
             }
         } catch (PDOException $e) {
@@ -128,7 +117,6 @@ class UserRepository
             $sql = "UPDATE user 
                 SET lastname = :lastname, firstname = :firstname, mail = :mail
                 WHERE id = :id";
-
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 ':id' => $user->getId(),
@@ -137,19 +125,16 @@ class UserRepository
                 ':mail' => $user->getMail(),
             ]);
 
-            // Si un nouveau mot de passe est fourni
             if (!empty($_POST['new_password'])) {
 
                 $passwordSql = "UPDATE user SET password = :password WHERE id = :id";
                 $passwordStmt = $this->db->prepare($passwordSql);
                 $passwordStmt->execute([
                     ':id' => $user->getId(),
-                    ':password' => $user->getPassword(), // Assurez-vous que ceci est déjà haché
+                    ':password' => $user->getPassword(),
                 ]);
             }
         } catch (PDOException $e) {
-            // Annuler la transaction en cas d'erreur
-
             echo "Erreur lors de la mise à jour du profil : " . $e->getMessage();
         }
     }
@@ -170,7 +155,7 @@ class UserRepository
     public function updateUserRole(int $userId, array $newRole)
     {
         try {
-                      $sql = "UPDATE user SET role = :role WHERE id = :id";
+            $sql = "UPDATE user SET role = :role WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
                 ':role' => json_encode($newRole),

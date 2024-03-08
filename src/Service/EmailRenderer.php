@@ -17,11 +17,7 @@ class EmailRenderer
     public function renderConfirmationEmail(string $registrationToken)
     {
         $template = $this->twig->load('security/mailConfirmation.html.twig');
-
-        // Variables à utiliser dans le template
         $variables = ['confirmation_link' => $this->generateConfirmationLink($registrationToken)];
-
-        // Rend le template avec les variables
         return $template->render($variables);
     }
     private function generateConfirmationLink(string $registrationToken)
@@ -40,23 +36,21 @@ class EmailRenderer
 
     private function generateResetLink(string $resetToken)
     {
-        // Générer le lien de réinitialisation de mot de passe
+        // lien de réinitialisation de mot de passe
         $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http';
         $url = $protocol . "://" . $_SERVER['HTTP_HOST'] . "/resetPassword/" . $resetToken;
 
-
         return $url;
     }
-    // Dans EmailRenderer
+
     public function renderCommentNotificationEmail()
     {
-        // Charge le template Twig
-        $template = $this->twig->load('admin/comment/mailCommentNotification.html.twig');
 
+        $template = $this->twig->load('admin/comment/mailCommentNotification.html.twig');
         $variables = [
-            'contactLink' => 'mailto:ludivinezarkos@gmail.com',  // Remplacez l'adresse e-mail statique par celle de votre template Twig
+            'contactLink' => 'mailto:ludivinezarkos@gmail.com',
         ];
-        // Rend le template avec les variables
+
         return $template->render($variables);
     }
     public function renderContactEmail(string $name, string $email, string $message)

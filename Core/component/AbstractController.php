@@ -25,20 +25,17 @@ class AbstractController
         $datas['flashMessages'] = $this->getFlash();
         $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
-       
     }
 
     public function redirect($url)
     {
         header("Location:" . $url);
-       
     }
     public function newSession()
     {
         //verifie si une session existe déjà ou non
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
-            
         }
     }
     public function getSessionInfos(string $key)
@@ -139,7 +136,7 @@ class AbstractController
         }
         return [];
     }
-    //une fonction comme cela pour unset le flash
+
     protected function clearFlash()
     {
         if (isset($_SESSION['flash'])) {
@@ -157,11 +154,8 @@ class AbstractController
         // Vérifier que la variable de session 'role' est définie et que le rôle 'admin' est présent
         if (isset($_SESSION['role']) && in_array('admin', $_SESSION['role'])) {
             return true; // L'utilisateur est un administrateur
-
         } else {
-
             return $this->redirect('/not-authorised');
         }
     }
 }
-

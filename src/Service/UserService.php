@@ -15,7 +15,7 @@ class UserService
     }
     private function generateToken()
     {
-        // Générez votre token de manière sécurisée
+        //token sécurisé
         $token = bin2hex(random_bytes(32));
         return $token;
     }
@@ -48,7 +48,6 @@ class UserService
     public function confirmEmail(string $token): bool
     {
         $user = $this->userRepository->getUserBy('registrationToken', $token);
-
         if ($user) {
             $user->setIsConfirmed(true);
             $this->userRepository->saveUser($user);
@@ -57,7 +56,6 @@ class UserService
 
         return false;
     }
-
 
     public function updateUserRole(int $userId, array $newRole): bool
     {
@@ -73,7 +71,6 @@ class UserService
 
     public function updateUserPassword(User $user, string $newPassword): void
     {
-        // Vérifier si un nouveau mot de passe a été soumis
         if (!empty($newPassword)) {
             // Hashe le nouveau mot de passe
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);

@@ -32,7 +32,7 @@
 						<td>
 							<form action="/admin/user/addRole" method="post" class="update-role-form">
 								<input type="hidden" name="user_id" value="{{ user.id }}">
-							<select name="role" id="role-{{ user.id }}">
+								<select name="role" id="role-{{ user.id }}">
 									<option selected disabled value="">{{ user.role|replace({'[':'', ']':'', '"':''}) }}</option>
 									<option value="member" {% if user.role == 'Member' %} selected {% endif %}>Member</option>
 									<option value="admin" {% if user.role == 'Administrateur' %} selected {% endif %}>Administrateur</option>

@@ -26,7 +26,6 @@ class ValidationService
             $errors[] = "Les mots de passe ne correspondent pas.";
         }
 
-
         return $errors;
     }
 }

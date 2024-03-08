@@ -4,8 +4,6 @@ namespace App\Service;
 
 use Core\Config\ConfigMail;
 
-
-
 class EmailCommentNotification extends ConfigMail
 {
     protected $emailRenderer;

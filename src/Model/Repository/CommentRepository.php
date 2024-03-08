@@ -34,7 +34,6 @@ class CommentRepository extends AbstractController
                 ':isRejected' => false,
             ]);
 
-            // Vous pouvez également retourner l'ID du nouveau commentaire si vous en avez besoin
             return $this->db->lastInsertId();
         } catch (PDOException $e) {
             // Loguez l'erreur ou lancez une exception selon votre stratégie de gestion des erreurs
@@ -51,7 +50,6 @@ class CommentRepository extends AbstractController
             $stmt->execute([':articleId' => $articleId]);
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, Comment::class);
             $results = $stmt->fetchAll();
-
 
             return $results;
         } catch (PDOException $e) {
@@ -81,7 +79,7 @@ class CommentRepository extends AbstractController
             $comment = $stmt->fetch();
             return $comment;
         } catch (PDOException $e) {
-            // Gérer l'erreur de récupération du commentaire
+
             return null;
         }
     }
@@ -122,7 +120,6 @@ class CommentRepository extends AbstractController
     }
     public function getRejectedComments()
     {
-
         try {
             $db = Database::connect();
             $sql = "SELECT * FROM comment WHERE isRejected = 1";
@@ -141,7 +138,6 @@ class CommentRepository extends AbstractController
     public function validateComment($commentId)
     {
         try {
-            // Utilisez $this->db pour accéder à la connexion à la base de données
             $stmt = $this->db->prepare("UPDATE comment SET isPending = 0, isApproved = 1, isRejected = 0 WHERE id = :commentId");
             $stmt->bindParam(':commentId', $commentId, \PDO::PARAM_INT);
             $stmt->execute();
@@ -156,16 +152,12 @@ class CommentRepository extends AbstractController
     public function rejectedComment($commentId)
     {
         try {
-
-            // Utilisez $this->db pour accéder à la connexion à la base de données
             $stmt = $this->db->prepare("UPDATE comment SET isPending = 0, isApproved = 0, isRejected = 1 WHERE id = :commentId");
             $stmt->bindParam(':commentId', $commentId, \PDO::PARAM_INT);
             $stmt->execute();
-
-            // Retournez un indicateur de succès ou effectuez d'autres actions nécessaires
             return true;
         } catch (PDOException $e) {
-            // Retournez un indicateur d'erreur ou effectuez d'autres actions nécessaires
+
             return  'Erreur lors de la mise à jour de la base de données';
         }
     }

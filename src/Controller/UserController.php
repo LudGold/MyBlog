@@ -11,7 +11,6 @@ use App\Service\ValidationService;
 
 class UserController extends AbstractController
 {
-
     public function registerUser()
     {
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
@@ -41,7 +40,6 @@ class UserController extends AbstractController
             }
 
             $user = $userService->createUser($userDatas);
-
             // Enregistrer l'utilisateur dans la base de données
             $userService->saveUser($user);
             $emailService->sendEmail($user,  'Confirmez votre inscription', $user->getRegistrationToken());
@@ -56,7 +54,6 @@ class UserController extends AbstractController
     public function loginUser()
     {
         if ($this->isUserLoggedIn()) {
-            // Si l'utilisateur est déjà connecté, redirigez-le vers la page d'accueil
             return $this->redirect("/");
         }
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
@@ -102,12 +99,10 @@ class UserController extends AbstractController
         }
     }
 
-
     public function forgotPassword()
     {
         if ($this->isSubmitted("submit") && $this->isValided($_POST)) {
 
-            // Récupérer l'utilisateur par son adresse e-mail
             $userEmail = $_POST['mail'];
 
             // Créez des objets de repository et de service
@@ -153,10 +148,8 @@ class UserController extends AbstractController
             $newPassword = $_POST["new_password"];
             $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
             $user->setPassword($hashedPassword);
-
             // Effacer le token de réinitialisation
             $user->setResetToken(null);
-
             $userRepository->updatePassword($user->getMail(), $hashedPassword);
 
             $this->addFlash('success', 'Votre mot de passe a été réinitialisé avec succès. Vous pouvez maintenant vous connecter avec votre nouveau mot de passe.');
@@ -181,17 +174,15 @@ class UserController extends AbstractController
 
     public function editProfil()
     {
-        // 1. Récupérer l'utilisateur actuellement connecté
-        $userId = $_SESSION['userId'];
 
+        $userId = $_SESSION['userId'];
         $userRepository = new UserRepository();
         $user = $userRepository->getUserBy('id', $userId);
 
         if (!$user) {
-            // Gérer le cas où l'utilisateur n'est pas trouvé
+
             return $this->redirect('/');
         }
-        // Valider et traiter les données du formulaire
         if ($this->isSubmitted("submit") && $this->isValidedProfil($_POST)) {
             if (
                 $userRepository->getUserBy('mail', $_POST['mail'])
@@ -210,13 +201,10 @@ class UserController extends AbstractController
             $userRepository->editBddProfil($user);
 
             $this->addFlash('success', 'Vos données ont bien été modifiées.');
-            // Rediriger l'utilisateur après la mise à jour
             return $this->redirect('/');
         } else if ($this->isSubmitted("submit") && !$this->isValidedProfil($_POST)) {
-            // Gérer le cas où la validation échoue - la condition n'a pas l'air conditionné à $_POST
             $this->addFlash('error', 'Erreur de validation. Veuillez vérifier vos données.');
         }
-        // Afficher le formulaire avec les valeurs actuelles
         return $this->render('security/editProfil.html.twig', ['user' => $user]);
     }
 }

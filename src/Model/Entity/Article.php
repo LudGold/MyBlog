@@ -4,7 +4,6 @@ namespace App\Model\Entity;
 
 use DateTime;
 
-
 class Article
 {
     private ?int $id = null;
@@ -68,8 +67,7 @@ class Article
 
         return $this->date;
     }
-    //  * @param \DateTime|null $updateDate
-    //  */    
+
     public function setUpdateDate(\DateTime|string|null $updateDate): void
     {
         if (is_string($updateDate)) {

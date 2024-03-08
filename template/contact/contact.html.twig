@@ -1,7 +1,6 @@
 <h4>Besoin d'un devis, de plus amples information pour travailler ensemble?</h4>
 <h3 class="title-contact-form">Contactez-moi
 </h3>
-
 <form class="contact-form" id="contactForm" action="/contact" method="POST">
 	<label for="name">Nom/Prénom:</label>
 	<input type="text" id="name" name="name" required><br><br>
@@ -11,7 +10,8 @@
 
 	<label for="message">Message:</label>
 	<textarea id="message" name="message" rows="4" required></textarea><br><br>
-	<div class="checkbox-submit">
+	<div
+		class="checkbox-submit">
 		{# gestion anti-spam #}
 		<input type="hidden" id="spam" name="spam">
 		<label>
@@ -20,9 +20,7 @@
 				<a class="ML" href="/mentionsLegales" target="_blank">
 					mentions légales</a>
 			</span>
-
 		</label>
 		<input type="submit" name="submit" class="submit-btn" value="Envoyer">
-
 	</div>
 </form>

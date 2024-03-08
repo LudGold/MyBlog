@@ -44,13 +44,11 @@
 						<td>
 							<form action="/admin/check-comment" method="POST">
 								<input type="hidden" name="commentId" value="{{ comment.id }}">
-
 								<select name="action">
 									<option value=""></option>
 									<option value="validate">Valider</option>
 									<option value="reject">Rejeter</option>
 								</select>
-
 								<button type="submit">Soumettre</button>
 							</form>
 						</td>
@@ -84,8 +82,6 @@
 			</div>
 		</div>
 	</div>
-
-
 	{% block js %}
 		{{ parent() }}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

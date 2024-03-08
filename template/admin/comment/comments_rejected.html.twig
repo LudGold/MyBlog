@@ -7,7 +7,6 @@
 
 {% block body %}
 	<h2>Commentaires non validés</h2>
-
 	<table id="comment_table" class="display">
 		<thead>
 			<tr>
@@ -27,7 +26,6 @@
 					<td>{{ comment.mail }}</td>
 					<td>{{ comment.status }}</td>
 					<td>
-
 						<form action="/admin/check-comment" method="POST">
 							<input type="hidden" name="commentId" value="{{ comment.id }}">
 
@@ -35,7 +33,6 @@
 								<option value=""></option>
 								<option value="validate">Valider</option>
 							</select>
-
 							<button type="submit">Soumettre</button>
 						</form>
 					</td>
