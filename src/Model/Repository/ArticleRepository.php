@@ -38,14 +38,11 @@ class ArticleRepository extends AbstractController
             echo "Erreur lors de l'enregistrement de l'article : " . $e->getMessage();
         }
     }
-    // Dans la classe Article
-
     public static function getArticleById(int $articleId): ?Article
     {
         try {
             $db = Database::connect();
             $sql = "SELECT article.*, user.lastname, user.firstname FROM article INNER JOIN user ON article.userId = user.id  WHERE article.id = :articleId";
-            // $sql = "SELECT * FROM article WHERE id = :articleId" ;
             $stmt = $db->prepare($sql);
             $stmt->execute([':articleId' => $articleId]);
 
@@ -129,12 +126,10 @@ class ArticleRepository extends AbstractController
     public function getAllArticles()
     {
         $articles = [];
-
         try {
             $sql = "SELECT * FROM article ORDER BY date DESC";
             $stmt = $this->db->query($sql);
             $articles = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
             return $articles;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des articles : " . $e->getMessage();
