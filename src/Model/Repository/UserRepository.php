@@ -11,7 +11,7 @@ class UserRepository
 {
     private const DATE_FORMAT = "Y-m-d H:i:s";
     private $db;
-    
+
     public function __construct()
     {
         $this->db = Database::connect();
@@ -153,9 +153,6 @@ class UserRepository
             echo "Erreur lors de la mise à jour du profil : " . $e->getMessage();
         }
     }
-
-
-    //function getUser, allUser, deleteUser, editUserRole
     public function getAllUsers()
     {
         $users = []; // Initialisation du tableau vide pour stocker tous les utilisateurs
@@ -170,15 +167,13 @@ class UserRepository
 
         return $users;
     }
-    public function updateUserRole($userId, $newRole)
+    public function updateUserRole(int $userId, array $newRole)
     {
         try {
-            $role = [];
-            $role[] = $newRole;
-            $sql = "UPDATE user SET role = :role WHERE id = :id";
+                      $sql = "UPDATE user SET role = :role WHERE id = :id";
             $stmt = $this->db->prepare($sql);
             $stmt->execute([
-                ':role' => json_encode($role),
+                ':role' => json_encode($newRole),
                 ':id' => $userId,
             ]);
             return true;

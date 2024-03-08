@@ -6,7 +6,7 @@ use Core\component\AbstractController;
 use App\Service\CommentHandler;
 use App\Model\Repository\CommentRepository;
 use App\Service\EmailRenderer; 
-use PDOException;
+
 
 
 

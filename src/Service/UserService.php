@@ -3,13 +3,13 @@
 namespace App\Service;
 
 use App\Model\Entity\User;
-
+use App\Model\Repository\UserRepository;
 
 class UserService
 {
     private $userRepository;
 
-    public function __construct($userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
@@ -61,8 +61,8 @@ class UserService
 
     public function updateUserRole(int $userId, array $newRole): bool
     {
+        $newRole = (array) $newRole;
         $user = $this->userRepository->getUserBy('id', $userId);
-
         if ($user) {
             $user->setRole($newRole);
             $this->userRepository->updateUserRole($userId, $newRole);

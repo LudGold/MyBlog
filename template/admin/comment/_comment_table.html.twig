@@ -2,7 +2,7 @@
 	<thead>
 		<tr>
 			<th>Date</th>
-			<th>content</th>
+			<th>Contenu</th>
 			<th>Pseudo</th>
 			<th class="none-mobile">Mail</th>
 			<th>Action</th>
@@ -11,13 +11,24 @@
 	<tbody>
 		{% for comment in allComments %}
 			<tr>
-				<td>{{ comment.date.format('Y-m-d') }}</td>
-				<td>{{ comment.content }}</td>
+				<td>{{ comment.date.format('d-m-y') }}</td>
+				<td>
+					<span>
+						{{ comment.content|split(' ')|slice(0, 10)|join(' ') }}
+						{% if comment.content|split(' ')|length > 10 %}{% endif %}
+					</span>
+				</td>
 				<td>{{ comment.pseudo }}</td>
-				<td class="none-mobile">{{ comment.mail }}</td>
+				<td class="none-mobile">
+					<span class="comment-mail">
+						{{ comment.mail|slice(0, 6) }}...
+						{% if comment.mail|length > 6 %}
+							<span>...</span>
+						{% endif %}
+					</span>
+				</td>
 				<td>{{ comment.status }}</td>
 			</tr>
-
 		{% endfor %}
 	</tbody>
 </table>

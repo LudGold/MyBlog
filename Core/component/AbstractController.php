@@ -28,17 +28,17 @@ class AbstractController
        
     }
 
-    public function redirect($url): void
+    public function redirect($url)
     {
         header("Location:" . $url);
-        // exit();
+       
     }
     public function newSession()
     {
         //verifie si une session existe déjà ou non
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
-            //$this->twig->addGlobal('session', $_SESSION);
+            
         }
     }
     public function getSessionInfos(string $key)

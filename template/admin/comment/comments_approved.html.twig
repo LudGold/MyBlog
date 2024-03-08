@@ -8,7 +8,7 @@
 {% block body %}
 <h2>Commentaires validés</h2>
 
-<table id="comments_approved_table" class="display">
+<table id="comment_table" class="display">
 	<thead>
 		<tr>
 			<th>Auteur</th>
@@ -40,9 +40,15 @@
 					</form>
 				</td>
 				<td>
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Détails du commentaire</button>
+					<button type="button" class="btn btn-primary view-comment-btn" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Voir Détails</button>
 				</td>
 			</tr>
 		</td>
 	</tbody>
-</tr>{% endfor %}</tbody></table>{% endblock %}{% block js %}{{ parent() }}<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script><script src="../js/datatable_init.js"></script>{% endblock %}
+</tr>{% endfor %}</tbody></table>{% endblock %}
+{% block js %}
+{{ parent() }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.js"></script>
+<script src="../js/datatable_init.js"></script>
+{% endblock %}
