@@ -1,25 +1,32 @@
-Welcome to MyBlog
 ![Description de l'image](/public/medal-platinum.png)
+
+Welcome to MyBlog
+
 Project OCR P05 - create your own blog from scratch
 
-Installation of the project :
+# Installation of the project :
 
 please take the following link to clone my project
-git clone git@github.com:LudGold/MyBlog.git
+- **git clone [git@github.com:LudGold/MyBlog.git](https://github.com/LudGold/MyBlog.git)**
+- composer install
 
-Configuration :
+# Configuration :
 
 version min required to run this project :
-PHP 8.2.0
-PHPMyAdmin 5.2.0
-MySQL 8.0.31 - Port 3306
-localHost : Port 8000
+- PHP 8.2.0 
+- PHPMyAdmin 5.2.0
+- MySQL 8.0.31 - Port 3306
+- Composer
 
-Database :
+# Database :
 
-You need the following datas to match the database configuration :
+You need the following datas to match the database configuration  :
 
-HOST="localhost";
-DBNAME="my_blog";
-USERNAME="root";
-PASSWORD="";
+Remove the suffix "sample" on the file ```Core/Database/ConnexionDatasSample.php``` and change the className
+and add configuration to connect the dataBase
+
+# Configuration Mail :
+
+Remove the suffix "sample" on the file ```Core/Config/ConfigMailSample.php``` and change the className
+and configure the mailer
+
