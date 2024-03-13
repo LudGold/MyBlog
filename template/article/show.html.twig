@@ -19,7 +19,6 @@
 <p class="auteur-article">by
 	{{ article.firstname }}
 	{{ article.lastname }}</p>
-
 {% if article.updateDate %}
 	<p class="date-style">Modifié le{{ article.updateDate|date('d/m/Y') }}</p>
 {% else %}
@@ -31,18 +30,17 @@
 	<ul>
 		{% for comment in comments %}
 			<li class="comment-item">
-
-				<span class="bullet-point">&#8226;</span>
-
 				<div class="comment-details">
-					<div class="comment-content">{{ comment.content }}</div>
-					<div class="comment-meta">{{ comment.pseudo }}
-						le
-						{{ comment.Date|date('d/m/Y') }}</div>
+					<p>{{ comment.content|split(' ')|slice(0, 10)|join(' ') }}
+						{% if comment.content|split(' ')|length > 10 %}{% endif %}
+						<div class="comment-meta">{{ comment.pseudo }}
+							le
+							{{ comment.Date|date('d/m/Y') }}</div>
+					</p>
 				</div>
 			</li>
-		{% else %}
-			<p>Aucun commentaire pour cet article.</p>
-		{% endfor %}
-	</div>
-	{% include 'comment/addComment.html.twig' %}</ul>{% endblock %}
+		</p>
+	</li>
+{% else %}
+	<p>Aucun commentaire pour cet article.</p>
+{% endfor %}</div>{% include 'comment/addComment.html.twig' %}</ul>{% endblock %}

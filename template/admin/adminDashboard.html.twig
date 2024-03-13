@@ -5,7 +5,6 @@
 {% endblock %}
 {% block body %}
 	<h2>Tableau de bord administrateur</h2>
-
 	<div class="table-container">
 		<div class="col-md-4">
 			<h3>Gestion des utilisateurs</h3>
@@ -17,7 +16,6 @@
 			</ul>
 		</div>
 		<div class="col-md-4">
-
 			<h3>Gestion des articles</h3>
 			<div class="edit-article">
 				<a button="edit-btn" class="edit-btn-hidden">Modifier</a>
@@ -26,9 +24,7 @@
 				{% include 'admin/article/_article_table.html.twig' %}
 			</ul>
 		</div>
-
 		<div class="col-md-4">
-
 			<h3>Gestion des commentaires</h3>
 			<div class="edit-comment">
 				<a button="edit-btn" class="edit-btn" href="comment/comments_pending">Modifier</a>
@@ -40,5 +36,4 @@
 			{% endif %}
 		</div>
 	</div>
-
 {% endblock %}

@@ -2,7 +2,6 @@
 	<div class="comment-block">
 		<h2>Ajouter un commentaire</h2>
 		<form action="/article/{{ article.id }}/submitComment" method="POST" class="new-comment">
-
 			<div class="form-group">
 				<label for="pseudo">Pseudo :</label>
 				<input type="text" id="pseudo" name="pseudo" class="pseudo" placeholder="Entrez votre pseudo ici" required>
@@ -19,7 +18,6 @@
 			<div class="form-group">
 				<input type="submit" value="Soumettre" name="submit" class="submit-comment">
 			</div>
-
 		</form>
 	</div>
 {% endblock %}

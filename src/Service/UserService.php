@@ -3,21 +3,20 @@
 namespace App\Service;
 
 use App\Model\Entity\User;
-
+use App\Model\Repository\UserRepository;
 
 class UserService
 {
     private $userRepository;
 
-    public function __construct($userRepository)
+    public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
     }
     private function generateToken()
     {
-        // Générez votre token de manière sécurisée ici (peut-être en utilisant une librairie dédiée)
+        //token sécurisé
         $token = bin2hex(random_bytes(32));
-
         return $token;
     }
     public function generateResetToken(): string
@@ -28,12 +27,12 @@ class UserService
         return $resetToken;
     }
 
-    public function userExists($email)
+    public function userExists(string $email)
     {
         return $this->userRepository->getUserBy('mail', $email) !== null;
     }
 
-    public function createUser($userDatas)
+    public function createUser(array $userDatas)
     {
         $user = new User($userDatas);
 
@@ -42,14 +41,13 @@ class UserService
         return $user;
     }
 
-    public function saveUser(User $user)
+    public function saveUser(User $user): void
     {
         $this->userRepository->saveUser($user);
     }
     public function confirmEmail(string $token): bool
     {
         $user = $this->userRepository->getUserBy('registrationToken', $token);
-
         if ($user) {
             $user->setIsConfirmed(true);
             $this->userRepository->saveUser($user);
@@ -59,11 +57,10 @@ class UserService
         return false;
     }
 
-
-    public function updateUserRole($userId, $newRole)
+    public function updateUserRole(int $userId, array $newRole): bool
     {
+        $newRole = (array) $newRole;
         $user = $this->userRepository->getUserBy('id', $userId);
-
         if ($user) {
             $user->setRole($newRole);
             $this->userRepository->updateUserRole($userId, $newRole);
@@ -72,13 +69,12 @@ class UserService
         return false;
     }
 
-    public function updateUserPassword($user, $newPassword)
+    public function updateUserPassword(User $user, string $newPassword): void
     {
-        // Vérifier si un nouveau mot de passe a été soumis
         if (!empty($newPassword)) {
-            // Hasher le nouveau mot de passe
+            // Hashe le nouveau mot de passe
             $hashedPassword = password_hash($newPassword, PASSWORD_BCRYPT);
-            // Mettre à jour le mot de passe de l'utilisateur
+            // Met à jour le mot de passe de l'utilisateur
             $user->setPassword($hashedPassword);
         }
     }

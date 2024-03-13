@@ -19,26 +19,23 @@ class AbstractController
         $this->twig->addExtension(new DebugExtension());
     }
 
-    public function render($template, array $datas = [])
+    public function render($template, array $datas = []): void
     {
         $datas['userLoggedIn'] = $this->isUserLoggedIn();
         $datas['flashMessages'] = $this->getFlash();
         $this->twig->addGlobal('session', $_SESSION);
         echo $this->twig->render($template, $datas);
-        // $this->getFlash();   //pour unset le message apres affichage
-
     }
+
     public function redirect($url)
     {
         header("Location:" . $url);
-        // exit();
     }
     public function newSession()
     {
         //verifie si une session existe déjà ou non
         if (session_status() !== PHP_SESSION_ACTIVE) {
             session_start();
-            //$this->twig->addGlobal('session', $_SESSION);
         }
     }
     public function getSessionInfos(string $key)
@@ -67,7 +64,7 @@ class AbstractController
         }
     }
 
-    public function isSubmitted($submitButton)
+    public function isSubmitted($submitButton): bool
     {
         if (isset($_POST[$submitButton])) {
 
@@ -92,7 +89,7 @@ class AbstractController
         return $isvalid;
     }
 
-    public function isValidedProfil($inputFields)
+    public function isValidedProfil($inputFields): bool
     {
         // Validation des champs obligatoires
         $requiredFields = ['lastname', 'firstname', 'mail'];
@@ -139,7 +136,7 @@ class AbstractController
         }
         return [];
     }
-    //une fonction comme cela pour unset le flash
+
     protected function clearFlash()
     {
         if (isset($_SESSION['flash'])) {
@@ -152,14 +149,12 @@ class AbstractController
         return isset($_SESSION['mail']);
     }
 
-    public function isAdmin()
+    public function isAdmin(): bool
     {
         // Vérifier que la variable de session 'role' est définie et que le rôle 'admin' est présent
         if (isset($_SESSION['role']) && in_array('admin', $_SESSION['role'])) {
             return true; // L'utilisateur est un administrateur
-
         } else {
-
             return $this->redirect('/not-authorised');
         }
     }

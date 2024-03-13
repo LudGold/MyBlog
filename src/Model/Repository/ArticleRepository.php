@@ -1,6 +1,5 @@
 <?php
 
-
 namespace App\Model\Repository;
 
 use Core\component\AbstractController;
@@ -38,21 +37,16 @@ class ArticleRepository extends AbstractController
             echo "Erreur lors de l'enregistrement de l'article : " . $e->getMessage();
         }
     }
-    // Dans la classe Article
-
     public static function getArticleById(int $articleId): ?Article
     {
         try {
             $db = Database::connect();
             $sql = "SELECT article.*, user.lastname, user.firstname FROM article INNER JOIN user ON article.userId = user.id  WHERE article.id = :articleId";
-            // $sql = "SELECT * FROM article WHERE id = :articleId" ;
             $stmt = $db->prepare($sql);
             $stmt->execute([':articleId' => $articleId]);
 
             $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, "App\Model\Entity\Article");
             $result = $stmt->fetch();
-
-
             return $result;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération de l'article : " . $e->getMessage();
@@ -62,7 +56,6 @@ class ArticleRepository extends AbstractController
     public function findLatestArticles($limit = 4)
     {
         $articles = [];
-
         try {
             $sql = "SELECT * FROM article ORDER BY date DESC LIMIT :limit";
             $stmt = $this->db->prepare($sql);
@@ -75,7 +68,6 @@ class ArticleRepository extends AbstractController
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des articles : " . $e->getMessage();
         }
-
         return $articles;
     }
 
@@ -129,12 +121,10 @@ class ArticleRepository extends AbstractController
     public function getAllArticles()
     {
         $articles = [];
-
         try {
             $sql = "SELECT * FROM article ORDER BY date DESC";
             $stmt = $this->db->query($sql);
             $articles = $stmt->fetchAll(\PDO::FETCH_ASSOC);
-
             return $articles;
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des articles : " . $e->getMessage();

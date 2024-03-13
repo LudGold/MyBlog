@@ -7,8 +7,7 @@
 
 {% block body %}
 	<h2>Commentaires non validés</h2>
-
-	<table id="comments_rejected_table" class="display">
+	<table id="comment_table" class="display">
 		<thead>
 			<tr>
 				<th>Auteur</th>
@@ -27,7 +26,6 @@
 					<td>{{ comment.mail }}</td>
 					<td>{{ comment.status }}</td>
 					<td>
-
 						<form action="/admin/check-comment" method="POST">
 							<input type="hidden" name="commentId" value="{{ comment.id }}">
 
@@ -35,12 +33,11 @@
 								<option value=""></option>
 								<option value="validate">Valider</option>
 							</select>
-
 							<button type="submit">Soumettre</button>
 						</form>
 					</td>
 					<td>
-						<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Détails du commentaire</button>
+						<button type="button" class="btn btn-primary view-comment-btn" data-toggle="modal" data-target="#commentModal{{ comment.id }}">Voir Détails</button>
 					</td>
 				</tr>
 			{% endfor %}

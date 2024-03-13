@@ -16,8 +16,3 @@ $url=$_SERVER["REQUEST_URI"];
 session_start();
 \Core\Middleware\Router::start();
 
-
-// if($url=== "/") {
-//   $home= new HomeController();
-//   $home->home();
-// }

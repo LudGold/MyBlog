@@ -3,6 +3,7 @@
 namespace Core\Middleware;
 
 use Pecee\SimpleRouter\SimpleRouter;
+use Core\Router\Routes;
 
 class Router extends SimpleRouter
 {
@@ -15,12 +16,7 @@ class Router extends SimpleRouter
     public static function start(): void
     {
 
-        require_once 'helpers.php';
-
-        /* Load external routes file */
-        require_once CORE_DIR . '/Router/Routes.php';
-
-        // Do initial stuff
+        Routes::loadRoutes();
         parent::start();
     }
 }

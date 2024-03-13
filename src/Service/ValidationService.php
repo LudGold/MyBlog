@@ -5,7 +5,7 @@ namespace App\Service;
 class ValidationService
 {
 
-    public function validateRegistration($userDatas)
+    public function validateRegistration(array $userDatas)
     {
         $errors = [];
 
@@ -25,7 +25,6 @@ class ValidationService
         if ($userDatas['password'] !== $userDatas['checkpassword']) {
             $errors[] = "Les mots de passe ne correspondent pas.";
         }
-
 
         return $errors;
     }

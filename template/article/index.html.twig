@@ -2,17 +2,18 @@
 {% block body %}
 	<div class="title-article">
 		<h1>Liste des Articles à consulter</h1>
-
 	</div>
 	<ul class="display-article">
 		{% for article in articles %}
 			<li class="article-list">
 				<h2>{{ article.title }}</h2>
-				 {% if article.updateDate %}
-                    <p class="date-style">Modifié le {{ article.updateDate|date('d/m/Y') }}</p>
-                {% else %}
-                    <p class="date-style">Publié le {{ article.date|date('d/m/Y') }}</p>
-                {% endif %}
+				{% if article.updateDate %}
+					<p class="date-style">Modifié le
+						{{ article.updateDate|date('d/m/Y') }}</p>
+				{% else %}
+					<p class="date-style">Publié le
+						{{ article.date|date('d/m/Y') }}</p>
+				{% endif %}
 				<p>{{ article.chapo|split(' ')|slice(0, 10)|join(' ') }}
 					{% if article.chapo|split(' ')|length > 10 %}
 						...
