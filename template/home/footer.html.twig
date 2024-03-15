@@ -4,7 +4,7 @@
 			<div class="footer-content">
 				<ul class="social-icons">
 					<li class="contact-footer">
-						<a href="#contactForm">Contactez Moi</a>
+						<a href="#" onclick="goToContactForm()">Contactez Moi</a>
 					</li>
 					<li>
 						<a href="mailto:ludivinezarkos@gmail.com" class="social-icon">
@@ -22,7 +22,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="www.linkedin.com/in/ludivine-goldstein-4677ab128" class="social-icon">
+						<a href="https://www.linkedin.com/in/ludivine-goldstein-4677ab128/" class="social-icon">
 							<i class="fab fa-linkedin"></i>
 						</a>
 					</li>
@@ -34,9 +34,7 @@
 				</ul>
 			</div>
 			<div class="footer-bottom">
-				<ul
-					class="footer-administration">
-					<!-- Correction: Utilisation correcte des éléments <li> à l'intérieur d'une liste <ul> -->
+				<ul class="footer-administration">
 					<li>
 						<a href="/admin/adminDashboard">Admin</a>
 					</li>
@@ -53,3 +51,12 @@
 		</div>
 	</footer>
 {% endblock %}
+<script>
+	function goToContactForm() {
+if (window.location.pathname === '/') {
+document.getElementById('contactForm').scrollIntoView();
+} else {
+window.location.href = '/';
+}
+}
+</script>

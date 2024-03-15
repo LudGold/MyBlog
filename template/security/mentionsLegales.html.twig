@@ -1,35 +1,54 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-	<div class"mentions-legales">Mentions Légales
-		
-		Éditeur du Site :
-		Nom du Site : [My Blog]
-		Propriétaire : Ludivine Goldstein
-		Adresse : [6 Rue Traversière 49340 Vezins]
-		Contact : [ludivinezarkos@gmail.com]
-		
-		
-		Hébergement :
-		Nom de l'hébergeur : [Nom de l'hébergeur]
-		Adresse : [Adresse de l'hébergeur]
-		Téléphone : [Numéro de téléphone de l'hébergeur]
-		
-		Développement :
-		Ludivine Goldstein
-		
-		Conditions d’utilisation :
-		L’utilisation du site [My-Blog] implique l’acceptation pleine et entière des conditions générales d’utilisation décrites ci-après. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment.
-		
-		Services fournis :
-		Ce blog a pour but de mettre en avant des articles relatifs au developpement informatique et à tout ce qui y attrait
-		
-		Propriété intellectuelle :
-		Tous les contenus présents sur le site [My-Blog], incluant, mais sans s'y limiter, les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme sont la propriété exclusive de la société à l'exception des marques, logos ou contenus appartenant à d'autres sociétés partenaires ou auteurs.
-		
-		Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de Ludivine Goldstein. Cette représentation ou reproduction, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.
-		
-		Gestion des données personnelles :
-		Description de votre politique de confidentialité et de gestion des données personnelles, incluant le traitement des cookies, le droit d'accès, de modification et de suppression des données personnelles>
-	</div>
-{% endblock %}
+	<div class="mentions-legales">
+		<h2>Mentions Légales</h2>
+
+		<div class="mentions-legales-section">
+			<p>
+				<span class="contact-details">Éditeur du Site :</span>
+			</p>
+			<p strong>Nom du Site : My Blog</p>
+			<p>Propriétaire : Ludivine Goldstein</p>
+			<p>Adresse : 6 Rue Traversière 49340 Vezins</p>
+			<p>Contact :
+				<a href="mailto:ludivinezarkos@gmail.com">ludivinezarkos@gmail.com</a>
+			</p>
+		</div>
+
+		<div class="mentions-legales-section">
+			<p>
+				<span class="contact-details">Développement :</span>
+			</p>
+			<p>Ludivine Goldstein</p>
+		</div>
+
+		<div class="mentions-legales-section">
+			<p>
+				<span class="conditions-utilisation">Conditions d’utilisation :</span>
+			</p>
+			<p>L’utilisation du site My-Blog implique l’acceptation pleine et entière des conditions générales d’utilisation décrites ci-après. Ces conditions d’utilisation sont susceptibles d’être modifiées ou complétées à tout moment.</p>
+		</div>
+
+		<div class="mentions-legales-section">
+			<p>
+				<span class="conditions-utilisation">Services fournis :</span>
+			</p>
+			<p>Ce blog a pour but de mettre en avant des articles relatifs au développement informatique et à tout ce qui y attrait</p>
+		</div>
+
+		<div class="mentions-legales-section">
+			<p>
+				<span class="conditions-utilisation">Propriété intellectuelle :</span>
+			</p>
+			<p>Tous les contenus présents sur le site [My-Blog], incluant, mais sans s'y limiter, les graphismes, images, textes, vidéos, animations, sons, logos, gifs et icônes ainsi que leur mise en forme sont la propriété exclusive de la société à l'exception des marques, logos ou contenus appartenant à d'autres sociétés partenaires ou auteurs.</p>
+			<p>Toute reproduction, distribution, modification, adaptation, retransmission ou publication, même partielle, de ces différents éléments est strictement interdite sans l'accord exprès par écrit de Ludivine Goldstein. Cette représentation ou reproduction, par quelque procédé que ce soit, constitue une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
+		</div>
+
+		<div class="mentions-legales-section">
+			<p>Nous attachons une grande importance à la protection de vos données personnelles. Dans le cadre de notre site web, nous collectons et traitons certaines informations personnelles, telles que votre nom, votre adresse e-mail, et d'autres données que vous choisissez de nous fournir volontairement lors de l'utilisation de notre site.</p>
+			<p>Nous utilisons ces données uniquement dans le but de vous fournir les services demandés et de communiquer avec vous. Vos données personnelles ne seront jamais vendues, louées ou partagées avec des tiers sans votre consentement explicite.</p>
+			<p>Notre site web utilise également des cookies pour améliorer votre expérience utilisateur et pour analyser le trafic. Vous avez le droit de refuser l'utilisation des cookies en modifiant les paramètres de votre navigateur, mais cela peut affecter certaines fonctionnalités de notre site.</p>
+			<p>Vous avez le droit d'accéder à vos données personnelles, de les corriger, de les mettre à jour ou de les supprimer à tout moment. Pour exercer ces droits ou pour toute question concernant notre politique de confidentialité, veuillez nous contacter à l'adresse suivante : ludivinezarkos@gmail.com.</p>
+		</div>
+	{% endblock %}

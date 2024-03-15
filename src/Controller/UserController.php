@@ -33,6 +33,7 @@ class UserController extends AbstractController
                 $this->addFlash('error', 'Cette adresse mail est déjà enregistrée.');
                 return $this->redirect("/register");
             }
+
             $errorMessages = $validationService->validateRegistration($userDatas);
             if (!empty($errorMessages)) {
                 $this->addFlash("error", $errorMessages);
@@ -125,7 +126,7 @@ class UserController extends AbstractController
 
                 $this->addFlash('success', 'Un e-mail de réinitialisation a été envoyé à votre adresse e-mail.');
             } else {
-                $this->addFlash('error', 'Aucun utilisateur trouvé avec cette adresse e-mail.');
+                $this->addFlash('error', 'Désolée, nous ne trouvons pas votre adresse e-mail.');
             }
 
             return $this->redirect('/forgotPassword');

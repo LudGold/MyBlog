@@ -53,17 +53,17 @@ class ArticleRepository extends AbstractController
             return null;
         }
     }
-    public function findLatestArticles($limit = 4)
+    public function findLatestArticles($limit = 3)
     {
         $articles = [];
         try {
             $sql = "SELECT * FROM article ORDER BY date DESC LIMIT :limit";
             $stmt = $this->db->prepare($sql);
-            $stmt->bindParam(':limit', $limit, \PDO::PARAM_INT);
+            $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
             $stmt->execute();
             $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($results as $result) {
-                $articles[] = new Article($result);
+            $articles[] = new Article($result);
             }
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des articles : " . $e->getMessage();

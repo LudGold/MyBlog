@@ -9,9 +9,9 @@
 	<script src="../js/datatable_init.js"></script>
 {% endblock %}
 {% block body %}
-	<div class="table-container">
-		<h4 class="title-tableau-bord-user">
-			Tableau de bord des utilisateurs</h4>
+	
+		<h2 class="title-tableau-bord-user">
+			Tableau de bord des utilisateurs</h2>
 		<table id="user_table" class="display">
 			<thead>
 				<tr>
@@ -32,10 +32,10 @@
 						<td>
 							<form action="/admin/user/addRole" method="post" class="update-role-form">
 								<input type="hidden" name="user_id" value="{{ user.id }}">
-								<select name="role" id="role-{{ user.id }}">
-									<option selected disabled value="">{{ user.role|replace({'[':'', ']':'', '"':''}) }}</option>
-									<option value="member" {% if user.role == 'Member' %} selected {% endif %}>Member</option>
-									<option value="admin" {% if user.role == 'Administrateur' %} selected {% endif %}>Administrateur</option>
+								<select name="role" id="role">
+									<option selected disabled value=""></option>
+									<option value="member" {% if user.role == 'Member' %} selected {% endif %}>member</option>
+									<option value="admin" {% if user.role == 'Administrateur' %} selected {% endif %}>admin</option>
 								</select>
 								<button type="submit" class="modify-btn update-btn" name="submit" value="submit">Mettre à jour</button>
 							</form>
@@ -44,5 +44,5 @@
 				{% endfor %}
 			</tbody>
 		</table>
-	</div>
+	
 {% endblock %}
