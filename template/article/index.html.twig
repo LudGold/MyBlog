@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 	<div class="title-article">
-		<h1>Liste des Articles à consulter</h1>
+		<h1>Liste des articles à consulter</h1>
 	</div>
 	<ul class="display-article">
 		{% for article in articles %}
@@ -25,4 +25,12 @@
 			</li>
 		{% endfor %}
 	</ul>
+	<script>
+		if (window.innerWidth < 768) {
+var links = document.querySelectorAll('.link-article');
+links.forEach(function (link) {
+link.removeAttribute('target');
+});
+}
+	</script>
 {% endblock %}

@@ -51,6 +51,7 @@
 								</select>
 								<button type="submit">Soumettre</button>
 							</form>
+							
 						</td>
 						<td>
 							<button type="button" class="btn btn-primary  view-comment-btn" data-toggle="modal" data-comment="{{ comment.content }}">Voir le détail</button>
@@ -91,13 +92,12 @@
 
 		<script>
 			$(document).ready(function () {
-$('.view-comment-btn').on('click', function () {
-var commentContent = $(this).data('comment');
-$('#commentContent').text(commentContent);
-$('#commentModal').modal('show');
-});
-
-});
+		$('.view-comment-btn').on('click', function () {
+		var commentContent = $(this).data('comment');
+		$('#commentContent').text(commentContent);
+		$('#commentModal').modal('show');
+		});
+		});
 		</script>
 	{% endblock %}
 {% endblock %}

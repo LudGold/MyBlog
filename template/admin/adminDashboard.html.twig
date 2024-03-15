@@ -18,7 +18,7 @@
 		<div class="col-md-4">
 			<h3>Gestion des articles</h3>
 			<div class="edit-article">
-				<a button="edit-btn" class="edit-btn-hidden">Modifier</a>
+				<a button="edit-btn" class="edit-btn" href="/admin/articles">Modifier</a>
 			</div>
 			<ul>
 				{% include 'admin/article/_article_table.html.twig' %}
@@ -28,7 +28,9 @@
 			<h3>Gestion des commentaires</h3>
 			<div class="edit-comment">
 				<a button="edit-btn" class="edit-btn" href="comment/comments_pending">Modifier</a>
+				<a button="edit-btn" class="edit-btn" href="comment/index">Voir tous les commentaires</a>
 			</div>
+
 			{% if allComments is empty %}
 				<p>Pas de commentaires en attente d'approbation</p>
 			{% else %}

@@ -11,13 +11,11 @@ abstract class Routes
     {
         Router::setDefaultNameSpace("App\Controller");
 
+        Router::get('/', "HomeController@home")->setName("home");
         Router::get('/articles', "ArticleController@displayAllArticles")->setName("articles");
         Router::get('/article/{articleId}', "ArticleController@show")->setName("article_show");
-        Router::get('/', "ArticleController@displayLatestArticles")->setName("latest_articles");
         Router::get('/register', "UserController@registerUser")->setName("register");
         Router::get('/login', "UserController@loginUser")->setName("login");
-        Router::get('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
-        Router::get('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");
         Router::get('/confirmation/{token}', "UserController@confirmEmail")->setName("confirmation");
         Router::get('/mentionsLegales', "LegalController@mentionsLegales")->setName("mentions_legales");
 
@@ -48,6 +46,8 @@ abstract class Routes
         Router::post('/login', "UserController@loginUser")->setName("login");
         Router::post('/register', "UserController@registerUser")->setName("register");
         Router::post('/contact', "ContactController@contact")->setName("contact");
+        Router::all('/forgotPassword', "UserController@forgotPassword")->setName("forgotPassword");
+        Router::all('/resetPassword/{resetToken}', "UserController@resetPassword")->setName("resetPassword");
 
         // Gestion des erreurs
         Router::error(function (Request $request, \Exception $exception) {

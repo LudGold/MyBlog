@@ -28,7 +28,7 @@
 <div class="comment-section">
 	<h5>Commentaires</h5>
 	<ul>
-		{% for comment in comments %}
+		{% for comment in approvedComments %}
 			<li class="comment-item">
 				<div class="comment-details">
 					<p>{{ comment.content|split(' ')|slice(0, 10)|join(' ') }}

@@ -2,14 +2,16 @@
 	<div class="comment-block">
 		<h2>Ajouter un commentaire</h2>
 		<form action="/article/{{ article.id }}/submitComment" method="POST" class="new-comment">
+
 			<div class="form-group">
-				<label for="pseudo">Pseudo :</label>
-				<input type="text" id="pseudo" name="pseudo" class="pseudo" placeholder="Entrez votre pseudo ici" required>
+				<label for="pseudo">Nom ou Pseudo :</label>
+				<input type="text" id="pseudo" name="pseudo" class="pseudo" value="{{ userName }}" {% if isUserLoggedIn %} readonly {% endif %} placeholder="Entrez votre nom ou pseudo ici" required>
 			</div>
 			<div class="form-group">
 				<label for="mail">E-mail :</label>
-				<input type="email" id="mail" name="mail" placeholder="Votre e-mail" required>
+				<input type="email" id="mail" name="mail" value="{{ userEmail }}" {% if isUserLoggedIn %} readonly {% endif %} placeholder="Votre e-mail" required>
 			</div>
+
 			<div class="form-group">
 				<label for="content">Commentaire :</label>
 				<textarea type="content" id="content" name="content" rows="4" cols="50" placeholder="Saisissez votre commentaire ici"></textarea>
@@ -18,6 +20,7 @@
 			<div class="form-group">
 				<input type="submit" value="Soumettre" name="submit" class="submit-comment">
 			</div>
+
 		</form>
 	</div>
 {% endblock %}

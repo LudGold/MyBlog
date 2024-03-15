@@ -20,12 +20,23 @@ class ArticleController extends AbstractController
         // Récupérer les commentaires associés à l'article
         $commentRepository = new CommentRepository();
         $comments = $commentRepository->getCommentsByArticleId($articleId);
+        $userName = null;
+        $userEmail = null;
         if (!$article) {
             return $this->redirect("/articles");
+        }
+        // Vérifier si l'utilisateur est connecté
+        if ($this->isUserLoggedIn()) {
+            // Récupérer le nom d'utilisateur et l'e-mail depuis la session
+
+            $userName = $this->getSessionInfos("lastName");
+            $userEmail = $this->getSessionInfos("mail");
         }
         return $this->render("article/show.html.twig", [
             'article' => $article,
             'comments' => $comments,
+            'userName' => $userName,
+            'userEmail' => $userEmail,
         ]);
     }
 
@@ -51,7 +62,7 @@ class ArticleController extends AbstractController
             // Enregistrer le commentaire dans la base de données
             $commentRepository->saveComment($newComment);
 
-            $this->addFlash('success', 'Commentaire ajouté avec succès. En attente d\'approbation.');
+            $this->addFlash('success', 'Commentaire en attente d\'approbation.');
         }
         $this->redirect("/article/{$articleId}");
     }
@@ -70,9 +81,7 @@ class ArticleController extends AbstractController
 
         $articles = $this->articleService->getLatestArticles(3);
 
-        return $this->render("home/home.html.twig", [
-            'articles' => $articles,
-        ]);
+        return $articles;
     }
     public function displayAllArticles()
     {

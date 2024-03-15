@@ -1,8 +1,16 @@
-<h4>Besoin d'un devis, de plus amples information pour travailler ensemble?</h4>
+{% block js %}
+	<script src="../js/effect.js"></script>
+{% endblock %}
+
+<h4 class="text-form">Besoin d'un devis, de plus amples information pour travailler ensemble?</h4>
+<br>
 <h3 class="title-contact-form">Contactez-moi
 </h3>
+
 <form class="contact-form" id="contactForm" action="/contact" method="POST">
-	<label for="name">Nom/Prénom:</label>
+<h5 class="form-contact-form">Formulaire de contact
+</h5>
+	<label for="name">Nom/Prénom ou pseudo:</label>
 	<input type="text" id="name" name="name" required><br><br>
 
 	<label for="email">Votre e-mail:</label>

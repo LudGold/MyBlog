@@ -36,7 +36,6 @@ class CommentRepository extends AbstractController
 
             return $this->db->lastInsertId();
         } catch (PDOException $e) {
-            // Loguez l'erreur ou lancez une exception selon votre stratégie de gestion des erreurs
             echo "Erreur lors de l'enregistrement du commentaire : " . $e->getMessage();
             return null;
         }
@@ -130,7 +129,7 @@ class CommentRepository extends AbstractController
 
             return $rejectedComments;
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération des commentaires validés : " . $e->getMessage();
+            echo "Erreur lors de la récupération des commentaires rejetés : " . $e->getMessage();
             return [];
         }
     }
@@ -141,11 +140,9 @@ class CommentRepository extends AbstractController
             $stmt = $this->db->prepare("UPDATE comment SET isPending = 0, isApproved = 1, isRejected = 0 WHERE id = :commentId");
             $stmt->bindParam(':commentId', $commentId, \PDO::PARAM_INT);
             $stmt->execute();
-
-            // Retournez un indicateur de succès ou effectuez d'autres actions nécessaires
             return true;
         } catch (PDOException $e) {
-            // Retournez un indicateur d'erreur ou effectuez d'autres actions nécessaires
+    
             return  'Erreur lors de la mise à jour de la base de données';
         }
     }

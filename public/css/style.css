@@ -12,9 +12,11 @@ body {
     justify-content: center;
     margin-top: 2em;
 }
+
 html {
     scroll-behavior: smooth;
 }
+
 .navbar {
     width: 100%;
     height: 250px;
@@ -174,7 +176,7 @@ a {
 h2.CV {
     font-weight: bold;
     font-style: italic;
-    text-decoration: underline;
+
 }
 
 .CV a {
@@ -193,11 +195,50 @@ h2.CV {
     color: blueviolet;
 }
 
+/* mentions légales */
+.mentions-legales {
+    margin: 20px auto;
+    max-width: 800px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+}
+
+.mentions-legales h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.mentions-legales p {
+    margin-bottom: 10px;
+}
+
+.mentions-legales-section {
+    margin-top: 20px;
+}
+
+.contact-details {
+    font-weight: bold;
+}
+
+.conditions-utilisation {
+    font-style: italic;
+}
+
+.gestion-donnees-personnelles {
+    font-weight: bold;
+}
+
+
 /* Style pour le formulaire d'inscription */
 .contact-form {
     padding: 20px;
     border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     width: 30%;
     margin: 40px;
 }
@@ -207,8 +248,11 @@ h2.CV {
     font-family: Arial, sans-serif;
     margin-bottom: 2em;
     font-weight: bolder;
+    color: darkblue;
 }
-
+h5.form-contact-form {
+    font-weight: bolder;
+}
 
 a.ML,
 .ml {
@@ -235,11 +279,12 @@ a.ML,
 .dataTables_wrapper .dataTables_filter {
     text-align: left !important;
     float: left !important;
-    margin-left: 17px;
+    margin-left: 75px;
 }
 
 .dataTables_wrapper .dataTables_filter input {
     border-radius: 17px !important;
+    margin-left: 0 !important;
 }
 
 label {
@@ -444,19 +489,20 @@ input#spam {
 }
 
 .btn-primary,
-.edit-btn {
-    background-color: #3faacd;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
+.edit-btn 
+{
+    background-color: #3faacd !important;
+    color: #fff!important;
+    border: none!important;
+    padding: 10px 20px!important;
+    border-radius: 5px!important;
+    cursor: pointer!important;
+    font-size: 16px!important;
 
 }
 
-.btn-primary:hover {
-    background-color: #215e72;
+.btn-block:hover {
+    background-color: #215e72 !important;
 }
 
 .btn-block {
@@ -464,6 +510,8 @@ input#spam {
     width: 100%;
     border-radius: 50px;
     margin-top: 10px;
+    background-color: #3faacd !important;
+    border-color: transparent !important;
 }
 
 .submit-btn {
@@ -487,15 +535,11 @@ a.edit-btn:hover {
     text-decoration: none;
 }
 
-.edit-btn-hidden {
-    visibility: hidden;
-}
-
 .new-btn {
     background-color: #3faacd;
     width: auto;
     height: 60px;
-    border-radius: 10px;
+    border-radius: 25px;
     color: white;
     margin-top: 20px;
     display: flex;
@@ -522,6 +566,7 @@ a.edit-btn:hover {
 
 .forgot-password {
     margin-top: 10px;
+    color: #3faacd;
 }
 
 /* style du form "new password */
@@ -569,7 +614,7 @@ select {
 }
 
 .latest-articles h2 {
-    margin-top: 50px;
+    margin: 50px;
     text-align: center;
 
 }
@@ -590,8 +635,14 @@ select {
 }
 
 .article-card h2 {
-    font-size: 20px;
     margin-bottom: 10px;
+
+}
+.title-home-article a{
+color: black !important;
+}
+.title-home-article a:hover{
+    text-decoration: none;
 }
 
 .article-card p {
@@ -611,28 +662,9 @@ select {
 
 .link-article {
     color: #007bff;
-    /* Couleur du lien */
     text-decoration: none;
-    /* Enlevez la soulignement du lien */
+    
 }
-
-/* .article-details {
-    background-color: #fff;
-    padding: 20px;
-    opacity: 0.9;
-    margin-top: 30px;
-    margin-bottom: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.article-details h2 {
-    margin-top: 0;
-}
-
-.article-details p {
-    margin-bottom: 10px;
-} */
 
 .article-list h2 {
     font-size: 1.4rem;
@@ -712,7 +744,7 @@ ul li.comment-item {
 
 ul li p {
     margin: 5px 0;
-    
+
 }
 
 .comment-meta {
@@ -722,6 +754,7 @@ ul li p {
 
 p.date-style {
     font-size: small;
+    float: right;
 }
 
 .submit-comment {
@@ -1060,7 +1093,7 @@ a.nav-link {
 
     .main-content h2 {
         text-align: center;
-        font-size: 2.3rem;
+        font-size: 1.3rem;
         font-weight: bold;
     }
 
@@ -1126,6 +1159,11 @@ a.nav-link {
         width: 100%
     }
 
+    .text-form {
+        text-align: center;
+    }
+    
+
     .profile-container {
         flex-direction: column;
         align-items: center;
@@ -1142,11 +1180,10 @@ a.nav-link {
 
     .article-card {
         flex: 0 0 100%;
-        /* Sur les appareils de taille plus petite, chaque article occupera 100% de la largeur */
-    }
+          }
 
     .form-article input[type="submit"] {
-        transform: translate(100%);
+       
         margin-bottom: 10px;
     }
 
