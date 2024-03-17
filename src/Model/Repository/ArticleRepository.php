@@ -63,7 +63,7 @@ class ArticleRepository extends AbstractController
             $stmt->execute();
             $results = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             foreach ($results as $result) {
-            $articles[] = new Article($result);
+                $articles[] = new Article($result);
             }
         } catch (PDOException $e) {
             echo "Erreur lors de la récupération des articles : " . $e->getMessage();

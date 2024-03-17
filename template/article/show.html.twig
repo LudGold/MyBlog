@@ -10,33 +10,37 @@
 		<p>{{ article.chapo }}
 		</p>
 		<div class="style-content">
-			{{ article.content|raw }}</p>
-	</p>
-</div>
-<p class="auteur-article">by
-	{{ article.firstname }}
-	{{ article.lastname }}</p>
-{% if article.updateDate %}
-	<p class="date-style">Modifié le{{ article.updateDate|date('d/m/Y') }}</p>
-{% else %}
-	<p class="date-style">Publié le
-		{{ article.date|date('d/m/Y') }}</p>
-{% endif %}
-<div class="comment-section">
-	<h5>Commentaires</h5>
-	<ul>
-		{% for comment in comments %}
-			<li class="comment-item">
-				<div class="comment-details">
-					<p>{{ comment.content }}
-						<div class="comment-meta">{{ comment.pseudo }}
-							le
-							{{ comment.Date|date('d/m/Y') }}</div>
-					</p>
-				</div>
+			<p>{{ article.content|raw }}</p>
+		</div>
+		<div class="data-article">
+		
+		{% if article.updateDate %}
+			<p class="date-style">Modifié le{{ article.updateDate|date('d/m/Y') }}</p>
+		{% else %}
+			<p class="date-style">Publié le
+				{{ article.date|date('d/m/Y') }}</p>
+		{% endif %}
+		<p class="auteur-article">par
+			{{ article.firstname }}
+			{{ article.lastname }}</p>
+		</div>
+		<div class="comment-section">
+			<h5>Commentaires</h5>
+			<ul>
+				{% for comment in comments %}
+					<li class="comment-item">
+						<div class="comment-details">
+							<p>{{ comment.content }}
+								<div class="comment-meta">{{ comment.pseudo }}
+									le
+									{{ comment.Date|date('d/m/Y') }}</div>
+							</p>
+						</div>
+					</li>
+				</p>
 			</li>
-		</p>
-	</li>
-{% else %}
-	<p>Aucun commentaire pour cet article.</p>
-{% endfor %}</div>{% include 'comment/addComment.html.twig' %}</ul>{% endblock %}
+		{% else %}
+			<p>Aucun commentaire pour cet article.</p>
+		{% endfor %}
+	</div>
+	{% include 'comment/addComment.html.twig' %}</ul>{% endblock %}
