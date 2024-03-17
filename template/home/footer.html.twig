@@ -1,62 +1,49 @@
-{% block body %}
-	<footer>
-		<div class="footer-style">
-			<div class="footer-content">
-				<ul class="social-icons">
-					<li class="contact-footer">
-						<a href="#" onclick="goToContactForm()">Contactez Moi</a>
-					</li>
-					<li>
-						<a href="mailto:ludivinezarkos@gmail.com" class="social-icon">
-							<i class="fas fa-envelope"></i>
-						</a>
-					</li>
-					<li>
-						<a href="https://www.facebook.com/titanegirl" class="social-icon">
-							<i class="fab fa-facebook"></i>
-						</a>
-					</li>
-					<li>
-						<a href="https://twitter.com/Sneaky_Mom_" class="social-icon">
-							<i class="fab fa-twitter"></i>
-						</a>
-					</li>
-					<li>
-						<a href="https://www.linkedin.com/in/ludivine-goldstein-4677ab128/" class="social-icon">
-							<i class="fab fa-linkedin"></i>
-						</a>
-					</li>
-					<li>
-						<a href="https://github.com/LudGold" target="_blank" class="social-icon">
-							<i class="fab fa-github"></i>
-						</a>
-					</li>
-				</ul>
-			</div>
-			<div class="footer-bottom">
-				<ul class="footer-administration">
-					<li>
-						<a href="/admin/adminDashboard">Admin</a>
-					</li>
-				</ul>
-				<ul class="footer-links">
-					<li>
-						<a href="/mentionsLegales" class="confidential">Mentions Légales</a>
-					</li>
-				</ul>
-				<p>&copy;
-					<span id="current-year">2023</span>
-					LudGold. All Rights Reserved.</p>
-			</div>
-		</div>
-	</footer>
-{% endblock %}
-<script>
-	function goToContactForm() {
-if (window.location.pathname === '/') {
-document.getElementById('contactForm').scrollIntoView();
-} else {
-window.location.href = '/';
-}
-}
-</script>
+<footer>
+    <div class="footer-style">
+        <div class="footer-content">
+            <ul class="social-icons">
+                <li class="contact-footer">
+                    <a href="#" onclick="goToContactForm()">Contactez Moi</a>
+                </li>
+                <li>
+                    <a href="mailto:ludivinezarkos@gmail.com" class="social-icon" target="_blank">
+                        <i class="fas fa-envelope"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.facebook.com/titanegirl" class="social-icon" target="_blank">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/Sneaky_Mom_" class="social-icon" target="_blank">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.linkedin.com/in/ludivine-goldstein-4677ab128/" class="social-icon" target="_blank">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/LudGold" class="social-icon" target="_blank">
+                        <i class="fab fa-github"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer-bottom">
+            <ul class="footer-administration">
+                <li>
+                    <a href="/admin/adminDashboard" target="_blank">Admin</a>
+                </li>
+            </ul>
+            <ul class="footer-links">
+                <li>
+                    <a href="/mentionsLegales" class="confidential" target="_blank">Mentions Légales</a>
+                </li>
+            </ul>
+            <p>&copy; <span id="current-year">2023</span> LudGold. All Rights Reserved.</p>
+        </div>
+    </div>
+</footer>

@@ -949,12 +949,15 @@ footer {
 
 .contact-footer {
     padding: 10px;
+    margin-right: 5px;
 }
 
 .contact-footer a {
     color: #3faacd;
 }
-
+li .contact-footer{
+    margin-right: 5px;
+}
 .contact-footer a:hover {
     color: #215e72;
 }
