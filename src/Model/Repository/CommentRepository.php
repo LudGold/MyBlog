@@ -102,7 +102,6 @@ class CommentRepository extends AbstractController
 
     public function getApprovedComments()
     {
-
         try {
             $db = Database::connect();
             $sql = "SELECT * FROM comment WHERE isApproved = 1";
@@ -117,6 +116,23 @@ class CommentRepository extends AbstractController
             return [];
         }
     }
+    public function getApprovedCommentsByArticleId(int $articleId): array
+{
+    try {
+        $db = Database::connect();
+        $sql = "SELECT * FROM comment WHERE articleId = :articleId AND isApproved = 1";
+        $stmt = $db->prepare($sql);
+        $stmt->execute([':articleId' => $articleId]);
+        $stmt->setFetchMode(\PDO::FETCH_CLASS | \PDO::FETCH_PROPS_LATE, Comment::class);
+        $results = $stmt->fetchAll();
+
+        return $results;
+    } catch (PDOException $e) {
+        echo "Erreur lors de la récupération des commentaires approuvés : " . $e->getMessage();
+        return [];
+    }
+}
+
     public function getRejectedComments()
     {
         try {

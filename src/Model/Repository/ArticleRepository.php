@@ -122,7 +122,7 @@ class ArticleRepository extends AbstractController
     {
         $articles = [];
         try {
-            $sql = "SELECT * FROM article ORDER BY date DESC";
+            $sql = "SELECT * FROM article ORDER BY COALESCE(updateDate, date) DESC";
             $stmt = $this->db->query($sql);
             $articles = $stmt->fetchAll(\PDO::FETCH_ASSOC);
             return $articles;

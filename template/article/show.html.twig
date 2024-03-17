@@ -7,10 +7,7 @@
 {% block body %}
 	<div class="article-liste">
 		<h2 class="article-title">{{ article.title }}</h2>
-		<p>{{ article.chapo|split(' ')|slice(0, 10)|join(' ') }}
-			{% if article.chapo|split(' ')|length > 10 %}
-				...
-			{% endif %}
+		<p>{{ article.chapo }}
 		</p>
 		<div class="style-content">
 			{{ article.content|raw }}</p>
@@ -28,11 +25,10 @@
 <div class="comment-section">
 	<h5>Commentaires</h5>
 	<ul>
-		{% for comment in approvedComments %}
+		{% for comment in comments %}
 			<li class="comment-item">
 				<div class="comment-details">
-					<p>{{ comment.content|split(' ')|slice(0, 10)|join(' ') }}
-						{% if comment.content|split(' ')|length > 10 %}{% endif %}
+					<p>{{ comment.content }}
 						<div class="comment-meta">{{ comment.pseudo }}
 							le
 							{{ comment.Date|date('d/m/Y') }}</div>
