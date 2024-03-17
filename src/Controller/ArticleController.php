@@ -19,7 +19,7 @@ class ArticleController extends AbstractController
         $article = $articleRepository->getArticleById($articleId);
         // Récupérer les commentaires associés à l'article
         $commentRepository = new CommentRepository();
-        $comments = $commentRepository->getCommentsByArticleId($articleId);
+        $comments = $commentRepository->getApprovedCommentsByArticleId($articleId);
         $userName = null;
         $userEmail = null;
         if (!$article) {

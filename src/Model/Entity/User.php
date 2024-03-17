@@ -91,7 +91,7 @@ class User
     {
         return $this->role;
     }
-    public function setRole(array $role): void
+    public function setRole($role): void
     {
         $this->role = $role;
     }

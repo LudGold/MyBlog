@@ -24,19 +24,16 @@ class ArticleAdminController extends AbstractController
     public function newArticle()
     {
         $this->isAdmin();
-
         // Récupérer l'ID de l'utilisateur depuis la session
         $userId = $this->getSessionInfos("userId");
         $userRepository = new UserRepository();
         $user = $userRepository->getUserBy('id', $userId);
-
-        if (!$user) {
-            return $this->redirect("/");
-        }
+    
         // Récupérer le nom complet de l'utilisateur
         $userName = $user->getFullName();
         // Vérifier si le formulaire a été soumis
         if ($this->isSubmitted('submit') && $this->isValided($_POST)) {
+
             // Créer un tableau de données pour le nouvel article
             $articleData = [
                 'title' => $_POST['title'],
@@ -49,7 +46,7 @@ class ArticleAdminController extends AbstractController
             // Enregistrer l'article dans la base de données
             $articleRepository = new ArticleRepository();
             $articleRepository->saveArticle($newArticle);
-            // Rediriger vers une autre page ou afficher un message de succès
+        
             return $this->redirect("/admin/newArticle");
         }
         return $this->render("admin/article/newArticle.html.twig", [

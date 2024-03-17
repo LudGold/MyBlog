@@ -3,9 +3,10 @@
 	<input type="text" name="title" value="{{ article.title|default('') }}" required>
 	<label for="chapo">Petit résumé:</label>
 	<input type="text" name="chapo" value="{{ article.chapo|default('') }}" required>
-	<label for="content">Ecrivez votre article ici:</label>
+	<label for="content">Ecrivez votre article ici: (obligatoire)</label>
 	<input id="trix-editor" type="hidden" name="content" value="{{ article.content|default('') }}" required>
 	<trix-editor input="trix-editor"></trix-editor>
+	
 	<label for="userId">Auteur:</label>
 	{% if article %}
 		<input type="text" name="name" value="{{article.firstname}} {{article.lastname}}">

@@ -697,11 +697,15 @@ color: black !important;
     color: #333;
     margin-bottom: 15px;
 }
-
+.data-article{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
 .style-content p {
     text-align: justify;
     line-height: 1.6;
-}
+ }
 
 .comment-section {
     margin-top: 40px;
@@ -753,8 +757,9 @@ ul li p {
 }
 
 p.date-style {
-    font-size: small;
-    float: right;
+    font-size: 14px;
+    margin-right: 10px;
+
 }
 
 .submit-comment {
@@ -949,12 +954,15 @@ footer {
 
 .contact-footer {
     padding: 10px;
+    margin-right: 5px;
 }
 
 .contact-footer a {
     color: #3faacd;
 }
-
+li .contact-footer{
+    margin-right: 5px;
+}
 .contact-footer a:hover {
     color: #215e72;
 }
