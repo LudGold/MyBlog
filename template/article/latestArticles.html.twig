@@ -3,22 +3,18 @@
 	<div class="article-container">
 		{% for article in articles|slice(0, 3) %}
 			<div class="article-card">
-				<h2 class="title-home-article"><a href="/articles">{{ article.title }}</a></h2>
+				<h2 class="title-home-article">
+					<a href="/articles">{{ article.title }}</a>
+				</h2>
 				<p>{{ article.chapo|split(' ')|slice(0, 10)|join(' ') }}
 					{% if article.chapo|split(' ')|length > 10 %}
 						...
 					{% endif %}
 				</p>
 				<p class="date-style">
-					{% if article.updateDate %}
-						Modifié le
-						{{ article.updateDate|date('d/m/Y') }}
-					{% else %}
-						Publié le
-						{{ article.date|date('d/m/Y') }}
-					{% endif %}
+					Publié le
+					{{ article.date|date('d/m/Y') }}
 				</p>
-				
 			</div>
 		{% endfor %}
 	</div>
