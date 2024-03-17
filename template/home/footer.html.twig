@@ -47,3 +47,12 @@
         </div>
     </div>
 </footer>
+<script>
+	function goToContactForm() {
+if (window.location.pathname === '/') {
+document.getElementById('contactForm').scrollIntoView();
+} else {
+window.location.href = '/';
+}
+}
+</script>
